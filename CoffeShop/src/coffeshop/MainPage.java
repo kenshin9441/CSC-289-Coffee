@@ -34,7 +34,7 @@ public class MainPage extends javax.swing.JFrame {
         jtFUsernameBox = new javax.swing.JTextField();
         jPasswordField1 = new javax.swing.JPasswordField();
         jbLogin = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        jbForget = new javax.swing.JButton();
         jlTime = new javax.swing.JLabel();
         jLDate = new javax.swing.JLabel();
 
@@ -52,7 +52,7 @@ public class MainPage extends javax.swing.JFrame {
         jbLogin.setText("Login");
         jbLogin.setBorder(null);
 
-        jButton1.setText("jButton1");
+        jbForget.setText("Forget password?");
 
         javax.swing.GroupLayout jpLoginLayout = new javax.swing.GroupLayout(jpLogin);
         jpLogin.setLayout(jpLoginLayout);
@@ -68,7 +68,7 @@ public class MainPage extends javax.swing.JFrame {
                 .addGroup(jpLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jtFUsernameBox, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1))
+                    .addComponent(jbForget))
                 .addContainerGap(144, Short.MAX_VALUE))
         );
         jpLoginLayout.setVerticalGroup(
@@ -85,7 +85,7 @@ public class MainPage extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
                 .addGroup(jpLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jbLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1))
+                    .addComponent(jbForget))
                 .addContainerGap())
         );
 
@@ -102,13 +102,14 @@ public class MainPage extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jpLogin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(125, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jlogo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
+                        .addComponent(jlogo)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(10, 10, 10)
                         .addComponent(jlTime)
-                        .addGap(72, 72, 72)
+                        .addGap(62, 62, 62)
                         .addComponent(jLDate)
                         .addGap(0, 0, Short.MAX_VALUE))))
         );
@@ -116,7 +117,7 @@ public class MainPage extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(40, 40, 40)
-                .addComponent(jlogo, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jlogo)
                 .addGap(26, 26, 26)
                 .addComponent(jpLogin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -165,9 +166,9 @@ public class MainPage extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLDate;
     private javax.swing.JPasswordField jPasswordField1;
+    private javax.swing.JButton jbForget;
     private javax.swing.JButton jbLogin;
     private javax.swing.JLabel jlPasswordLabel;
     private javax.swing.JLabel jlTime;
