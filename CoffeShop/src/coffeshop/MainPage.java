@@ -34,6 +34,7 @@ public class MainPage extends javax.swing.JFrame {
         jtFUsernameBox = new javax.swing.JTextField();
         jPasswordField1 = new javax.swing.JPasswordField();
         jbLogin = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
         jlTime = new javax.swing.JLabel();
         jLDate = new javax.swing.JLabel();
 
@@ -51,6 +52,8 @@ public class MainPage extends javax.swing.JFrame {
         jbLogin.setText("Login");
         jbLogin.setBorder(null);
 
+        jButton1.setText("jButton1");
+
         javax.swing.GroupLayout jpLoginLayout = new javax.swing.GroupLayout(jpLogin);
         jpLogin.setLayout(jpLoginLayout);
         jpLoginLayout.setHorizontalGroup(
@@ -64,7 +67,8 @@ public class MainPage extends javax.swing.JFrame {
                 .addGap(33, 33, 33)
                 .addGroup(jpLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jtFUsernameBox, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jtFUsernameBox, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton1))
                 .addContainerGap(144, Short.MAX_VALUE))
         );
         jpLoginLayout.setVerticalGroup(
@@ -79,7 +83,9 @@ public class MainPage extends javax.swing.JFrame {
                     .addComponent(jlPasswordLabel)
                     .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
-                .addComponent(jbLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jpLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jbLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton1))
                 .addContainerGap())
         );
 
@@ -159,6 +165,7 @@ public class MainPage extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLDate;
     private javax.swing.JPasswordField jPasswordField1;
     private javax.swing.JButton jbLogin;
