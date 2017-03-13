@@ -53,7 +53,10 @@
                   <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="jpLogin" min="-2" max="-2" attributes="0"/>
-                          <Component id="jlogo" min="-2" max="-2" attributes="0"/>
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
+                              <Component id="jlogo" min="-2" max="-2" attributes="0"/>
+                          </Group>
                       </Group>
                       <EmptySpace min="0" pref="35" max="32767" attributes="0"/>
                   </Group>
@@ -106,11 +109,12 @@
                       <Component id="jbLogin" alignment="0" min="-2" pref="82" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="58" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jbForget" min="-2" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="1" attributes="0">
-                          <Component id="jpfPassowordBox" min="-2" pref="174" max="-2" attributes="0"/>
-                          <Component id="jtFUsernameBox" min="-2" pref="174" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="1" attributes="0">
+                      <Component id="jpfPassowordBox" min="-2" pref="174" max="-2" attributes="0"/>
+                      <Component id="jtFUsernameBox" min="-2" pref="174" max="-2" attributes="0"/>
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace min="-2" pref="9" max="-2" attributes="0"/>
+                          <Component id="jbForget" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace pref="36" max="32767" attributes="0"/>
@@ -168,7 +172,7 @@
         </Component>
         <Component class="javax.swing.JButton" name="jbForget">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Forgot username or password?"/>
+            <Property name="text" type="java.lang.String" value="Forgot password?"/>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="null"/>
             </Property>

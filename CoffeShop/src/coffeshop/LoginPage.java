@@ -64,7 +64,7 @@ public class LoginPage extends javax.swing.JFrame {
             }
         });
 
-        jbForget.setText("Forgot username or password?");
+        jbForget.setText("Forgot password?");
         jbForget.setBorder(null);
         jbForget.setContentAreaFilled(false);
 
@@ -79,11 +79,12 @@ public class LoginPage extends javax.swing.JFrame {
                     .addComponent(jlPasswordLabel)
                     .addComponent(jbLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(58, 58, 58)
-                .addGroup(jpLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jbForget)
-                    .addGroup(jpLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(jpfPassowordBox, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jtFUsernameBox, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(jpLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jpfPassowordBox, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jtFUsernameBox, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jpLoginLayout.createSequentialGroup()
+                        .addGap(9, 9, 9)
+                        .addComponent(jbForget)))
                 .addContainerGap(36, Short.MAX_VALUE))
         );
         jpLoginLayout.setVerticalGroup(
@@ -125,7 +126,9 @@ public class LoginPage extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jpLogin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jlogo))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addComponent(jlogo)))
                         .addGap(0, 35, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
