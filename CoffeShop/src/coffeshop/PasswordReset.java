@@ -46,7 +46,7 @@ public class PasswordReset extends javax.swing.JFrame {
 
         jlPrompt.setText("Please answer these security questions to reset your account:");
 
-        jbSubmit.setText("Submit");
+        jbSubmit.setText("Reset");
 
         jbCantAnswer.setText("I can't answer these(Notifies Admin)");
 
