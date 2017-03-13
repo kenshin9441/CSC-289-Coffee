@@ -42,8 +42,6 @@ public class MainPage extends javax.swing.JFrame {
         setTitle("Login");
         setResizable(false);
 
-        jlogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImageRes/logo.png"))); // NOI18N
-
         jpLogin.setBorder(javax.swing.BorderFactory.createTitledBorder("Login"));
 
         jlUsernameLabel.setText("Username:");
@@ -116,7 +114,7 @@ public class MainPage extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(28, 28, 28)
                 .addComponent(jlogo)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 176, Short.MAX_VALUE)
                 .addComponent(jpLogin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
