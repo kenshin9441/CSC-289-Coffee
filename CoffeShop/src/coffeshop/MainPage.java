@@ -39,6 +39,7 @@ public class MainPage extends javax.swing.JFrame {
         jLDate = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Login");
         setResizable(false);
 
         jlogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImageRes/logo.png"))); // NOI18N
