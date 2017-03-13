@@ -86,7 +86,7 @@
                   </Group>
                   <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="1" attributes="0">
-                      <Component id="jPasswordField1" min="-2" pref="174" max="-2" attributes="0"/>
+                      <Component id="jpfPassowordBox" min="-2" pref="174" max="-2" attributes="0"/>
                       <Component id="jtFUsernameBox" min="-2" pref="174" max="-2" attributes="0"/>
                       <Component id="jbForget" min="-2" max="-2" attributes="0"/>
                   </Group>
@@ -105,7 +105,7 @@
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jlPasswordLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jPasswordField1" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jpfPassowordBox" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace pref="16" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
@@ -130,7 +130,7 @@
         </Component>
         <Component class="javax.swing.JTextField" name="jtFUsernameBox">
         </Component>
-        <Component class="javax.swing.JPasswordField" name="jPasswordField1">
+        <Component class="javax.swing.JPasswordField" name="jpfPassowordBox">
         </Component>
         <Component class="javax.swing.JButton" name="jbLogin">
           <Properties>
@@ -142,7 +142,7 @@
         </Component>
         <Component class="javax.swing.JButton" name="jbForget">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Forget password?"/>
+            <Property name="text" type="java.lang.String" value="Forgot password?"/>
           </Properties>
         </Component>
       </SubComponents>

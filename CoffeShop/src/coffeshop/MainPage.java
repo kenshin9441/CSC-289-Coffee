@@ -32,7 +32,7 @@ public class MainPage extends javax.swing.JFrame {
         jlUsernameLabel = new javax.swing.JLabel();
         jlPasswordLabel = new javax.swing.JLabel();
         jtFUsernameBox = new javax.swing.JTextField();
-        jPasswordField1 = new javax.swing.JPasswordField();
+        jpfPassowordBox = new javax.swing.JPasswordField();
         jbLogin = new javax.swing.JButton();
         jbForget = new javax.swing.JButton();
         jlTime = new javax.swing.JLabel();
@@ -53,7 +53,7 @@ public class MainPage extends javax.swing.JFrame {
         jbLogin.setText("Login");
         jbLogin.setBorder(null);
 
-        jbForget.setText("Forget password?");
+        jbForget.setText("Forgot password?");
 
         javax.swing.GroupLayout jpLoginLayout = new javax.swing.GroupLayout(jpLogin);
         jpLogin.setLayout(jpLoginLayout);
@@ -67,7 +67,7 @@ public class MainPage extends javax.swing.JFrame {
                     .addComponent(jbLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(33, 33, 33)
                 .addGroup(jpLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jpfPassowordBox, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jtFUsernameBox, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jbForget))
                 .addContainerGap(26, Short.MAX_VALUE))
@@ -82,7 +82,7 @@ public class MainPage extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jpLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jlPasswordLabel)
-                    .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jpfPassowordBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
                 .addGroup(jpLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jbLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -163,7 +163,6 @@ public class MainPage extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLDate;
-    private javax.swing.JPasswordField jPasswordField1;
     private javax.swing.JButton jbForget;
     private javax.swing.JButton jbLogin;
     private javax.swing.JLabel jlPasswordLabel;
@@ -171,6 +170,7 @@ public class MainPage extends javax.swing.JFrame {
     private javax.swing.JLabel jlUsernameLabel;
     private javax.swing.JLabel jlogo;
     private javax.swing.JPanel jpLogin;
+    private javax.swing.JPasswordField jpfPassowordBox;
     private javax.swing.JTextField jtFUsernameBox;
     // End of variables declaration//GEN-END:variables
 }
