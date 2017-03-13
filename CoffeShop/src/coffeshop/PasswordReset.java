@@ -28,15 +28,17 @@ public class PasswordReset extends javax.swing.JFrame {
     private void initComponents() {
 
         jlPrompt = new javax.swing.JLabel();
-        jbSubmit = new javax.swing.JButton();
-        jbCantAnswer = new javax.swing.JButton();
         jpPasswordReset = new javax.swing.JPanel();
-        jtfSecurityQuestionAnswerOne = new javax.swing.JTextField();
         jtfSecurityQuestionAnswerTwo = new javax.swing.JTextField();
-        jtfSecurityQuestionThree = new javax.swing.JTextField();
         jlSecQuestionOne = new javax.swing.JLabel();
-        jlSecQuestionTwo = new javax.swing.JLabel();
-        jlSecQuestionThree = new javax.swing.JLabel();
+        lblQuestion = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        btnSubmit = new javax.swing.JButton();
+        txtUsername = new javax.swing.JTextField();
+        jPanel1 = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        txtNewPW = new javax.swing.JTextField();
+        jbSubmit = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Password Reset");
@@ -44,7 +46,56 @@ public class PasswordReset extends javax.swing.JFrame {
         setResizable(false);
         setSize(new java.awt.Dimension(521, 374));
 
-        jlPrompt.setText("Please answer these security questions to reset your account:");
+        jlPrompt.setText("Please enter your username:");
+
+        jpPasswordReset.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder("Security Questions:")));
+
+        jlSecQuestionOne.setText("Security Question:");
+
+        lblQuestion.setText("SecQuestion");
+
+        jLabel1.setText("Your answer:");
+
+        btnSubmit.setText("Submit");
+
+        javax.swing.GroupLayout jpPasswordResetLayout = new javax.swing.GroupLayout(jpPasswordReset);
+        jpPasswordReset.setLayout(jpPasswordResetLayout);
+        jpPasswordResetLayout.setHorizontalGroup(
+            jpPasswordResetLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jpPasswordResetLayout.createSequentialGroup()
+                .addGap(109, 109, 109)
+                .addGroup(jpPasswordResetLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jlSecQuestionOne)
+                    .addComponent(jLabel1))
+                .addGap(18, 18, 18)
+                .addGroup(jpPasswordResetLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblQuestion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jpPasswordResetLayout.createSequentialGroup()
+                        .addGroup(jpPasswordResetLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnSubmit)
+                            .addComponent(jtfSecurityQuestionAnswerTwo, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        jpPasswordResetLayout.setVerticalGroup(
+            jpPasswordResetLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jpPasswordResetLayout.createSequentialGroup()
+                .addGap(18, 18, 18)
+                .addGroup(jpPasswordResetLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jlSecQuestionOne)
+                    .addComponent(lblQuestion))
+                .addGap(10, 10, 10)
+                .addGroup(jpPasswordResetLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jtfSecurityQuestionAnswerTwo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnSubmit)
+                .addContainerGap())
+        );
+
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Reset Password"));
+
+        jLabel2.setText("Enter new password:");
 
         jbSubmit.setText("Reset");
         jbSubmit.addActionListener(new java.awt.event.ActionListener() {
@@ -53,57 +104,28 @@ public class PasswordReset extends javax.swing.JFrame {
             }
         });
 
-        jbCantAnswer.setText("I can't answer these(Notifies Admin)");
-        jbCantAnswer.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbCantAnswerActionPerformed(evt);
-            }
-        });
-
-        jpPasswordReset.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder("Security Questions:")));
-
-        jlSecQuestionOne.setText("SecQuestionOne");
-
-        jlSecQuestionTwo.setText("SecQuestionTwo");
-
-        jlSecQuestionThree.setText("SecQuestionThree");
-
-        javax.swing.GroupLayout jpPasswordResetLayout = new javax.swing.GroupLayout(jpPasswordReset);
-        jpPasswordReset.setLayout(jpPasswordResetLayout);
-        jpPasswordResetLayout.setHorizontalGroup(
-            jpPasswordResetLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jpPasswordResetLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jpPasswordResetLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jpPasswordResetLayout.createSequentialGroup()
-                        .addGroup(jpPasswordResetLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jlSecQuestionTwo)
-                            .addComponent(jlSecQuestionOne))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(jpPasswordResetLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jtfSecurityQuestionAnswerTwo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jtfSecurityQuestionAnswerOne, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jpPasswordResetLayout.createSequentialGroup()
-                        .addComponent(jlSecQuestionThree)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jtfSecurityQuestionThree, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(51, 51, 51))
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(104, 104, 104)
+                .addComponent(jLabel2)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jbSubmit)
+                    .addComponent(txtNewPW, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(111, Short.MAX_VALUE))
         );
-        jpPasswordResetLayout.setVerticalGroup(
-            jpPasswordResetLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jpPasswordResetLayout.createSequentialGroup()
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap(31, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtNewPW, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2))
                 .addGap(18, 18, 18)
-                .addGroup(jpPasswordResetLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jtfSecurityQuestionAnswerTwo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jlSecQuestionOne))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
-                .addGroup(jpPasswordResetLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jtfSecurityQuestionAnswerOne, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jlSecQuestionTwo))
-                .addGap(18, 18, 18)
-                .addGroup(jpPasswordResetLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jtfSecurityQuestionThree, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jlSecQuestionThree))
+                .addComponent(jbSubmit)
                 .addContainerGap())
         );
 
@@ -116,34 +138,30 @@ public class PasswordReset extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jpPasswordReset, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(64, 64, 64)
                         .addComponent(jlPrompt)
-                        .addGap(0, 116, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jbCantAnswer)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jbSubmit)))
+                        .addGap(18, 18, 18)
+                        .addComponent(txtUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(33, 33, 33)
-                .addComponent(jlPrompt)
-                .addGap(18, 18, 18)
-                .addComponent(jpPasswordReset, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 52, Short.MAX_VALUE)
+                .addGap(30, 30, 30)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jbCantAnswer)
-                    .addComponent(jbSubmit))
-                .addGap(29, 29, 29))
+                    .addComponent(jlPrompt)
+                    .addComponent(txtUsername, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(jpPasswordReset, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jbCantAnswerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbCantAnswerActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jbCantAnswerActionPerformed
 
     private void jbSubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSubmitActionPerformed
         // TODO add your handling code here:
@@ -185,15 +203,17 @@ public class PasswordReset extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jbCantAnswer;
+    private javax.swing.JButton btnSubmit;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JButton jbSubmit;
     private javax.swing.JLabel jlPrompt;
     private javax.swing.JLabel jlSecQuestionOne;
-    private javax.swing.JLabel jlSecQuestionThree;
-    private javax.swing.JLabel jlSecQuestionTwo;
     private javax.swing.JPanel jpPasswordReset;
-    private javax.swing.JTextField jtfSecurityQuestionAnswerOne;
     private javax.swing.JTextField jtfSecurityQuestionAnswerTwo;
-    private javax.swing.JTextField jtfSecurityQuestionThree;
+    private javax.swing.JLabel lblQuestion;
+    private javax.swing.JTextField txtNewPW;
+    private javax.swing.JTextField txtUsername;
     // End of variables declaration//GEN-END:variables
 }
