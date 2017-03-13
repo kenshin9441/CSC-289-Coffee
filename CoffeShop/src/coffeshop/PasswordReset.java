@@ -47,8 +47,18 @@ public class PasswordReset extends javax.swing.JFrame {
         jlPrompt.setText("Please answer these security questions to reset your account:");
 
         jbSubmit.setText("Reset");
+        jbSubmit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbSubmitActionPerformed(evt);
+            }
+        });
 
         jbCantAnswer.setText("I can't answer these(Notifies Admin)");
+        jbCantAnswer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbCantAnswerActionPerformed(evt);
+            }
+        });
 
         jpPasswordReset.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder("Security Questions:")));
 
@@ -130,6 +140,14 @@ public class PasswordReset extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jbCantAnswerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbCantAnswerActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jbCantAnswerActionPerformed
+
+    private void jbSubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSubmitActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jbSubmitActionPerformed
 
     /**
      * @param args the command line arguments
