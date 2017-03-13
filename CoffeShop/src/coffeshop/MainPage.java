@@ -1,4 +1,4 @@
-/*second test
+/*
  *
  *
  */
@@ -51,6 +51,11 @@ public class MainPage extends javax.swing.JFrame {
 
         jbLogin.setText("Login");
         jbLogin.setBorder(null);
+        jbLogin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbLoginActionPerformed(evt);
+            }
+        });
 
         jbForget.setText("Forgot username or password?");
         jbForget.setBorder(null);
@@ -130,6 +135,10 @@ public class MainPage extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jbLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbLoginActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jbLoginActionPerformed
 
     /**
      * @param args the command line arguments
