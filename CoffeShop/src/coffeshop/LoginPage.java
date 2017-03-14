@@ -4,6 +4,8 @@
  */
 package coffeshop;
 
+import javax.swing.JFrame;
+
 /**
  *
  * @author praykor
@@ -147,9 +149,12 @@ public class LoginPage extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    MainPage main = new MainPage();
     private void jbLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbLoginActionPerformed
         // TODO add your handling code here:
+        main.setLocation(this.getLocation());
+        this.setVisible(false);
+        main.setVisible(true);
     }//GEN-LAST:event_jbLoginActionPerformed
 
     /**
