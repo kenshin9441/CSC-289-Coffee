@@ -22,7 +22,7 @@ public class MainPage extends javax.swing.JFrame {
         initComponents();
         MyComponents();
     }
-    TabTitle tab = new TabTitle();
+    
     private void MyComponents(){
         jTabbedPane1.setTitleAt(0, "");
         jTabbedPane1.setIconAt(0, icon1);
