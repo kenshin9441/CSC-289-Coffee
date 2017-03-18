@@ -19,9 +19,9 @@ import java.sql.Statement;
  */
 public class DBAccessor {
     public static void main(String args[]){
-    final String DATABASE_URL = "jdbc:mysql://192.168.30.23/penguino";
+    final String DATABASE_URL = "jdbc:mysql://webtech-gtcc.org:3306/gonzalezg1940";
     final String SELECT_QUERY = "SELECT * FROM Penguino";
-    final String USERNAME = "root@192.168.30.20 ";
+    final String USERNAME = "";
     final String PASSWORD = "1Password!";
     String results = "";
     String sql = "SELECT * FROM Files";
@@ -29,7 +29,7 @@ public class DBAccessor {
     
     
     try{
-        Connection connection = DriverManager.getConnection(DATABASE_URL);
+        Connection connection = DriverManager.getConnection(DATABASE_URL, USERNAME, PASSWORD);
         prep = connection.prepareStatement("SELECT * FROM Penguino");
         ResultSet data = prep.executeQuery();
         
