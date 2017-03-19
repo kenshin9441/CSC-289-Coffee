@@ -9,9 +9,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
-import java.sql.Statement;
 
 /**
  *
@@ -19,9 +17,9 @@ import java.sql.Statement;
  */
 public class DBAccessor {
     public static void main(String args[]){
-    final String DATABASE_URL = "jdbc:mysql://webtech-gtcc.org:3306/gonzalezg1940";
-    final String SELECT_QUERY = "SELECT * FROM Penguino";
-    final String USERNAME = "";
+    final String DATABASE_URL = "jdbc:mysql://167.160.84.186:3306/testDB";
+    final String SELECT_QUERY = "SELECT * FROM testDB";
+    final String USERNAME = "praykor";
     final String PASSWORD = "1Password!";
     String results = "";
     String sql = "SELECT * FROM Files";
@@ -30,7 +28,7 @@ public class DBAccessor {
     
     try{
         Connection connection = DriverManager.getConnection(DATABASE_URL, USERNAME, PASSWORD);
-        prep = connection.prepareStatement("SELECT * FROM Penguino");
+        prep = connection.prepareStatement("SELECT * FROM praykor");
         ResultSet data = prep.executeQuery();
         
         ResultSet result = prep.executeQuery();
