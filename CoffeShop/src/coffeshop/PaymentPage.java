@@ -511,7 +511,7 @@ public class PaymentPage extends javax.swing.JFrame {
             .addGroup(jpCashPaymentLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jpNumPad, javax.swing.GroupLayout.PREFERRED_SIZE, 292, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(34, Short.MAX_VALUE))
         );
         jpCashPaymentLayout.setVerticalGroup(
             jpCashPaymentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -610,10 +610,12 @@ public class PaymentPage extends javax.swing.JFrame {
             jpPaymentControlsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jpPaymentControlsLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jpPaymentControlsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jpCashPayment, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jpBitcoinPayment, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(29, Short.MAX_VALUE))
+                .addGroup(jpPaymentControlsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jpPaymentControlsLayout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addComponent(jpBitcoinPayment, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jpCashPayment, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(19, Short.MAX_VALUE))
         );
         jpPaymentControlsLayout.setVerticalGroup(
             jpPaymentControlsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -686,9 +688,10 @@ public class PaymentPage extends javax.swing.JFrame {
     private void jbtnBitcoinActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnBitcoinActionPerformed
         double usdAmt = Double.parseDouble(jlblTotalAmt.getText());
         double btcAmt = usdAmt / 1000; 
-       jpBitcoinPayment = new javax.swing.JPanel();
-       jpCashPayment.setVisible(false);
+       jpBitcoinPayment = new javax.swing.JPanel(); 
        jpBitcoinPayment.setVisible(true);
+       jpCashPayment.setVisible(false);
+      
        jtfBitcoinAmt.setText(String.valueOf(btcAmt));
        
     }//GEN-LAST:event_jbtnBitcoinActionPerformed
