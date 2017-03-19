@@ -18,7 +18,7 @@ import java.sql.SQLException;
 public class DBAccessor {
     public static void main(String args[]){
     final String DATABASE_URL = "jdbc:mysql://167.160.84.186:3306/Coffee-Shop";
-    final String SELECT_QUERY = "SELECT * FROM testDB";
+    final String SELECT_QUERY = "SELECT * FROM testtable";
     final String USERNAME = "praykor";
     final String PASSWORD = "1Password!";
     String results = "";
@@ -28,11 +28,11 @@ public class DBAccessor {
     
     try{
         Connection connection = DriverManager.getConnection(DATABASE_URL, USERNAME, PASSWORD);
-        prep = connection.prepareStatement("SELECT * FROM praykor");
+        prep = connection.prepareStatement(SELECT_QUERY);
         ResultSet data = prep.executeQuery();
         
         ResultSet result = prep.executeQuery();
-        System.out.println(result);
+        System.out.println(result + " Database Connected");
     }catch(SQLException ex){
         System.out.print(ex);
     }
