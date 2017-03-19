@@ -7,6 +7,7 @@ package coffeshop;
 
 import javax.swing.ImageIcon;
 import javax.imageio.ImageIO;
+import javax.swing.JOptionPane;
 import java.awt.Image;
 
 /**
@@ -33,6 +34,7 @@ public class PaymentPage extends javax.swing.JFrame {
     private void initComponents() {
         java.awt.GridBagConstraints gridBagConstraints;
 
+        buttonGroup1 = new javax.swing.ButtonGroup();
         jpPaymentButtons = new javax.swing.JPanel();
         jpCash = new javax.swing.JPanel();
         jbtnCreditCard = new javax.swing.JButton();
@@ -81,6 +83,12 @@ public class PaymentPage extends javax.swing.JFrame {
         jtfBitcoinAmt = new javax.swing.JTextField();
         jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
+        jpCreditDebit = new javax.swing.JPanel();
+        jradCredit = new javax.swing.JRadioButton();
+        jradDebit = new javax.swing.JRadioButton();
+        jlblCardNum = new javax.swing.JLabel();
+        jtfCardNum = new javax.swing.JTextField();
+        jbtnCardOK = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -97,7 +105,7 @@ public class PaymentPage extends javax.swing.JFrame {
 
         jpCash.setLayout(new java.awt.GridLayout());
 
-        jbtnCreditCard.setText("Credit Card");
+        jbtnCreditCard.setText("Credit/Debit Card");
         try {
             Image img = ImageIO.read(getClass().getResource("/ImageRes/creditcard.png"));
             jbtnCash.setIcon(new ImageIcon(img));
@@ -107,6 +115,11 @@ public class PaymentPage extends javax.swing.JFrame {
         jbtnCreditCard.setBorder(new javax.swing.border.MatteBorder(null));
         jbtnCreditCard.setMaximumSize(new java.awt.Dimension(187, 48));
         jbtnCreditCard.setMinimumSize(new java.awt.Dimension(187, 48));
+        jbtnCreditCard.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtnCreditCardActionPerformed(evt);
+            }
+        });
 
         jbtnGiftCard.setText("Gift Card");
         try {
@@ -125,7 +138,13 @@ public class PaymentPage extends javax.swing.JFrame {
             }
         });
 
-        jbtnBitcoin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImageRes/bitcoin.png"))); // NOI18N
+        jbtnBitcoin.setText("Bitcoin");
+        try {
+            Image img = ImageIO.read(getClass().getResource("/ImageRes/bitcoin.png"));
+            jbtnCash.setIcon(new ImageIcon(img));
+        } catch (Exception ex) {
+            System.out.println(ex);
+        }
         jbtnBitcoin.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jbtnBitcoin.setMaximumSize(new java.awt.Dimension(129, 48));
         jbtnBitcoin.setMinimumSize(new java.awt.Dimension(129, 48));
@@ -510,8 +529,8 @@ public class PaymentPage extends javax.swing.JFrame {
             jpCashPaymentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jpCashPaymentLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jpNumPad, javax.swing.GroupLayout.PREFERRED_SIZE, 292, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(34, Short.MAX_VALUE))
+                .addComponent(jpNumPad, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         jpCashPaymentLayout.setVerticalGroup(
             jpCashPaymentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -521,6 +540,7 @@ public class PaymentPage extends javax.swing.JFrame {
         );
 
         jpBitcoinPayment.setVisible(false);
+        jpBitcoinPayment.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         try {
             Image img = ImageIO.read(getClass().getResource("/ImageRes/QRC.png"));
@@ -548,53 +568,112 @@ public class PaymentPage extends javax.swing.JFrame {
         jpBitcoinPaymentLayout.setHorizontalGroup(
             jpBitcoinPaymentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jpBitcoinPaymentLayout.createSequentialGroup()
-                .addGap(44, 44, 44)
+                .addGap(29, 29, 29)
+                .addComponent(jlblQRC, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel11)
+                .addGap(18, 18, Short.MAX_VALUE)
                 .addGroup(jpBitcoinPaymentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel10)
-                    .addComponent(jlblQRC, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(jpBitcoinPaymentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpBitcoinPaymentLayout.createSequentialGroup()
-                        .addComponent(jLabel8)
-                        .addGap(75, 75, 75))
                     .addGroup(jpBitcoinPaymentLayout.createSequentialGroup()
-                        .addGroup(jpBitcoinPaymentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jpBitcoinPaymentLayout.createSequentialGroup()
-                                .addGap(31, 31, 31)
-                                .addComponent(jLabel11)
-                                .addGap(44, 44, 44)
-                                .addComponent(jtfBitcoinAmt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jLabel12))
-                            .addGroup(jpBitcoinPaymentLayout.createSequentialGroup()
-                                .addGap(105, 105, 105)
-                                .addComponent(jLabel9))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpBitcoinPaymentLayout.createSequentialGroup()
-                                .addGap(37, 37, 37)
-                                .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addContainerGap(33, Short.MAX_VALUE))))
+                        .addComponent(jLabel8)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jtfBitcoinAmt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel12))
+                    .addGroup(jpBitcoinPaymentLayout.createSequentialGroup()
+                        .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(33, 33, 33))
+            .addGroup(jpBitcoinPaymentLayout.createSequentialGroup()
+                .addGap(37, 37, 37)
+                .addComponent(jLabel10)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jpBitcoinPaymentLayout.setVerticalGroup(
             jpBitcoinPaymentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jpBitcoinPaymentLayout.createSequentialGroup()
+                .addGap(18, 18, 18)
+                .addComponent(jLabel10)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jpBitcoinPaymentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jpBitcoinPaymentLayout.createSequentialGroup()
-                        .addGap(15, 15, 15)
-                        .addComponent(jLabel10)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jlblQRC, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jpBitcoinPaymentLayout.createSequentialGroup()
-                        .addGap(27, 27, 27)
-                        .addComponent(jLabel8)
-                        .addGap(18, 18, 18)
+                        .addGroup(jpBitcoinPaymentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jpBitcoinPaymentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jtfBitcoinAmt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel8)
+                                .addComponent(jLabel12))
+                            .addGroup(jpBitcoinPaymentLayout.createSequentialGroup()
+                                .addGap(19, 19, 19)
+                                .addComponent(jLabel11)))
+                        .addGap(9, 9, 9)
                         .addGroup(jpBitcoinPaymentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jtfBitcoinAmt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel12)
-                            .addComponent(jLabel11))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel9)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel13)))
-                .addContainerGap(67, Short.MAX_VALUE))
+                            .addComponent(jLabel9)
+                            .addComponent(jLabel13)))
+                    .addComponent(jlblQRC, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(42, Short.MAX_VALUE))
+        );
+
+        jpCreditDebit.setVisible(false);
+        jpCreditDebit.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        buttonGroup1.add(jradCredit);
+        jradCredit.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jradCredit.setSelected(true);
+        jradCredit.setText("Credit");
+
+        buttonGroup1.add(jradDebit);
+        jradDebit.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jradDebit.setText("Debit");
+
+        jlblCardNum.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jlblCardNum.setText("Enter Card Number");
+
+        jtfCardNum.setText(" ");
+
+        jbtnCardOK.setText("OK");
+        jbtnCardOK.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtnCardOKActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jpCreditDebitLayout = new javax.swing.GroupLayout(jpCreditDebit);
+        jpCreditDebit.setLayout(jpCreditDebitLayout);
+        jpCreditDebitLayout.setHorizontalGroup(
+            jpCreditDebitLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpCreditDebitLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jradCredit)
+                .addGap(70, 70, 70)
+                .addComponent(jradDebit)
+                .addGap(79, 79, 79))
+            .addGroup(jpCreditDebitLayout.createSequentialGroup()
+                .addGroup(jpCreditDebitLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jpCreditDebitLayout.createSequentialGroup()
+                        .addGap(23, 23, 23)
+                        .addComponent(jlblCardNum)
+                        .addGap(18, 18, 18)
+                        .addComponent(jtfCardNum, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jpCreditDebitLayout.createSequentialGroup()
+                        .addGap(127, 127, 127)
+                        .addComponent(jbtnCardOK, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(23, Short.MAX_VALUE))
+        );
+        jpCreditDebitLayout.setVerticalGroup(
+            jpCreditDebitLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jpCreditDebitLayout.createSequentialGroup()
+                .addGap(28, 28, 28)
+                .addGroup(jpCreditDebitLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jradCredit)
+                    .addComponent(jradDebit))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jpCreditDebitLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jlblCardNum, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jtfCardNum, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
+                .addComponent(jbtnCardOK, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(22, 22, 22))
         );
 
         javax.swing.GroupLayout jpPaymentControlsLayout = new javax.swing.GroupLayout(jpPaymentControls);
@@ -602,22 +681,26 @@ public class PaymentPage extends javax.swing.JFrame {
         jpPaymentControlsLayout.setHorizontalGroup(
             jpPaymentControlsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jpPaymentControlsLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jpPaymentControlsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(26, 26, 26)
+                .addGroup(jpPaymentControlsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jpCreditDebit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jpPaymentControlsLayout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addComponent(jpBitcoinPayment, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jpCashPayment, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(19, Short.MAX_VALUE))
+                        .addGroup(jpPaymentControlsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jpBitcoinPayment, javax.swing.GroupLayout.PREFERRED_SIZE, 343, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jpCashPayment, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(19, 19, 19)))
+                .addContainerGap(24, Short.MAX_VALUE))
         );
         jpPaymentControlsLayout.setVerticalGroup(
             jpPaymentControlsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jpPaymentControlsLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jpCashPayment, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addComponent(jpBitcoinPayment, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(36, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(jpCreditDebit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(62, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -662,7 +745,7 @@ public class PaymentPage extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jbtnCreditCard, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jbtnCash, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jpPaymentControls, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jpPaymentButtons, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
@@ -670,7 +753,7 @@ public class PaymentPage extends javax.swing.JFrame {
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jpTotals, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(42, 42, 42)
                 .addComponent(jpCash, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -681,9 +764,10 @@ public class PaymentPage extends javax.swing.JFrame {
     private void jbtnBitcoinActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnBitcoinActionPerformed
         double usdAmt = Double.parseDouble(jlblTotalAmt.getText());
         double btcAmt = usdAmt / 1000; 
-       
-       jpBitcoinPayment.setVisible(true);
+       jpCreditDebit.setVisible(false);
        jpCashPayment.setVisible(false);
+       jpBitcoinPayment.setVisible(true);
+       
        jtfBitcoinAmt.setText(String.valueOf(btcAmt));
        
     }//GEN-LAST:event_jbtnBitcoinActionPerformed
@@ -786,6 +870,8 @@ public class PaymentPage extends javax.swing.JFrame {
 
     private void jbtnCashActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnCashActionPerformed
        jpCashPayment.setVisible(true);
+       jpBitcoinPayment.setVisible(false);
+       jpCreditDebit.setVisible(false);
     }//GEN-LAST:event_jbtnCashActionPerformed
 
     private void jbtnGiftCardActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnGiftCardActionPerformed
@@ -799,6 +885,19 @@ public class PaymentPage extends javax.swing.JFrame {
     private void jbtnCashMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtnCashMouseReleased
         jbtnCash.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
     }//GEN-LAST:event_jbtnCashMouseReleased
+
+    private void jbtnCreditCardActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnCreditCardActionPerformed
+        jpBitcoinPayment.setVisible(false);
+        jpCashPayment.setVisible(false);
+        jpCreditDebit.setVisible(true);
+    }//GEN-LAST:event_jbtnCreditCardActionPerformed
+
+    private void jbtnCardOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnCardOKActionPerformed
+       if (jradDebit.isSelected()){
+           int PIN;
+           PIN = Integer.parseInt(JOptionPane.showInputDialog("Enter PIN"));
+       }
+    }//GEN-LAST:event_jbtnCardOKActionPerformed
 
     /**
      * @param args the command line arguments
@@ -838,6 +937,7 @@ public class PaymentPage extends javax.swing.JFrame {
     private ImageIcon icon1 = new ImageIcon("src/ImageRes/cash.png");
    
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -854,6 +954,7 @@ public class PaymentPage extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JButton jbtnBitcoin;
+    private javax.swing.JButton jbtnCardOK;
     private javax.swing.JButton jbtnCash;
     private javax.swing.JButton jbtnClear;
     private javax.swing.JButton jbtnCreditCard;
@@ -875,16 +976,21 @@ public class PaymentPage extends javax.swing.JFrame {
     private javax.swing.JButton jbtnNumAmt5;
     private javax.swing.JButton jbtnNumAmtExact;
     private javax.swing.JButton jbtnNumDot;
+    private javax.swing.JLabel jlblCardNum;
     private javax.swing.JLabel jlblQRC;
     private javax.swing.JLabel jlblTotalAmt;
     private javax.swing.JPanel jpBitcoinPayment;
     private javax.swing.JPanel jpCash;
     private javax.swing.JPanel jpCashPayment;
+    private javax.swing.JPanel jpCreditDebit;
     private javax.swing.JPanel jpNumPad;
     private javax.swing.JPanel jpPaymentButtons;
     private javax.swing.JPanel jpPaymentControls;
     private javax.swing.JPanel jpTotals;
+    private javax.swing.JRadioButton jradCredit;
+    private javax.swing.JRadioButton jradDebit;
     private javax.swing.JTextField jtfBitcoinAmt;
+    private javax.swing.JTextField jtfCardNum;
     private javax.swing.JTextField jtfNumPad;
     // End of variables declaration//GEN-END:variables
 }
