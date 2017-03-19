@@ -17,7 +17,7 @@ import java.sql.SQLException;
  */
 public class DBAccessor {
     public static void main(String args[]){
-    final String DATABASE_URL = "jdbc:mysql://167.160.84.186:3306/testDB";
+    final String DATABASE_URL = "jdbc:mysql://167.160.84.186:3306/Coffee-Shop";
     final String SELECT_QUERY = "SELECT * FROM testDB";
     final String USERNAME = "praykor";
     final String PASSWORD = "1Password!";
