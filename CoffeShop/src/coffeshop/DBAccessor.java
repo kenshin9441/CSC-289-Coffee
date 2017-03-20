@@ -34,7 +34,7 @@ public class DBAccessor {
         }
     }
 
-    public Boolean loginSQL(String user, String password) {
+    public int loginSQL(String user, String password) {
         ResultSet rs = null;
         String st = "SELECT * FROM account, account_type WHERE account.acc_type = account_type.acc_type AND account.user =? AND account.password =?";
         PreparedStatement pst = null;
@@ -44,11 +44,11 @@ public class DBAccessor {
             pst.setString(2, password);
             rs = pst.executeQuery();
             if (rs.next()) {
-                return true;
+                return Integer.parseInt(rs.getString(5));
             } else JOptionPane.showMessageDialog(null, "Invalid user or password", "Login failed", JOptionPane.PLAIN_MESSAGE);
         } catch (SQLException ex) {
             Logger.getLogger(DBAccessor.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return false;
+        return -1;
     }
 }

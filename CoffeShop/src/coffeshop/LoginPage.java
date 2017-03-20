@@ -152,16 +152,19 @@ public class LoginPage extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-    MainPage main = new MainPage();
+    
     private void jbLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbLoginActionPerformed
         // TODO add your handling code here:
         if (!txtUser.getText().equals("") && txtPassword.getPassword().length !=0) {
             DBAccessor login = new DBAccessor();
             login.connectDB();
-            if (login.loginSQL(txtUser.getText(), String.valueOf(txtPassword.getPassword()))) {
+            int manager = login.loginSQL(txtUser.getText(), String.valueOf(txtPassword.getPassword()));
+            if ( manager!= -1) {
+                MainPage main = new MainPage(manager);
                 main.setLocation(this.getLocation());
                 this.setVisible(false);
                 main.setVisible(true);
+                txtPassword.removeAll();
             }
             
         }
