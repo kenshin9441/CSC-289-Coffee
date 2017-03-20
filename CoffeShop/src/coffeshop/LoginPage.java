@@ -34,8 +34,8 @@ public class LoginPage extends javax.swing.JFrame {
         jpLogin = new javax.swing.JPanel();
         jlUsernameLabel = new javax.swing.JLabel();
         jlPasswordLabel = new javax.swing.JLabel();
-        jtFUsernameBox = new javax.swing.JTextField();
-        jpfPassowordBox = new javax.swing.JPasswordField();
+        txtUser = new javax.swing.JTextField();
+        txtPassword = new javax.swing.JPasswordField();
         jbLogin = new javax.swing.JButton();
         jbForget = new javax.swing.JButton();
         jlTime = new javax.swing.JLabel();
@@ -87,8 +87,8 @@ public class LoginPage extends javax.swing.JFrame {
                             .addComponent(jlPasswordLabel))
                         .addGap(88, 88, 88)
                         .addGroup(jpLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jpfPassowordBox, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jtFUsernameBox, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtUser, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(36, Short.MAX_VALUE))
         );
         jpLoginLayout.setVerticalGroup(
@@ -96,12 +96,12 @@ public class LoginPage extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpLoginLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jpLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jtFUsernameBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtUser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jlUsernameLabel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jpLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jlPasswordLabel)
-                    .addComponent(jpfPassowordBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jpLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jbLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -150,13 +150,22 @@ public class LoginPage extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
     MainPage main = new MainPage();
     private void jbLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbLoginActionPerformed
         // TODO add your handling code here:
-        main.setLocation(this.getLocation());
-        this.setVisible(false);
-        main.setVisible(true);
+        if (!txtUser.getText().equals("") && txtPassword.getPassword().length !=0) {
+            DBAccessor login = new DBAccessor();
+            login.connectDB();
+            if (login.loginSQL(txtUser.getText(), String.valueOf(txtPassword.getPassword()))) {
+                main.setLocation(this.getLocation());
+                this.setVisible(false);
+                main.setVisible(true);
+            }
+            
+        }
+
     }//GEN-LAST:event_jbLoginActionPerformed
 
     /**
@@ -207,7 +216,7 @@ public class LoginPage extends javax.swing.JFrame {
     private javax.swing.JLabel jlUsernameLabel;
     private javax.swing.JLabel jlogo;
     private javax.swing.JPanel jpLogin;
-    private javax.swing.JPasswordField jpfPassowordBox;
-    private javax.swing.JTextField jtFUsernameBox;
+    private javax.swing.JPasswordField txtPassword;
+    private javax.swing.JTextField txtUser;
     // End of variables declaration//GEN-END:variables
 }

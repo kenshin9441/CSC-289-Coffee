@@ -23,7 +23,7 @@
   <SyntheticProperties>
     <SyntheticProperty name="menuBar" type="java.lang.String" value="jMenuBar1"/>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
-    <SyntheticProperty name="generateCenter" type="boolean" value="false"/>
+    <SyntheticProperty name="generateCenter" type="boolean" value="true"/>
   </SyntheticProperties>
   <AuxValues>
     <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
@@ -116,8 +116,8 @@
                           </Group>
                           <EmptySpace min="-2" pref="88" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="1" attributes="0">
-                              <Component id="jpfPassowordBox" min="-2" pref="174" max="-2" attributes="0"/>
-                              <Component id="jtFUsernameBox" min="-2" pref="174" max="-2" attributes="0"/>
+                              <Component id="txtPassword" min="-2" pref="174" max="-2" attributes="0"/>
+                              <Component id="txtUser" min="-2" pref="174" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
@@ -130,13 +130,13 @@
               <Group type="102" alignment="1" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jtFUsernameBox" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="txtUser" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jlUsernameLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jlPasswordLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jpfPassowordBox" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="txtPassword" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
@@ -159,9 +159,9 @@
             <Property name="text" type="java.lang.String" value="Password:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="jtFUsernameBox">
+        <Component class="javax.swing.JTextField" name="txtUser">
         </Component>
-        <Component class="javax.swing.JPasswordField" name="jpfPassowordBox">
+        <Component class="javax.swing.JPasswordField" name="txtPassword">
         </Component>
         <Component class="javax.swing.JButton" name="jbLogin">
           <Properties>
