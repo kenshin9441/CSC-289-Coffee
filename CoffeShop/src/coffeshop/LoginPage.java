@@ -66,9 +66,15 @@ public class LoginPage extends javax.swing.JFrame {
             }
         });
 
+        jbForget.setForeground(new java.awt.Color(51, 51, 255));
         jbForget.setText("Forgot password?");
         jbForget.setBorder(null);
         jbForget.setContentAreaFilled(false);
+        jbForget.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbForgetActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jpLoginLayout = new javax.swing.GroupLayout(jpLogin);
         jpLogin.setLayout(jpLoginLayout);
@@ -170,6 +176,13 @@ public class LoginPage extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_jbLoginActionPerformed
+
+    private void jbForgetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbForgetActionPerformed
+        PasswordReset passReset = new PasswordReset();
+        passReset.setLocation(this.getLocation());
+        this.setVisible(false);
+        passReset.setVisible(true);
+    }//GEN-LAST:event_jbForgetActionPerformed
 
     /**
      * @param args the command line arguments
