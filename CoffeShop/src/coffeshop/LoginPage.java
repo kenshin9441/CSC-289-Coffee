@@ -178,10 +178,10 @@ public class LoginPage extends javax.swing.JFrame {
     }//GEN-LAST:event_jbLoginActionPerformed
 
     private void jbForgetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbForgetActionPerformed
-        PasswordReset passReset = new PasswordReset();
-        passReset.setLocation(this.getLocation());
+        ResetPassword resetPass = new ResetPassword();
+        resetPass.setLocation(this.getLocation());
         this.setVisible(false);
-        passReset.setVisible(true);
+        resetPass.setVisible(true);
     }//GEN-LAST:event_jbForgetActionPerformed
 
     /**
