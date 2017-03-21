@@ -4,7 +4,9 @@
  */
 package coffeshop;
 
+import java.sql.ResultSet;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -158,22 +160,26 @@ public class LoginPage extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-    
+    public ResultSet rsMan;
     private void jbLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbLoginActionPerformed
         // TODO add your handling code here:
         if (txtUser.getText().length()!=0 && txtPassword.getPassword().length !=0) {
-            DBAccessor login = new DBAccessor();
-            login.connectDB();
-            int manager = login.loginSQL(txtUser.getText(), String.valueOf(txtPassword.getPassword()));
-            if ( manager!= -1) {
-                MainPage main = new MainPage(manager);
+            DBAccessor accessor = new DBAccessor();
+            accessor.connectDB();
+            int id = accessor.loginSQL(txtUser.getText(), String.valueOf(txtPassword.getPassword()));
+            if ( id!= -1) {
+                MainPage main = new MainPage();
                 main.setLocation(this.getLocation());
                 this.setVisible(false);
                 main.setVisible(true);
                 txtPassword.removeAll();
+                rsMan = accessor.getManager(id);
+            }else {
+                JOptionPane.showMessageDialog(null, "Wrong username or password. Please try again.", "Login failed", JOptionPane.PLAIN_MESSAGE);
+                accessor.disconnect();
             }
             
-        }
+        }else JOptionPane.showMessageDialog(null, "Please enter username and password", "No Input", JOptionPane.PLAIN_MESSAGE);
 
     }//GEN-LAST:event_jbLoginActionPerformed
 

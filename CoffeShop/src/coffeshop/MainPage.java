@@ -18,10 +18,9 @@ public class MainPage extends javax.swing.JFrame {
     /**
      * Creates new form MainPage
      */
-    public MainPage(int man) {
+    public MainPage() {
         initComponents();
         MyComponents();
-        manager = man;
     }
     
     private void MyComponents(){
@@ -398,7 +397,6 @@ public class MainPage extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     
-    public int manager;
     private ImageIcon icon1 = new ImageIcon("src/ImageRes/ic_account_balance_black_48dp_1x.png");
     private ImageIcon icon2 = new ImageIcon("src/ImageRes/ic_add_shopping_cart_black_48dp_1x.png");
     // Variables declaration - do not modify//GEN-BEGIN:variables
