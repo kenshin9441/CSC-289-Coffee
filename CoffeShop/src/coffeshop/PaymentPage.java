@@ -812,8 +812,7 @@ public class PaymentPage extends javax.swing.JFrame {
         double usdAmt = Double.parseDouble(jlblTotalAmt.getText());
         double btcAmt = usdAmt / 1000;
 
-        CardLayout cl = (CardLayout) (jpPaymentControls.getLayout());
-        cl.show(jpPaymentControls, "card3");
+        showPanel("card3");
         jtfBitcoinAmt.setText(String.valueOf(btcAmt));
 
     }//GEN-LAST:event_jbtnBitcoinActionPerformed
@@ -915,8 +914,7 @@ public class PaymentPage extends javax.swing.JFrame {
     }//GEN-LAST:event_jbtnNumAmtExactActionPerformed
 
     private void jbtnCashActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnCashActionPerformed
-        CardLayout cl = (CardLayout) (jpPaymentControls.getLayout());
-        cl.show(jpPaymentControls, "card2");
+        showPanel("card2");
         /*
        jpCashPayment.setVisible(true);
        jpBitcoinPayment.setVisible(false);
@@ -926,8 +924,7 @@ public class PaymentPage extends javax.swing.JFrame {
     }//GEN-LAST:event_jbtnCashActionPerformed
 
     private void jbtnGiftCardActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnGiftCardActionPerformed
-        CardLayout cl = (CardLayout) (jpPaymentControls.getLayout());
-        cl.show(jpPaymentControls, "card5");
+        showPanel("card5");
     }//GEN-LAST:event_jbtnGiftCardActionPerformed
 
     private void jbtnCashMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtnCashMousePressed
@@ -939,8 +936,7 @@ public class PaymentPage extends javax.swing.JFrame {
     }//GEN-LAST:event_jbtnCashMouseReleased
 
     private void jbtnCreditCardActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnCreditCardActionPerformed
-          CardLayout cl = (CardLayout)(jpPaymentControls.getLayout());
-          cl.show(jpPaymentControls, "card4");
+          showPanel("card4");
 
     }//GEN-LAST:event_jbtnCreditCardActionPerformed
 
@@ -994,7 +990,10 @@ public class PaymentPage extends javax.swing.JFrame {
             }
         });
     }
-
+    private void showPanel(String pnName){
+        CardLayout layout = (CardLayout) jpPaymentControls.getLayout();
+        layout.show(jpPaymentControls,pnName);
+    }
     private ImageIcon icon1 = new ImageIcon("src/ImageRes/cash.png");
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

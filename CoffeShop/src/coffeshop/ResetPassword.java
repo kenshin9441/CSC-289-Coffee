@@ -190,13 +190,11 @@ public class ResetPassword extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        CardLayout layout = (CardLayout) getContentPane().getLayout();
-        layout.show(getContentPane(), "pnQuestion");
+        showPanel("pnQuestion");
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void btnSubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubmitActionPerformed
-        CardLayout layout = (CardLayout) getContentPane().getLayout();
-        layout.show(getContentPane(), "pnPassword");
+        showPanel("pnPassword");
     }//GEN-LAST:event_btnSubmitActionPerformed
 
     private void jbSubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSubmitActionPerformed
@@ -237,7 +235,10 @@ public class ResetPassword extends javax.swing.JFrame {
             }
         });
     }
-
+    private void showPanel(String pnName){
+        CardLayout layout = (CardLayout) getContentPane().getLayout();
+        layout.show(getContentPane(),pnName);
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnSubmit;
     private javax.swing.JButton jButton1;
