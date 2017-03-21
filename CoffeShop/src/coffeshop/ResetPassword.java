@@ -53,6 +53,7 @@ public class ResetPassword extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Reset Password");
+        setResizable(false);
         getContentPane().setLayout(new java.awt.CardLayout());
 
         jlPrompt.setText("Username:");
@@ -193,6 +194,7 @@ public class ResetPassword extends javax.swing.JFrame {
         getContentPane().add(pnPass, "pnPassword");
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed

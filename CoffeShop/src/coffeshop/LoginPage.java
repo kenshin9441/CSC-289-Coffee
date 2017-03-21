@@ -169,7 +169,6 @@ public class LoginPage extends javax.swing.JFrame {
             int id = accessor.loginSQL(txtUser.getText(), String.valueOf(txtPassword.getPassword()));
             if ( id!= -1) {
                 MainPage main = new MainPage();
-                main.setLocation(this.getLocation());
                 this.setVisible(false);
                 main.setVisible(true);
                 txtPassword.removeAll();
@@ -185,7 +184,6 @@ public class LoginPage extends javax.swing.JFrame {
 
     private void jbForgetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbForgetActionPerformed
         ResetPassword resetPass = new ResetPassword();
-        resetPass.setLocation(this.getLocation());
         this.setVisible(false);
         resetPass.setVisible(true);
     }//GEN-LAST:event_jbForgetActionPerformed
