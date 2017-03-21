@@ -6,6 +6,11 @@
 package coffeshop;
 
 import java.awt.CardLayout;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -34,19 +39,20 @@ public class ResetPassword extends javax.swing.JFrame {
         jlPrompt = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         pnQuestion = new javax.swing.JPanel();
-        jtfSecurityQuestionAnswerTwo = new javax.swing.JTextField();
+        txtAnswer = new javax.swing.JTextField();
         jlSecQuestionOne = new javax.swing.JLabel();
         lblQuestion = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         btnSubmit = new javax.swing.JButton();
         pnPass = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
-        txtConfirm = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        txtNewPW = new javax.swing.JTextField();
         jbSubmit = new javax.swing.JButton();
+        txtPass1 = new javax.swing.JPasswordField();
+        txtPass2 = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Reset Password");
         getContentPane().setLayout(new java.awt.CardLayout());
 
         jlPrompt.setText("Username:");
@@ -117,7 +123,7 @@ public class ResetPassword extends javax.swing.JFrame {
                     .addGroup(pnQuestionLayout.createSequentialGroup()
                         .addGap(28, 28, 28)
                         .addGroup(pnQuestionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jtfSecurityQuestionAnswerTwo, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtAnswer, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lblQuestion, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(41, 41, 41))
         );
@@ -130,7 +136,7 @@ public class ResetPassword extends javax.swing.JFrame {
                     .addComponent(lblQuestion))
                 .addGap(10, 10, 10)
                 .addGroup(pnQuestionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jtfSecurityQuestionAnswerTwo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtAnswer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnSubmit)
@@ -162,11 +168,11 @@ public class ResetPassword extends javax.swing.JFrame {
                     .addComponent(jLabel3)
                     .addComponent(jLabel2))
                 .addGap(26, 26, 26)
-                .addGroup(pnPassLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(pnPassLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jbSubmit)
-                    .addComponent(txtNewPW, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtConfirm, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(69, Short.MAX_VALUE))
+                    .addComponent(txtPass1, javax.swing.GroupLayout.DEFAULT_SIZE, 121, Short.MAX_VALUE)
+                    .addComponent(txtPass2))
+                .addContainerGap(124, Short.MAX_VALUE))
         );
         pnPassLayout.setVerticalGroup(
             pnPassLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -174,11 +180,11 @@ public class ResetPassword extends javax.swing.JFrame {
                 .addContainerGap(32, Short.MAX_VALUE)
                 .addGroup(pnPassLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(txtNewPW, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtPass1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(pnPassLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(txtConfirm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtPass2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jbSubmit)
                 .addGap(21, 21, 21))
@@ -190,15 +196,63 @@ public class ResetPassword extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        showPanel("pnQuestion");
+        if (txtUsername.getText().length() != 0) {
+            accessor = new DBAccessor();
+            accessor.connectDB();
+            rsUser = accessor.getAccount(txtUsername.getText());
+            try {
+                if (rsUser.next()) {
+                    showPanel("pnQuestion");
+                    txtUsername.setText("");
+                    lblQuestion.setText(rsUser.getString(3));
+                } else {
+                    JOptionPane.showMessageDialog(null, "User not found", "Error", JOptionPane.PLAIN_MESSAGE);
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(ResetPassword.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+        } else {
+            JOptionPane.showMessageDialog(null, "Please enter an username", "No Input", JOptionPane.PLAIN_MESSAGE);
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void btnSubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubmitActionPerformed
-        showPanel("pnPassword");
+        if (txtAnswer.getText().length() != 0) {
+            try {
+                if (txtAnswer.getText().equals(rsUser.getString(4))) {
+                    txtAnswer.setText("");
+                    showPanel("pnPassword");
+                } else {
+                    JOptionPane.showMessageDialog(null, "Your answer is wrong. Please try again.", "Wrong answer", JOptionPane.PLAIN_MESSAGE);
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(ResetPassword.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Please enter an username", "No Input", JOptionPane.PLAIN_MESSAGE);
+        }
+
     }//GEN-LAST:event_btnSubmitActionPerformed
 
     private void jbSubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSubmitActionPerformed
-        // TODO add your handling code here:
+        if (txtPass1.getPassword().length != 0 & txtPass2.getPassword().length != 0) {
+            if (String.valueOf(txtPass1.getPassword()).equals(String.valueOf(txtPass2.getPassword()))) {
+                try {
+                    if (accessor.resetPassword(String.valueOf(txtPass1.getPassword()), rsUser.getString(1))) {
+                        JOptionPane.showMessageDialog(null, "Your password has been reset successfully!", "Password reset", JOptionPane.PLAIN_MESSAGE);
+                        txtPass1.removeAll();
+                        txtPass2.removeAll();
+                        rsUser.close();
+                        accessor.disconnect();
+                    } else JOptionPane.showMessageDialog(null, "Cannot reset your password.", "Error", JOptionPane.PLAIN_MESSAGE);
+                } catch (SQLException ex) {
+                    Logger.getLogger(ResetPassword.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "Passwords not match. Please try again.", "Password not match.", JOptionPane.PLAIN_MESSAGE);
+            }
+        } else JOptionPane.showMessageDialog(null, "Please enter your new password", "No Input", JOptionPane.PLAIN_MESSAGE);
     }//GEN-LAST:event_jbSubmitActionPerformed
 
     /**
@@ -235,10 +289,13 @@ public class ResetPassword extends javax.swing.JFrame {
             }
         });
     }
-    private void showPanel(String pnName){
+
+    private void showPanel(String pnName) {
         CardLayout layout = (CardLayout) getContentPane().getLayout();
-        layout.show(getContentPane(),pnName);
+        layout.show(getContentPane(), pnName);
     }
+    private ResultSet rsUser;
+    private DBAccessor accessor;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnSubmit;
     private javax.swing.JButton jButton1;
@@ -248,13 +305,13 @@ public class ResetPassword extends javax.swing.JFrame {
     private javax.swing.JButton jbSubmit;
     private javax.swing.JLabel jlPrompt;
     private javax.swing.JLabel jlSecQuestionOne;
-    private javax.swing.JTextField jtfSecurityQuestionAnswerTwo;
     private javax.swing.JLabel lblQuestion;
     private javax.swing.JPanel pnPass;
     private javax.swing.JPanel pnQuestion;
     private javax.swing.JPanel pnUser;
-    private javax.swing.JTextField txtConfirm;
-    private javax.swing.JTextField txtNewPW;
+    private javax.swing.JTextField txtAnswer;
+    private javax.swing.JPasswordField txtPass1;
+    private javax.swing.JPasswordField txtPass2;
     private javax.swing.JTextField txtUsername;
     // End of variables declaration//GEN-END:variables
 }

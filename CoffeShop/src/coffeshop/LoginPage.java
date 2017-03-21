@@ -161,7 +161,7 @@ public class LoginPage extends javax.swing.JFrame {
     
     private void jbLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbLoginActionPerformed
         // TODO add your handling code here:
-        if (!txtUser.getText().equals("") && txtPassword.getPassword().length !=0) {
+        if (txtUser.getText().length()!=0 && txtPassword.getPassword().length !=0) {
             DBAccessor login = new DBAccessor();
             login.connectDB();
             int manager = login.loginSQL(txtUser.getText(), String.valueOf(txtPassword.getPassword()));

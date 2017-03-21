@@ -25,7 +25,7 @@ public class DBAccessor {
     private final String USERNAME = "praykor";
     private final String PASSWORD = "1Password!";
     private Connection connection;
-
+    private ResultSet rs = null;
     public void connectDB() {
         try {
             connection = DriverManager.getConnection(DATABASE_URL, USERNAME, PASSWORD);
@@ -35,7 +35,7 @@ public class DBAccessor {
     }
 
     public int loginSQL(String user, String password) {
-        ResultSet rs = null;
+        rs = null;
         String st = "SELECT * FROM account, account_type WHERE account.acc_type = account_type.acc_type AND account.user =? AND account.password =?";
         PreparedStatement pst = null;
         try {
@@ -45,10 +45,49 @@ public class DBAccessor {
             rs = pst.executeQuery();
             if (rs.next()) {
                 return Integer.parseInt(rs.getString(5));
-            } else JOptionPane.showMessageDialog(null, "Invalid user or password", "Login failed", JOptionPane.PLAIN_MESSAGE);
+            } else JOptionPane.showMessageDialog(null, "Wrong user or password. Please try again.", "Login failed", JOptionPane.PLAIN_MESSAGE);
         } catch (SQLException ex) {
             Logger.getLogger(DBAccessor.class.getName()).log(Level.SEVERE, null, ex);
         }
         return -1;
+    }
+    public ResultSet getAccount(String user){
+        rs = null;
+        String st = "SELECT * FROM account WHERE account.user = ?";
+        PreparedStatement pst = null;
+        try{
+            pst = connection.prepareStatement(st);
+            pst.setString(1, user);
+            rs = pst.executeQuery();
+        }catch (SQLException ex) {
+            Logger.getLogger(DBAccessor.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return rs;
+    }
+    public Boolean resetPassword(String password, String user){
+        int result = 0;
+        String st = "UPDATE account SET account.password =? WHERE user =?";
+        PreparedStatement pst = null;
+        try{
+            pst = connection.prepareStatement(st);
+            pst.setString(1, password);
+            pst.setString(2, user);
+            result = pst.executeUpdate();
+            if (result >0) {
+                return true;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DBAccessor.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
+    public void disconnect(){
+        try {
+            rs.close();
+            connection.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(DBAccessor.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
     }
 }
