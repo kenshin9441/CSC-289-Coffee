@@ -462,7 +462,7 @@ public class PaymentPage extends javax.swing.JFrame {
             .addGroup(jpCashPaymentLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jpNumPad, javax.swing.GroupLayout.PREFERRED_SIZE, 333, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(14, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jpCashPaymentLayout.setVerticalGroup(
             jpCashPaymentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -687,12 +687,6 @@ public class PaymentPage extends javax.swing.JFrame {
 
         jbtnBitcoin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImageRes/bitcoin.png"))); // NOI18N
         jbtnBitcoin.setText("Bitcoin");
-        try {
-            Image img = ImageIO.read(getClass().getResource("/ImageRes/bitcoin.png"));
-            jbtnCash.setIcon(new ImageIcon(img));
-        } catch (Exception ex) {
-            System.out.println(ex);
-        }
         jbtnBitcoin.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jbtnBitcoin.setMaximumSize(new java.awt.Dimension(129, 48));
         jbtnBitcoin.setMinimumSize(new java.awt.Dimension(129, 48));
@@ -715,12 +709,6 @@ public class PaymentPage extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(3, 3, 3, 3);
         jpPaymentButtons.add(jbtnBitcoin, gridBagConstraints);
 
-        try {
-            Image img = ImageIO.read(getClass().getResource("/ImageRes/cash.png"));
-            jbtnCash.setIcon(new ImageIcon(img));
-        } catch (Exception ex) {
-            System.out.println(ex);
-        }
         jbtnCash.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImageRes/cash.png"))); // NOI18N
         jbtnCash.setText("Cash");
         jbtnCash.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -744,12 +732,6 @@ public class PaymentPage extends javax.swing.JFrame {
 
         jbtnGiftCard.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImageRes/giftcard.png"))); // NOI18N
         jbtnGiftCard.setText("Gift Card");
-        try {
-            Image img = ImageIO.read(getClass().getResource("/ImageRes/giftcard.png"));
-            jbtnCash.setIcon(new ImageIcon(img));
-        } catch (Exception ex) {
-            System.out.println(ex);
-        }
         jbtnGiftCard.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jbtnGiftCard.setMaximumSize(new java.awt.Dimension(129, 48));
         jbtnGiftCard.setMinimumSize(new java.awt.Dimension(129, 48));
@@ -770,12 +752,6 @@ public class PaymentPage extends javax.swing.JFrame {
 
         jbtnCreditCard.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImageRes/creditcard.png"))); // NOI18N
         jbtnCreditCard.setText("Credit/Debit Card");
-        try {
-            Image img = ImageIO.read(getClass().getResource("/ImageRes/creditcard.png"));
-            jbtnCash.setIcon(new ImageIcon(img));
-        } catch (Exception ex) {
-            System.out.println(ex);
-        }
         jbtnCreditCard.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jbtnCreditCard.setMaximumSize(new java.awt.Dimension(187, 48));
         jbtnCreditCard.setMinimumSize(new java.awt.Dimension(187, 48));
@@ -824,6 +800,8 @@ public class PaymentPage extends javax.swing.JFrame {
         jpOptionButtons.add(jbtnCancel, gridBagConstraints);
 
         jbtnEditOrder.setText("Edit Order");
+        jbtnEditOrder.setMaximumSize(new java.awt.Dimension(81, 25));
+        jbtnEditOrder.setMinimumSize(new java.awt.Dimension(81, 25));
         jbtnEditOrder.setPreferredSize(new java.awt.Dimension(80, 23));
         jbtnEditOrder.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -853,6 +831,7 @@ public class PaymentPage extends javax.swing.JFrame {
         jpOptionButtons.add(jbtnSplitCheck, gridBagConstraints);
 
         jbtnPromo.setText("Promo");
+        jbtnPromo.setMaximumSize(new java.awt.Dimension(81, 23));
         jbtnPromo.setMinimumSize(new java.awt.Dimension(81, 23));
         jbtnPromo.setPreferredSize(new java.awt.Dimension(80, 23));
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -1171,7 +1150,7 @@ public class PaymentPage extends javax.swing.JFrame {
         CardLayout layout = (CardLayout) jpPaymentControls.getLayout();
         layout.show(jpPaymentControls, pnName);
     }
-    private ImageIcon icon1 = new ImageIcon("src/ImageRes/cash.png");
+  private ImageIcon icon1 = new ImageIcon("src/ImageRes/cash.png");
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
