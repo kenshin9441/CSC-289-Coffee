@@ -16,21 +16,32 @@ public class Button extends JButton{
     private String name;
     private String des;
     private double price;
-    private static int qty;
+    private int qty = 0;
+    private Item item;
     public Button(int ID, String name, String des, double price) {
         this.ID = ID;
         this.name = name;
         this.des = des;
         this.price = price;
+        item = new Item(ID, name, this.price);
+    }
+
+    public Item getItem() {
+        return item;
+    }
+
+    public void setItem(Item item) {
+        this.item = item;
     }
 
     
-    public static int getQty() {
+    public int getQty() {
         return qty;
     }
 
-    public static void setQty(int qty) {
-        Button.qty = qty;
+    public void setQty(int qtyy) {
+        qty = qtyy;
+        item.changeQty(qty);
     }
     
     public int getID() {
@@ -63,6 +74,10 @@ public class Button extends JButton{
 
     public void setPrice(double price) {
         this.price = price;
+    }
+
+    void addActionListener() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }

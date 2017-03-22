@@ -5,18 +5,23 @@
  */
 package coffeshop;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.table.AbstractTableModel;
 
 /**
  *
  * @author praykor
  */
 public class MainPage extends javax.swing.JFrame {
+
+    
     
     /**
      * Creates new form MainPage
@@ -107,17 +112,7 @@ public class MainPage extends javax.swing.JFrame {
         jPanel1.setLayout(new java.awt.GridLayout(5, 5, 5, 5));
 
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 422, Short.MAX_VALUE)
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 412, Short.MAX_VALUE)
-        );
+        jPanel2.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -127,19 +122,19 @@ public class MainPage extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 759, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(621, 621, 621)
-                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addGap(63, 63, 63)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 499, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(67, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jpMainMenu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(0, 345, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 416, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 512, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 161, Short.MAX_VALUE))
         );
 
         pack();
@@ -156,11 +151,18 @@ public class MainPage extends javax.swing.JFrame {
             ResultSet rsProduct = null;
             rsProduct = accessor.getProduct();
             products = new ArrayList<>();
+            //items = new ArrayList<>();
             while (rsProduct.next()){
                 products.add(new Button(rsProduct.getInt(1), rsProduct.getString(2), rsProduct.getString(3), rsProduct.getDouble(4)));
             }
             for (Button i : products){
+                //items.add(new Item(i.getID(), i.getName(), i.getPrice()));
                 i.setText(i.getName());
+                i.addActionListener((ActionEvent ae) -> {
+                    i.setQty(i.getQty()+1);
+                    reloadOrder();
+                });
+                
                 jPanel1.add(i);
             }
             accessor.disconnect();
@@ -168,11 +170,18 @@ public class MainPage extends javax.swing.JFrame {
             Logger.getLogger(MainPage.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_formWindowOpened
-    
+    public void reloadOrder(){
+        for (Button i : products){
+            if (i.getItem().getQty() != 0) {
+                jPanel2.add(i.getItem());
+            }
+        }
+    }
     PaymentPage payment = new PaymentPage();
     /**
      * @param args the command line arguments
      */
+    //List<Item> items;
     List<Button> products;
     private ResultSet rsMan = null;
     // Variables declaration - do not modify//GEN-BEGIN:variables
