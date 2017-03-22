@@ -39,9 +39,10 @@ public class MainPage extends javax.swing.JFrame {
 
         jpMainMenu = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
+        btnNotification = new javax.swing.JButton();
         btnLogout = new javax.swing.JButton();
-        btnHelp = new javax.swing.JButton();
         txtManager = new javax.swing.JLabel();
+        btnInfo = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
 
@@ -60,12 +61,14 @@ public class MainPage extends javax.swing.JFrame {
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImageRes/small-logo.png"))); // NOI18N
         jLabel1.setText("jLabel1");
 
-        btnLogout.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImageRes/information-outline.png"))); // NOI18N
+        btnNotification.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImageRes/ic_notifications_none_black_48dp_1x.png"))); // NOI18N
 
-        btnHelp.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImageRes/logout-variant.png"))); // NOI18N
+        btnLogout.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImageRes/logout-variant.png"))); // NOI18N
 
         txtManager.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         txtManager.setText("Manager");
+
+        btnInfo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImageRes/information-outline.png"))); // NOI18N
 
         javax.swing.GroupLayout jpMainMenuLayout = new javax.swing.GroupLayout(jpMainMenu);
         jpMainMenu.setLayout(jpMainMenuLayout);
@@ -76,10 +79,12 @@ public class MainPage extends javax.swing.JFrame {
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(txtManager)
-                .addGap(73, 73, 73)
+                .addGap(160, 160, 160)
+                .addComponent(btnNotification)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnInfo)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnLogout)
-                .addGap(18, 18, 18)
-                .addComponent(btnHelp)
                 .addContainerGap())
         );
         jpMainMenuLayout.setVerticalGroup(
@@ -87,15 +92,16 @@ public class MainPage extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpMainMenuLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jpMainMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnNotification, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnLogout, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnHelp, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jpMainMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel1)
-                        .addComponent(txtManager)))
+                        .addComponent(txtManager))
+                    .addComponent(btnInfo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
-        btnLogout.getAccessibleContext().setAccessibleDescription("");
+        btnNotification.getAccessibleContext().setAccessibleDescription("");
 
         jPanel1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jPanel1.setLayout(new java.awt.GridLayout(5, 5, 5, 5));
@@ -170,8 +176,9 @@ public class MainPage extends javax.swing.JFrame {
     List<Button> products;
     private ResultSet rsMan = null;
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnHelp;
+    private javax.swing.JButton btnInfo;
     private javax.swing.JButton btnLogout;
+    private javax.swing.JButton btnNotification;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;

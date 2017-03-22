@@ -16,7 +16,7 @@ public class Button extends JButton{
     private String name;
     private String des;
     private double price;
-
+    private static int qty;
     public Button(int ID, String name, String des, double price) {
         this.ID = ID;
         this.name = name;
@@ -24,6 +24,15 @@ public class Button extends JButton{
         this.price = price;
     }
 
+    
+    public static int getQty() {
+        return qty;
+    }
+
+    public static void setQty(int qty) {
+        Button.qty = qty;
+    }
+    
     public int getID() {
         return ID;
     }
