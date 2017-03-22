@@ -10,6 +10,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -93,6 +94,17 @@ public class DBAccessor {
             Logger.getLogger(DBAccessor.class.getName()).log(Level.SEVERE, null, ex);
         }
         return false;
+    }
+    public ResultSet getProduct(){
+        ResultSet rs = null;
+        String st = "SELECT * FROM product";
+        try {
+            Statement stm = connection.createStatement();
+            rs = stm.executeQuery(st);
+        } catch (SQLException ex) {
+            Logger.getLogger(DBAccessor.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return rs;
     }
     public void disconnect(){
         try {
