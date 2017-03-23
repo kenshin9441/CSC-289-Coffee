@@ -106,6 +106,17 @@ public class DBAccessor {
         }
         return rs;
     }
+    public ResultSet getPromo(){
+        ResultSet rs = null;
+        String st = "SELECT * FROM promo_cd WHERE promo_availability = 1";
+        try {
+            Statement stm = connection.createStatement();
+            rs = stm.executeQuery(st);
+        } catch (SQLException ex) {
+            Logger.getLogger(DBAccessor.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return rs;
+    }
     public void disconnect(){
         try {
             connection.close();
