@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.SwingConstants;
 
 /**
  *
@@ -281,8 +282,8 @@ public class MainPage extends javax.swing.JFrame {
                 products.add(new Button(rsProduct.getInt(1), rsProduct.getString(2), rsProduct.getString(3), rsProduct.getDouble(4)));
             }
             for (Button i : products) {
-                //items.add(new Item(i.getID(), i.getName(), i.getPrice()));
-                i.setText(i.getName());
+                i.setText("<html><center><b>"+i.getName()+"<p><font color='red'>$"+i.getPrice()+"</font></p></b></center>");
+                
                 i.addActionListener((ActionEvent ae) -> {
                     i.setQty(i.getQty() + 1);
                     reloadOrder();

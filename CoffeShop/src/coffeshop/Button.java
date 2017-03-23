@@ -76,8 +76,6 @@ public class Button extends JButton{
         this.price = price;
     }
 
-    void addActionListener() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+    
     
 }
