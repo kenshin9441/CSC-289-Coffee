@@ -174,6 +174,8 @@ public class MainPage extends javax.swing.JFrame {
         for (Button i : products){
             if (i.getItem().getQty() != 0) {
                 jPanel2.add(i.getItem());
+                jPanel2.revalidate();
+                jPanel2.repaint();
             }
         }
     }

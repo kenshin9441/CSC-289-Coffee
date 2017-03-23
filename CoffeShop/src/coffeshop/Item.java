@@ -38,8 +38,11 @@ public class Item extends javax.swing.JPanel {
         return Qty;
     }
 
-    public void setQty(int Qty) {
-        this.Qty = Qty;
+    public void setQty(int newQty) {
+        Qty = newQty;
+        totalPrice = Qty * Price;
+        lblQty.setText(String.valueOf(Qty));
+        lblPrice.setText(String.valueOf(totalPrice));
     }
 
     public double getTotalPrice() {
@@ -50,12 +53,7 @@ public class Item extends javax.swing.JPanel {
         this.totalPrice = totalPrice;
     }
     
-    public void changeQty(int newQty){
-        Qty = newQty;
-        totalPrice = Qty * Price;
-        lblQty.setText(String.valueOf(Qty));
-        lblPrice.setText(String.valueOf(totalPrice));
-    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
