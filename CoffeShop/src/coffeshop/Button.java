@@ -41,7 +41,7 @@ public class Button extends JButton{
 
     public void setQty(int qtyy) {
         qty = qtyy;
-        item.changeQty(qty);
+        item.setQty(qty);
     }
     
     public int getID() {

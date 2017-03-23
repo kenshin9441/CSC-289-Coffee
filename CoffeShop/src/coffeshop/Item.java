@@ -5,6 +5,9 @@
  */
 package coffeshop;
 
+import java.awt.Container;
+import javax.swing.JButton;
+
 /**
  *
  * @author Ghin
@@ -52,8 +55,7 @@ public class Item extends javax.swing.JPanel {
     public void setTotalPrice(double totalPrice) {
         this.totalPrice = totalPrice;
     }
-    
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -68,6 +70,8 @@ public class Item extends javax.swing.JPanel {
         lblQty = new javax.swing.JLabel();
         lblPrice = new javax.swing.JLabel();
         btnRemove = new javax.swing.JButton();
+
+        setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         lblID.setText("ID");
 
@@ -112,6 +116,14 @@ public class Item extends javax.swing.JPanel {
     private int Qty;
     private double totalPrice;
     private double Price;
+
+    public JButton getBtnRemove() {
+        return btnRemove;
+    }
+
+    public void setBtnRemove(JButton btnRemove) {
+        this.btnRemove = btnRemove;
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnRemove;
