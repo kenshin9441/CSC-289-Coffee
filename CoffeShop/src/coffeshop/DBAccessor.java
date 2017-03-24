@@ -37,7 +37,7 @@ public class DBAccessor {
 
     public int loginSQL(String user, String password) {
         ResultSet rs = null;
-        String st = "SELECT * FROM account, account_type WHERE account.acc_type = account_type.acc_type AND account.user =? AND account.password =?";
+        String st = "SELECT * FROM account, account_type WHERE account.acc_type = 'MAN' AND account.user =? AND account.password =?";
         PreparedStatement pst = null;
         try {
             pst = connection.prepareStatement(st);
