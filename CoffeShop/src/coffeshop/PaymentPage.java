@@ -8,6 +8,7 @@ package coffeshop;
 import javax.swing.ImageIcon;
 import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
+
 import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Image;
@@ -26,11 +27,12 @@ public class PaymentPage extends javax.swing.JFrame {
     private double promoAmt;
     private double gcBalance;
     private double totalAmtPaid;
+    private double paymentAmt;
     private double totalAmt;
     private double subTotalAmt;
     private double taxAmt;
-    private double btcAmt;  
-    private boolean coupon; 
+    private double btcAmt;
+    private boolean coupon;
 
     public PaymentPage() {
         initComponents();
@@ -69,6 +71,10 @@ public class PaymentPage extends javax.swing.JFrame {
         jlblTaxAmt = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jlblTotalAmt = new javax.swing.JLabel();
+        jpSplitCheck = new javax.swing.JPanel();
+        jtfTotalSplit = new javax.swing.JTextField();
+        jcbSplit = new javax.swing.JComboBox<>();
+        jLabel3 = new javax.swing.JLabel();
         jpPaymentControls = new javax.swing.JPanel();
         jpCashPayment = new javax.swing.JPanel();
         jpNumPad = new javax.swing.JPanel();
@@ -125,7 +131,6 @@ public class PaymentPage extends javax.swing.JFrame {
         jbtnCancel = new javax.swing.JButton();
         jbtnEditOrder = new javax.swing.JButton();
         jbtnSplitCheck = new javax.swing.JButton();
-        jbtnPromo = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -160,29 +165,66 @@ public class PaymentPage extends javax.swing.JFrame {
         jlblTotalAmt.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jlblTotalAmt.setText("0.00");
 
+        jpSplitCheck.setVisible(false);
+
+        jcbSplit.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "2", "3", "4", "5" }));
+        jcbSplit.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jcbSplitItemStateChanged(evt);
+            }
+        });
+        jcbSplit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jcbSplitActionPerformed(evt);
+            }
+        });
+
+        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel3.setText("Split");
+
+        javax.swing.GroupLayout jpSplitCheckLayout = new javax.swing.GroupLayout(jpSplitCheck);
+        jpSplitCheck.setLayout(jpSplitCheckLayout);
+        jpSplitCheckLayout.setHorizontalGroup(
+            jpSplitCheckLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpSplitCheckLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jcbSplit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jtfTotalSplit, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+        jpSplitCheckLayout.setVerticalGroup(
+            jpSplitCheckLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jpSplitCheckLayout.createSequentialGroup()
+                .addGroup(jpSplitCheckLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jtfTotalSplit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jcbSplit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 22, Short.MAX_VALUE))
+                .addGap(0, 11, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout jpTotalsLayout = new javax.swing.GroupLayout(jpTotals);
         jpTotals.setLayout(jpTotalsLayout);
         jpTotalsLayout.setHorizontalGroup(
             jpTotalsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jpTotalsLayout.createSequentialGroup()
-                .addContainerGap(148, Short.MAX_VALUE)
-                .addGroup(jpTotalsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpTotalsLayout.createSequentialGroup()
-                        .addComponent(jLabel4)
-                        .addGap(18, 18, 18)
-                        .addComponent(jlblTotalAmt))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpTotalsLayout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(18, 18, 18)
-                        .addComponent(jlblSubTotalAmt))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpTotalsLayout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addGap(18, 18, 18)
-                        .addComponent(jlblPromo))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpTotalsLayout.createSequentialGroup()
-                        .addComponent(jlblTax)
-                        .addGap(18, 18, 18)
-                        .addComponent(jlblTaxAmt)))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpTotalsLayout.createSequentialGroup()
+                .addGap(43, 43, 43)
+                .addGroup(jpTotalsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jpSplitCheck, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jpTotalsLayout.createSequentialGroup()
+                        .addGap(0, 36, Short.MAX_VALUE)
+                        .addGroup(jpTotalsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel2)
+                            .addComponent(jlblTax)
+                            .addComponent(jLabel4))
+                        .addGap(34, 34, 34)
+                        .addGroup(jpTotalsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jlblTotalAmt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jlblTaxAmt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jlblPromo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jlblSubTotalAmt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap())
         );
         jpTotalsLayout.setVerticalGroup(
@@ -204,7 +246,8 @@ public class PaymentPage extends javax.swing.JFrame {
                 .addGroup(jpTotalsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jlblTotalAmt)
                     .addComponent(jLabel4))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jpSplitCheck, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         jpPaymentControls.setLayout(new java.awt.CardLayout());
@@ -464,11 +507,12 @@ public class PaymentPage extends javax.swing.JFrame {
         gridBagConstraints.gridheight = 2;
         jpNumPad.add(jbtnClear, gridBagConstraints);
 
+        jtfNumPad.setEditable(false);
         jtfNumPad.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jtfNumPad.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jtfNumPad.setText("0.00");
         jtfNumPad.setMargin(new java.awt.Insets(2, 2, 2, 10));
-        jtfNumPad.setPreferredSize(new java.awt.Dimension(259, 34));
+        jtfNumPad.setPreferredSize(new java.awt.Dimension(282, 34));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridy = 0;
         gridBagConstraints.gridwidth = 4;
@@ -482,7 +526,7 @@ public class PaymentPage extends javax.swing.JFrame {
             .addGroup(jpCashPaymentLayout.createSequentialGroup()
                 .addGap(46, 46, 46)
                 .addComponent(jpNumPad, javax.swing.GroupLayout.PREFERRED_SIZE, 333, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(48, Short.MAX_VALUE))
+                .addContainerGap(19, Short.MAX_VALUE))
         );
         jpCashPaymentLayout.setVerticalGroup(
             jpCashPaymentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -853,6 +897,11 @@ public class PaymentPage extends javax.swing.JFrame {
         jbtnSplitCheck.setMaximumSize(new java.awt.Dimension(81, 23));
         jbtnSplitCheck.setMinimumSize(new java.awt.Dimension(81, 23));
         jbtnSplitCheck.setPreferredSize(new java.awt.Dimension(81, 23));
+        jbtnSplitCheck.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtnSplitCheckActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 2;
@@ -861,24 +910,6 @@ public class PaymentPage extends javax.swing.JFrame {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(0, 12, 0, 12);
         jpOptionButtons.add(jbtnSplitCheck, gridBagConstraints);
-
-        jbtnPromo.setText("Promo");
-        jbtnPromo.setMaximumSize(new java.awt.Dimension(81, 23));
-        jbtnPromo.setMinimumSize(new java.awt.Dimension(81, 23));
-        jbtnPromo.setPreferredSize(new java.awt.Dimension(80, 23));
-        jbtnPromo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbtnPromoActionPerformed(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.ipadx = 41;
-        gridBagConstraints.ipady = 37;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(0, 12, 0, 12);
-        jpOptionButtons.add(jbtnPromo, gridBagConstraints);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -895,38 +926,37 @@ public class PaymentPage extends javax.swing.JFrame {
                                 .addContainerGap()
                                 .addComponent(jpPaymentControls, javax.swing.GroupLayout.PREFERRED_SIZE, 431, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jpTotals, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addComponent(jpOptionButtons, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(421, 421, 421)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jbtnPay, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jpCash, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(jpCash, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jbtnPay, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
+                .addComponent(jpOptionButtons, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 20, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addGap(27, 27, 27)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jpOptionButtons, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jpTotals, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jpOptionButtons, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 214, Short.MAX_VALUE))
+                        .addGap(18, 18, 18)
+                        .addComponent(jpTotals, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(18, 18, 18)
                         .addComponent(jpPaymentButtons, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(32, 32, 32)
-                        .addComponent(jpPaymentControls, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
-                .addComponent(jbtnPay, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, Short.MAX_VALUE)
+                        .addComponent(jpPaymentControls, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(33, 33, 33)
+                        .addComponent(jbtnPay, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(18, 27, Short.MAX_VALUE)
                 .addComponent(jpCash, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -1058,9 +1088,16 @@ public class PaymentPage extends javax.swing.JFrame {
     private void jbtnPayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnPayActionPerformed
         boolean paid = false;
         String newTotal;
-        double paymentAmt;
         double change = 0;
+        totalAmtPaid = 0;
         totalAmt = Double.parseDouble(jlblTotalAmt.getText());
+
+        if (jpSplitCheck.isVisible() == true) {
+            paymentAmt = Double.parseDouble(jtfTotalSplit.getText());
+        } else {
+            paymentAmt = totalAmt;
+        }
+
         invoice = String.format("%s%nTotal.............................$%s", jtaOrderItems.getText(), jlblTotalAmt.getText());
         switch (paymentType) {
             case 2:
@@ -1073,39 +1110,57 @@ public class PaymentPage extends javax.swing.JFrame {
                     invoice += String.format("\n Change:                 %.2f", change);
                     paid = true;
                 } else {
-
                     totalAmt -= paymentAmt;
                     newTotal = String.format("%.2f", totalAmt);
                     jlblTotalAmt.setText(newTotal);
                 }
                 break;
 
-            case 3:
+            case 3: //bitcoin... see case 6
                 String output = String.format("Please scan code or \nSend %.5f BTC \nto %s", btcAmt, btcAddress);
                 JOptionPane.showMessageDialog(null, output);
                 break;
-            case 4:
-                
-                if (jradCredit.isSelected()){
-                invoice += String.format("\n Amount Applied:         $%s", jlblTotalAmt.getText());
-                invoice += String.format("\n Change:                 $%0.00");
+            case 4: //credit card
+                    if (jradCredit.isSelected()) {  
+                    totalAmtPaid += paymentAmt;
+                    change = paymentAmt - totalAmt;
+                    if (change >= 0) {     
+                    invoice += String.format("\n Amount Applied:         $%s", jlblTotalAmt.getText());
+                    invoice += String.format("\n Change:                 $0.00");
+                    paid = true;
                 } else {
-                   inputPIN = Integer.parseInt(JOptionPane.showInputDialog("Enter PIN"));
-                   //check to make sure inputPIN matches actual PIN
+                    totalAmt -= paymentAmt;
+                    newTotal = String.format("%.2f", totalAmt);
+                    jlblTotalAmt.setText(newTotal);
                 }
+                    }else {
+                    inputPIN = Integer.parseInt(JOptionPane.showInputDialog("Enter PIN"));
+                    //check to make sure inputPIN matches actual PIN
+                    totalAmtPaid += paymentAmt;
+                    change = paymentAmt - totalAmt;
+                    if (change >= 0) {     
+                    invoice += String.format("\n Amount Applied:         $%s", jlblTotalAmt.getText());
+                    invoice += String.format("\n Change:                 $0.00");
+                    paid = true;
+                    }
+                    
+                      }
                 
+                
+              
+
                 //credit card
                 break;
-            case 5:
-                
-                paymentAmt = gcBalance;
-                change = paymentAmt - totalAmt;
+            case 5: //gift card
+                paymentAmt = totalAmt;
+                change = gcBalance - totalAmt;
                 invoice += String.format("\n GC Applied:         $%s", jlblTotalAmt.getText());
                 invoice += String.format("\n Remaining Balance:                 $%.2f", change);
                 paid = true;
                 break;
-                
+
             case 6: //bitcoin OK button or Scan pressed
+                
                 invoice += String.format("\n BTC Received                  %.7f", btcAmt);
                 invoice += String.format("\n USD Applied                     %.2f", totalAmt);
                 paid = true;
@@ -1162,39 +1217,46 @@ public class PaymentPage extends javax.swing.JFrame {
     }//GEN-LAST:event_jbtnCreditCardMousePressed
 
     private void jbtnScanCodeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnScanCodeActionPerformed
-       paymentType = 6;
-       jbtnPayActionPerformed(evt);
+        paymentType = 6;
+        jbtnPayActionPerformed(evt);
 
     }//GEN-LAST:event_jbtnScanCodeActionPerformed
 
-    private void jbtnPromoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnPromoActionPerformed
-        if (coupon) {
-            JOptionPane.showMessageDialog(null, "Only 1 coupon per purchase");
-        } else {
-            int promoOption = Integer.parseInt(JOptionPane.showInputDialog("Enter Coupon Code"));
-            switch (promoOption) {
-                case 1:
-                    promoAmt = 1;
-                    break;
-                case 2:
-                    promoAmt = 2;
-                    break;
-                case 3:
-                    promoAmt = 3;
-                    break;
-            }
+    private void jcbSplitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbSplitActionPerformed
 
-            if ((totalAmt - promoAmt >= 0)) { //ensure value of total price is not negative
-                totalAmt -= promoAmt;
-            } else {
-                totalAmt = 0;
-            }
-            coupon = true;
-            jlblPromo.setText(String.format("%.2f", promoAmt));
-            jlblTotalAmt.setText(String.format("%.2f", totalAmt));
+        int selection = jcbSplit.getSelectedIndex();
+    }//GEN-LAST:event_jcbSplitActionPerformed
+
+    private void jcbSplitItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jcbSplitItemStateChanged
+int selection = 0;
+        if (evt.getStateChange() == java.awt.event.ItemEvent.SELECTED){
+       selection = jcbSplit.getSelectedIndex();
+ }
+       
+        switch (selection) {
+            case 0:
+                paymentAmt = totalAmt / 2;
+                break;
+            case 1:
+                paymentAmt = totalAmt / 3;
+                break;
+            case 2:
+                paymentAmt = totalAmt / 4;
+                break;
+            case 3:
+                paymentAmt = totalAmt / 5;
+                break;
         }
+        jtfTotalSplit.setText(String.format("%.2f", paymentAmt));
 
-    }//GEN-LAST:event_jbtnPromoActionPerformed
+
+    }//GEN-LAST:event_jcbSplitItemStateChanged
+
+    private void jbtnSplitCheckActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnSplitCheckActionPerformed
+        jpSplitCheck.setVisible(true);
+        paymentAmt = totalAmt / 2;
+        jtfTotalSplit.setText(String.format("%.2f", paymentAmt));
+    }//GEN-LAST:event_jbtnSplitCheckActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1248,6 +1310,7 @@ public class PaymentPage extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
@@ -1279,10 +1342,10 @@ public class PaymentPage extends javax.swing.JFrame {
     private javax.swing.JButton jbtnNumAmtExact;
     private javax.swing.JButton jbtnNumDot;
     private javax.swing.JButton jbtnPay;
-    private javax.swing.JButton jbtnPromo;
     private javax.swing.JButton jbtnScanCode;
     private javax.swing.JButton jbtnSendBTC;
     private javax.swing.JButton jbtnSplitCheck;
+    private javax.swing.JComboBox<String> jcbSplit;
     private javax.swing.JLabel jlblCardNum;
     private javax.swing.JLabel jlblGiftCardNum;
     private javax.swing.JLabel jlblPromo;
@@ -1300,6 +1363,7 @@ public class PaymentPage extends javax.swing.JFrame {
     private javax.swing.JPanel jpOptionButtons;
     private javax.swing.JPanel jpPaymentButtons;
     private javax.swing.JPanel jpPaymentControls;
+    private javax.swing.JPanel jpSplitCheck;
     private javax.swing.JPanel jpTotals;
     private javax.swing.JRadioButton jradCredit;
     private javax.swing.JRadioButton jradDebit;
@@ -1308,5 +1372,6 @@ public class PaymentPage extends javax.swing.JFrame {
     private javax.swing.JTextField jtfCardNum;
     private javax.swing.JTextField jtfGiftCardNum;
     private javax.swing.JTextField jtfNumPad;
+    private javax.swing.JTextField jtfTotalSplit;
     // End of variables declaration//GEN-END:variables
 }
