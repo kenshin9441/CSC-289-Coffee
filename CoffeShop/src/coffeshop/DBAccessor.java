@@ -108,7 +108,7 @@ public class DBAccessor {
     }
     public ResultSet getPromo(){
         ResultSet rs = null;
-        String st = "SELECT * FROM promo_cd WHERE promo_availability = 1";
+        String st = "SELECT promo_cd, discount_amount FROM promo_cd WHERE promo_availability = 1";
         try {
             Statement stm = connection.createStatement();
             rs = stm.executeQuery(st);

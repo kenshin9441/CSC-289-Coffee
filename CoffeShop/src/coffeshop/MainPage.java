@@ -11,7 +11,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.SwingConstants;
@@ -56,6 +59,8 @@ public class MainPage extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
+        jLabel7 = new javax.swing.JLabel();
+        lblPromo = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         lblSubtotal = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
@@ -65,6 +70,7 @@ public class MainPage extends javax.swing.JFrame {
         jPanel4 = new javax.swing.JPanel();
         jLabel12 = new javax.swing.JLabel();
         cboPromo = new javax.swing.JComboBox<>();
+        btnResetPromo = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Sales");
@@ -86,7 +92,7 @@ public class MainPage extends javax.swing.JFrame {
         btnLogout.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImageRes/logout-variant.png"))); // NOI18N
 
         txtManager.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        txtManager.setText("Manager");
+        txtManager.setText("User");
 
         btnInfo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImageRes/information-outline.png"))); // NOI18N
 
@@ -127,7 +133,7 @@ public class MainPage extends javax.swing.JFrame {
         jPanel1.setLayout(new java.awt.GridLayout(5, 5, 5, 5));
 
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        jPanel2.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 5, 0));
+        jPanel2.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         jPanel3.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
@@ -170,7 +176,16 @@ public class MainPage extends javax.swing.JFrame {
         jPanel2.add(jPanel3);
 
         jPanel5.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        jPanel5.setLayout(new java.awt.GridLayout(3, 2, 10, 10));
+        jPanel5.setLayout(new java.awt.GridLayout(4, 2, 10, 10));
+
+        jLabel7.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
+        jLabel7.setText("Discount:");
+        jPanel5.add(jLabel7);
+
+        lblPromo.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        lblPromo.setText("0.00");
+        jPanel5.add(lblPromo);
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
@@ -201,9 +216,22 @@ public class MainPage extends javax.swing.JFrame {
 
         jPanel4.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
+        jLabel12.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel12.setText("Promotion");
 
         cboPromo.setToolTipText("None");
+        cboPromo.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cboPromoItemStateChanged(evt);
+            }
+        });
+
+        btnResetPromo.setText("Clear");
+        btnResetPromo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnResetPromoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -212,9 +240,11 @@ public class MainPage extends javax.swing.JFrame {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGap(20, 20, 20)
                 .addComponent(jLabel12)
-                .addGap(37, 37, 37)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(cboPromo, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(62, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnResetPromo, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(20, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -222,8 +252,9 @@ public class MainPage extends javax.swing.JFrame {
                 .addContainerGap(34, Short.MAX_VALUE)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel12)
-                    .addComponent(cboPromo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(30, 30, 30))
+                    .addComponent(cboPromo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnResetPromo))
+                .addGap(28, 28, 28))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -282,8 +313,8 @@ public class MainPage extends javax.swing.JFrame {
                 products.add(new Button(rsProduct.getInt(1), rsProduct.getString(2), rsProduct.getString(3), rsProduct.getDouble(4)));
             }
             for (Button i : products) {
-                i.setText("<html><center><b>"+i.getName()+"<p><font color='red'>$"+i.getPrice()+"</font></p></b></center>");
-                
+                i.setText("<html><center><b>" + i.getName() + "<p><font color='red'>$" + i.getPrice() + "</font></p></b></center>");
+
                 i.addActionListener((ActionEvent ae) -> {
                     i.setQty(i.getQty() + 1);
                     reloadOrder();
@@ -302,12 +333,38 @@ public class MainPage extends javax.swing.JFrame {
             }
             ResultSet rsPromo = null;
             rsPromo = accessor.getPromo();
-            
+            promoMap = new HashMap<>();
+            while (rsPromo.next()) {
+                promoMap.put(rsPromo.getString(1), rsPromo.getDouble(2));
+            }
+
+            for (Entry e : promoMap.entrySet()) {
+                cboPromo.addItem(e.getKey().toString());
+            }
+            cboPromo.setSelectedIndex(-1);
             accessor.disconnect();
         } catch (SQLException ex) {
             Logger.getLogger(MainPage.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_formWindowOpened
+
+    private void btnResetPromoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResetPromoActionPerformed
+        cboPromo.setSelectedIndex(-1);
+        promo = 0;
+        lblPromo.setText(String.valueOf(promo));
+        calculateTotal();
+    }//GEN-LAST:event_btnResetPromoActionPerformed
+
+    private void cboPromoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cboPromoItemStateChanged
+        if (promoMap.containsKey(cboPromo.getSelectedItem())) {
+            promo = promoMap.get(cboPromo.getSelectedItem());
+            calculateTotal();
+        } else {
+            promo = 0;
+            calculateTotal();
+        }
+
+    }//GEN-LAST:event_cboPromoItemStateChanged
     public void calculateTotal() {
         subtotal = 0;
         tax = 0;
@@ -315,9 +372,13 @@ public class MainPage extends javax.swing.JFrame {
         for (Button i : products) {
             subtotal += i.getItem().getTotalPrice();
         }
+        if (promo> subtotal) {
+            promo=subtotal;
+        }
         subtotal -= promo;
         tax = Double.parseDouble(df.format(subtotal * TAX_RATE));
         total = subtotal + tax;
+        lblPromo.setText(String.valueOf(promo));
         lblSubtotal.setText(String.valueOf(subtotal));
         lblTax.setText(String.valueOf(tax));
         lblTotal.setText(String.valueOf(total));
@@ -343,12 +404,13 @@ public class MainPage extends javax.swing.JFrame {
     private double tax = 0;
     private double total = 0;
     List<Button> products;
-    
+    Map<String, Double> promoMap;
     private ResultSet rsMan = null;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnInfo;
     private javax.swing.JButton btnLogout;
     private javax.swing.JButton btnNotification;
+    private javax.swing.JButton btnResetPromo;
     private javax.swing.JComboBox<String> cboPromo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -358,6 +420,7 @@ public class MainPage extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
@@ -365,6 +428,7 @@ public class MainPage extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jpMainMenu;
+    private javax.swing.JLabel lblPromo;
     private javax.swing.JLabel lblSubtotal;
     private javax.swing.JLabel lblTax;
     private javax.swing.JLabel lblTotal;
