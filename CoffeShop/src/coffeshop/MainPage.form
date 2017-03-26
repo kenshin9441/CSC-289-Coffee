@@ -95,7 +95,7 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="jLabel1" min="-2" pref="137" max="-2" attributes="0"/>
-                  <EmptySpace pref="514" max="32767" attributes="0"/>
+                  <EmptySpace pref="518" max="32767" attributes="0"/>
                   <Component id="txtManager" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="160" max="-2" attributes="0"/>
                   <Component id="btnNotification" min="-2" max="-2" attributes="0"/>
@@ -346,6 +346,9 @@
           <Image iconType="3" name="/ImageRes/ic_payment_black_48dp_1x.png"/>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnPayActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btnCancel">
       <Properties>
@@ -353,6 +356,9 @@
           <Image iconType="3" name="/ImageRes/ic_cancel_black_48dp_1x.png"/>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCancelActionPerformed"/>
+      </Events>
     </Component>
     <Container class="javax.swing.JScrollPane" name="jScrollPane1">
       <Properties>

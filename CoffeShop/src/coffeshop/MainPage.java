@@ -104,7 +104,7 @@ public class MainPage extends javax.swing.JFrame {
             .addGroup(jpMainMenuLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 514, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 518, Short.MAX_VALUE)
                 .addComponent(txtManager)
                 .addGap(160, 160, 160)
                 .addComponent(btnNotification)
@@ -216,8 +216,18 @@ public class MainPage extends javax.swing.JFrame {
         );
 
         btnPay.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImageRes/ic_payment_black_48dp_1x.png"))); // NOI18N
+        btnPay.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPayActionPerformed(evt);
+            }
+        });
 
         btnCancel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImageRes/ic_cancel_black_48dp_1x.png"))); // NOI18N
+        btnCancel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelActionPerformed(evt);
+            }
+        });
 
         jScrollPane1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
@@ -372,8 +382,8 @@ public class MainPage extends javax.swing.JFrame {
     }//GEN-LAST:event_btnResetPromoActionPerformed
 
     private void cboPromoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cboPromoItemStateChanged
-        if (promoMap.containsKey(cboPromo.getSelectedItem().toString())) {
-            promo = promoMap.get(cboPromo.getSelectedItem().toString());
+        if (promoMap.containsKey((String)cboPromo.getSelectedItem())) {
+            promo = promoMap.get((String)cboPromo.getSelectedItem());
             calculateTotal();
         } else {
             promo = 0;
@@ -381,6 +391,23 @@ public class MainPage extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_cboPromoItemStateChanged
+
+    private void btnPayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPayActionPerformed
+        payment = new PaymentPage();
+        this.setVisible(false);
+        payment.setVisible(true);
+    }//GEN-LAST:event_btnPayActionPerformed
+
+    private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
+        for (Button i : products){
+            i.setQty(0);
+        }
+        jPanel2.removeAll();
+        jPanel2.revalidate();
+        jPanel2.repaint();
+        cboPromo.setSelectedIndex(-1);
+        calculateTotal();
+    }//GEN-LAST:event_btnCancelActionPerformed
     public void calculateTotal() {
         subtotal = 0;
         tax = 0;
@@ -409,11 +436,11 @@ public class MainPage extends javax.swing.JFrame {
             }
         }
     }
-    PaymentPage payment = new PaymentPage();
+    PaymentPage payment;
     /**
      * @param args the command line arguments
      */
-    DecimalFormat df = new DecimalFormat("#.00");
+    DecimalFormat df = new DecimalFormat("#.##");
     private final double TAX_RATE = 0.075;
     private double subtotal = 0;
     private double promo = 0;
