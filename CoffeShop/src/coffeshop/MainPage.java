@@ -6,7 +6,6 @@
 package coffeshop;
 
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.DecimalFormat;
@@ -17,7 +16,6 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.SwingConstants;
 
 /**
  *
@@ -53,10 +51,10 @@ public class MainPage extends javax.swing.JFrame {
         btnInfo = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
-        jLabel7 = new javax.swing.JLabel();
-        lblPromo = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         lblSubtotal = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        lblPromo = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         lblTax = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
@@ -138,15 +136,6 @@ public class MainPage extends javax.swing.JFrame {
         jPanel5.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jPanel5.setLayout(new java.awt.GridLayout(4, 2, 10, 10));
 
-        jLabel7.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
-        jLabel7.setText("Discount:");
-        jPanel5.add(jLabel7);
-
-        lblPromo.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        lblPromo.setText("0.00");
-        jPanel5.add(lblPromo);
-
         jLabel6.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
         jLabel6.setText("Subtotal:");
@@ -155,6 +144,15 @@ public class MainPage extends javax.swing.JFrame {
         lblSubtotal.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         lblSubtotal.setText("0.00");
         jPanel5.add(lblSubtotal);
+
+        jLabel7.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
+        jLabel7.setText("Discount:");
+        jPanel5.add(jLabel7);
+
+        lblPromo.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        lblPromo.setText("0.00");
+        jPanel5.add(lblPromo);
 
         jLabel8.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
@@ -374,8 +372,8 @@ public class MainPage extends javax.swing.JFrame {
     }//GEN-LAST:event_btnResetPromoActionPerformed
 
     private void cboPromoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cboPromoItemStateChanged
-        if (promoMap.containsKey(cboPromo.getSelectedItem())) {
-            promo = promoMap.get(cboPromo.getSelectedItem());
+        if (promoMap.containsKey(cboPromo.getSelectedItem().toString())) {
+            promo = promoMap.get(cboPromo.getSelectedItem().toString());
             calculateTotal();
         } else {
             promo = 0;
@@ -390,12 +388,12 @@ public class MainPage extends javax.swing.JFrame {
         for (Button i : products) {
             subtotal += i.getItem().getTotalPrice();
         }
-        if (promo> subtotal) {
-            promo=subtotal;
+        if (promo > subtotal) {
+            promo = subtotal;
         }
-        subtotal -= promo;
-        tax = Double.parseDouble(df.format(subtotal * TAX_RATE));
-        total = subtotal + tax;
+
+        tax = Double.parseDouble(df.format((subtotal - promo) * TAX_RATE));
+        total = subtotal - promo + tax;
         lblPromo.setText(String.valueOf(promo));
         lblSubtotal.setText(String.valueOf(subtotal));
         lblTax.setText(String.valueOf(tax));
