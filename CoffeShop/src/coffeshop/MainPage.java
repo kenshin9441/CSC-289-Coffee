@@ -393,7 +393,11 @@ public class MainPage extends javax.swing.JFrame {
     }//GEN-LAST:event_cboPromoItemStateChanged
 
     private void btnPayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPayActionPerformed
-        payment = new Payment(products,(String)cboPromo.getSelectedItem(),subtotal, promo,tax,total);
+        try {
+            payment = new Payment(rsMan.getInt(1),products,(String)cboPromo.getSelectedItem(),subtotal, promo,tax,total);
+        } catch (SQLException ex) {
+            Logger.getLogger(MainPage.class.getName()).log(Level.SEVERE, null, ex);
+        }
         this.setVisible(false);
         payment.setVisible(true);
     }//GEN-LAST:event_btnPayActionPerformed
