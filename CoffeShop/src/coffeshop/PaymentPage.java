@@ -5,13 +5,9 @@
  */
 package coffeshop;
 
-import javax.swing.ImageIcon;
-import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
-
 import java.awt.CardLayout;
 import java.awt.Color;
-import java.awt.Image;
 
 /**
  *
@@ -59,7 +55,6 @@ public class PaymentPage extends javax.swing.JFrame {
         java.awt.GridBagConstraints gridBagConstraints;
 
         buttonGroup1 = new javax.swing.ButtonGroup();
-        jpCash = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jtaOrderItems = new javax.swing.JTextArea();
         jpTotals = new javax.swing.JPanel();
@@ -133,8 +128,6 @@ public class PaymentPage extends javax.swing.JFrame {
         jbtnSplitCheck = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        jpCash.setLayout(new java.awt.GridLayout(1, 0));
 
         jtaOrderItems.setColumns(20);
         jtaOrderItems.setRows(5);
@@ -931,9 +924,7 @@ public class PaymentPage extends javax.swing.JFrame {
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(421, 421, 421)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jpCash, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jbtnPay, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addComponent(jbtnPay, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
                 .addComponent(jpOptionButtons, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 20, Short.MAX_VALUE))
@@ -956,8 +947,7 @@ public class PaymentPage extends javax.swing.JFrame {
                         .addComponent(jpPaymentControls, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(33, 33, 33)
                         .addComponent(jbtnPay, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 27, Short.MAX_VALUE)
-                .addComponent(jpCash, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(27, Short.MAX_VALUE))
         );
 
         pack();
@@ -1355,7 +1345,6 @@ int selection = 0;
     private javax.swing.JLabel jlblTaxAmt;
     private javax.swing.JLabel jlblTotalAmt;
     private javax.swing.JPanel jpBitcoinPayment;
-    private javax.swing.JPanel jpCash;
     private javax.swing.JPanel jpCashPayment;
     private javax.swing.JPanel jpCreditDebit;
     private javax.swing.JPanel jpGC;

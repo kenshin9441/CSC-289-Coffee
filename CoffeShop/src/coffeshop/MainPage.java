@@ -393,7 +393,7 @@ public class MainPage extends javax.swing.JFrame {
     }//GEN-LAST:event_cboPromoItemStateChanged
 
     private void btnPayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPayActionPerformed
-        payment = new PaymentPage();
+        payment = new Payment(products,(String)cboPromo.getSelectedItem(),subtotal, promo,tax,total);
         this.setVisible(false);
         payment.setVisible(true);
     }//GEN-LAST:event_btnPayActionPerformed
@@ -436,7 +436,7 @@ public class MainPage extends javax.swing.JFrame {
             }
         }
     }
-    PaymentPage payment;
+    Payment payment;
     /**
      * @param args the command line arguments
      */
@@ -446,8 +446,8 @@ public class MainPage extends javax.swing.JFrame {
     private double promo = 0;
     private double tax = 0;
     private double total = 0;
-    List<Button> products;
-    Map<String, Double> promoMap;
+    private List<Button> products;
+    private Map<String, Double> promoMap;
     private ResultSet rsMan = null;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancel;
