@@ -16,6 +16,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -397,13 +398,16 @@ public class MainPage extends javax.swing.JFrame {
     }//GEN-LAST:event_cboPromoItemStateChanged
 
     private void btnPayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPayActionPerformed
-        try {
+        if (total > 0) {
+            try {
             payment = new Payment(rsMan.getInt(1),products,(String)cboPromo.getSelectedItem(),subtotal, promo,tax,total);
         } catch (SQLException ex) {
             Logger.getLogger(MainPage.class.getName()).log(Level.SEVERE, null, ex);
         }
         this.setVisible(false);
         payment.setVisible(true);
+        } else JOptionPane.showMessageDialog(null,"There is nothing to pay. Please check again.","Nothing to pay", JOptionPane.PLAIN_MESSAGE);
+        
     }//GEN-LAST:event_btnPayActionPerformed
 
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
