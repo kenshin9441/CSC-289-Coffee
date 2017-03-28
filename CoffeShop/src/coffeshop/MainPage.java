@@ -5,6 +5,7 @@
  */
 package coffeshop;
 
+import java.awt.CardLayout;
 import java.awt.event.ActionEvent;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -50,7 +51,7 @@ public class MainPage extends javax.swing.JFrame {
         btnLogout = new javax.swing.JButton();
         txtManager = new javax.swing.JLabel();
         btnInfo = new javax.swing.JButton();
-        jPanel1 = new javax.swing.JPanel();
+        btnOnline = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         lblSubtotal = new javax.swing.JLabel();
@@ -73,6 +74,10 @@ public class MainPage extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
+        pnOnorOff = new javax.swing.JPanel();
+        pnInstore = new javax.swing.JPanel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        pnOnline = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Sales");
@@ -98,6 +103,13 @@ public class MainPage extends javax.swing.JFrame {
 
         btnInfo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImageRes/information-outline.png"))); // NOI18N
 
+        btnOnline.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImageRes/shopping-cart (1).png"))); // NOI18N
+        btnOnline.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnOnlineActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jpMainMenuLayout = new javax.swing.GroupLayout(jpMainMenu);
         jpMainMenu.setLayout(jpMainMenuLayout);
         jpMainMenuLayout.setHorizontalGroup(
@@ -105,9 +117,11 @@ public class MainPage extends javax.swing.JFrame {
             .addGroup(jpMainMenuLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 518, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 522, Short.MAX_VALUE)
                 .addComponent(txtManager)
-                .addGap(160, 160, 160)
+                .addGap(69, 69, 69)
+                .addComponent(btnOnline)
+                .addGap(18, 18, 18)
                 .addComponent(btnNotification)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnInfo)
@@ -124,15 +138,13 @@ public class MainPage extends javax.swing.JFrame {
                     .addComponent(btnLogout, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jpMainMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel1)
-                        .addComponent(txtManager))
+                        .addComponent(txtManager)
+                        .addComponent(btnOnline))
                     .addComponent(btnInfo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
         btnNotification.getAccessibleContext().setAccessibleDescription("");
-
-        jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        jPanel1.setLayout(new java.awt.GridLayout(5, 5, 5, 5));
 
         jPanel5.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jPanel5.setLayout(new java.awt.GridLayout(4, 2, 10, 10));
@@ -281,6 +293,17 @@ public class MainPage extends javax.swing.JFrame {
 
         jScrollPane1.setViewportView(jPanel2);
 
+        pnOnorOff.setLayout(new java.awt.CardLayout(5, 5));
+
+        pnInstore.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        pnInstore.setLayout(new java.awt.GridLayout(5, 5, 5, 5));
+        pnOnorOff.add(pnInstore, "card2");
+
+        pnOnline.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jScrollPane2.setViewportView(pnOnline);
+
+        pnOnorOff.add(jScrollPane2, "card4");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -289,16 +312,16 @@ public class MainPage extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 609, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(btnCancel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnPay, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                .addGap(18, 18, 18)
+                            .addComponent(btnCancel)
+                            .addComponent(btnPay, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(pnOnorOff, javax.swing.GroupLayout.DEFAULT_SIZE, 625, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1)
                 .addContainerGap())
         );
@@ -309,8 +332,8 @@ public class MainPage extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 416, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addComponent(pnOnorOff, javax.swing.GroupLayout.PREFERRED_SIZE, 459, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
@@ -336,7 +359,8 @@ public class MainPage extends javax.swing.JFrame {
             ResultSet rsProduct = null;
             rsProduct = accessor.getProduct();
             products = new ArrayList<>();
-            //items = new ArrayList<>();
+            showPanel("card2");
+            transType = "INSTORE";
             while (rsProduct.next()) {
                 products.add(new Button(rsProduct.getInt(1), rsProduct.getString(2), rsProduct.getString(3), rsProduct.getDouble(4)));
             }
@@ -357,7 +381,7 @@ public class MainPage extends javax.swing.JFrame {
                         jPanel2.repaint();
                     }
                 });
-                jPanel1.add(i);
+                pnInstore.add(i);
             }
             ResultSet rsPromo = null;
             rsPromo = accessor.getPromo();
@@ -373,6 +397,9 @@ public class MainPage extends javax.swing.JFrame {
             WrapLayout layout = new WrapLayout();
             layout.minimumLayoutSize(jPanel2);
             jPanel2.setLayout(layout);
+            WrapLayout layoutOrder = new WrapLayout();
+            layout.minimumLayoutSize(pnOnline);
+            pnOnline.setLayout(layoutOrder);
             accessor.disconnect();
         } catch (SQLException ex) {
             Logger.getLogger(MainPage.class.getName()).log(Level.SEVERE, null, ex);
@@ -387,39 +414,74 @@ public class MainPage extends javax.swing.JFrame {
     }//GEN-LAST:event_btnResetPromoActionPerformed
 
     private void cboPromoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cboPromoItemStateChanged
-        if (promoMap.containsKey((String)cboPromo.getSelectedItem())) {
-            promo = promoMap.get((String)cboPromo.getSelectedItem());
+        if (promoMap.containsKey((String) cboPromo.getSelectedItem())) {
+            promo = promoMap.get((String) cboPromo.getSelectedItem());
             calculateTotal();
         } else {
             promo = 0;
             calculateTotal();
         }
-
     }//GEN-LAST:event_cboPromoItemStateChanged
 
     private void btnPayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPayActionPerformed
         if (total > 0) {
             try {
-            payment = new Payment(rsMan.getInt(1),products,(String)cboPromo.getSelectedItem(),subtotal, promo,tax,total);
-        } catch (SQLException ex) {
-            Logger.getLogger(MainPage.class.getName()).log(Level.SEVERE, null, ex);
+                payment = new Payment(rsMan.getInt(1), products, (String) cboPromo.getSelectedItem(), subtotal, promo, tax, total);
+            } catch (SQLException ex) {
+                Logger.getLogger(MainPage.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            this.setVisible(false);
+            payment.setVisible(true);
+        } else {
+            JOptionPane.showMessageDialog(null, "There is nothing to pay. Please check again.", "Nothing to pay", JOptionPane.PLAIN_MESSAGE);
         }
-        this.setVisible(false);
-        payment.setVisible(true);
-        } else JOptionPane.showMessageDialog(null,"There is nothing to pay. Please check again.","Nothing to pay", JOptionPane.PLAIN_MESSAGE);
-        
+
     }//GEN-LAST:event_btnPayActionPerformed
 
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
-        for (Button i : products){
+        for (Button i : products) {
             i.setQty(0);
+            jPanel2.remove(i.getItem());
         }
-        jPanel2.removeAll();
+        //jPanel2.removeAll();
         jPanel2.revalidate();
         jPanel2.repaint();
         cboPromo.setSelectedIndex(-1);
         calculateTotal();
     }//GEN-LAST:event_btnCancelActionPerformed
+
+    private void btnOnlineActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOnlineActionPerformed
+        if (transType.equals("INSTORE")) {
+            transType = "ONLINE";
+            btnCancelActionPerformed(evt);
+            pnOnline.removeAll();
+            pnOnline.revalidate();
+            pnOnline.repaint();
+            showPanel("card4");
+            cboPromo.setEnabled(false);
+            DBAccessor accessor = new DBAccessor();
+            accessor.connectDB();
+            ResultSet rsOrder = null;
+            rsOrder = accessor.getOrder();
+            orders = new ArrayList<>();
+            try {
+                while (rsOrder.next()) {
+                    orders.add(new Order(rsOrder.getInt(1), rsOrder.getString(2), rsOrder.getString(3), rsOrder.getDate(4), rsOrder.getDouble(5)));
+                }
+                for (Order i : orders) {
+                    pnOnline.add(i);
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(MainPage.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else {
+            transType = "INSTORE";
+            btnCancelActionPerformed(evt);
+            showPanel("card2");
+            cboPromo.setEnabled(true);
+        }
+
+    }//GEN-LAST:event_btnOnlineActionPerformed
     public void calculateTotal() {
         subtotal = 0;
         tax = 0;
@@ -449,15 +511,23 @@ public class MainPage extends javax.swing.JFrame {
         }
     }
     Payment payment;
+
     /**
      * @param args the command line arguments
      */
+    private void showPanel(String pnName) {
+        CardLayout layout = (CardLayout) pnOnorOff.getLayout();
+        layout.show(pnOnorOff, pnName);
+    }
+    private String transType;
+    
     DecimalFormat df = new DecimalFormat("#.##");
     private final double TAX_RATE = 0.075;
     private double subtotal = 0;
     private double promo = 0;
     private double tax = 0;
     private double total = 0;
+    private List<Order> orders;
     private List<Button> products;
     private Map<String, Double> promoMap;
     private ResultSet rsMan = null;
@@ -466,6 +536,7 @@ public class MainPage extends javax.swing.JFrame {
     private javax.swing.JButton btnInfo;
     private javax.swing.JButton btnLogout;
     private javax.swing.JButton btnNotification;
+    private javax.swing.JButton btnOnline;
     private javax.swing.JButton btnPay;
     private javax.swing.JButton btnResetPromo;
     private javax.swing.JComboBox<String> cboPromo;
@@ -479,17 +550,20 @@ public class MainPage extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JPanel jpMainMenu;
     private javax.swing.JLabel lblPromo;
     private javax.swing.JLabel lblSubtotal;
     private javax.swing.JLabel lblTax;
     private javax.swing.JLabel lblTotal;
+    private javax.swing.JPanel pnInstore;
+    private javax.swing.JPanel pnOnline;
+    private javax.swing.JPanel pnOnorOff;
     private javax.swing.JLabel txtManager;
     // End of variables declaration//GEN-END:variables
 }

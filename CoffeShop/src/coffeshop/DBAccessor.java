@@ -117,6 +117,17 @@ public class DBAccessor {
         }
         return rs;
     }
+    public ResultSet getOrder(){
+        ResultSet rs = null;
+        String st = "SELECT transaction_id, fname, lname, trans_date, total_price  FROM transaction, customer WHERE trans_type = 'ONLINE' AND transaction.cust_id = customer.customer_id";
+        try {
+            Statement stm = connection.createStatement();
+            rs = stm.executeQuery(st);
+        } catch (SQLException ex) {
+            Logger.getLogger(DBAccessor.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return rs;
+    }
     public void disconnect(){
         try {
             connection.close();
