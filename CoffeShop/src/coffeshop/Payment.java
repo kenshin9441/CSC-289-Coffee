@@ -181,7 +181,6 @@ public class Payment extends javax.swing.JFrame {
 
         lblQRC.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImageRes/defaultQR.png"))); // NOI18N
         lblQRC.setText(" ");
-        lblQRC.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         javax.swing.GroupLayout jbBitcoinLayout = new javax.swing.GroupLayout(jbBitcoin);
         jbBitcoin.setLayout(jbBitcoinLayout);
