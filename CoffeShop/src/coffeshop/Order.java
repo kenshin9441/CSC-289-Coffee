@@ -17,17 +17,26 @@ public class Order extends javax.swing.JPanel {
     /**
      * Creates new form Order
      */
-    public Order(int id, String fname, String lname, Date date, double price) {
+    public Order(int id, String fname, String lname, Date date, double price, String promo_cd) {
         initComponents();
         this.id = id;
         this.fname = fname;
         this.lname = lname;
         this.date = date;
         this.price = price;
+        this.promo_cd = promo_cd;
         lblID.setText(String.valueOf(id));
         lblName.setText(fname + " " + lname);
         lblDate.setText(date.toString());
         lblPrice.setText(String.valueOf(price));
+    }
+
+    public String getPromo_cd() {
+        return promo_cd;
+    }
+
+    public void setPromo_cd(String promo_cd) {
+        this.promo_cd = promo_cd;
     }
 
     public int getId() {
@@ -138,7 +147,7 @@ public class Order extends javax.swing.JPanel {
     private String lname;
     private Date date;
     private double price;
-
+    private String promo_cd;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnSelect;
     private javax.swing.JLabel lblDate;

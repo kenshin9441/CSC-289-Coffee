@@ -7,6 +7,7 @@ package coffeshop;
 
 import java.awt.CardLayout;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.DecimalFormat;
@@ -33,7 +34,7 @@ public class MainPage extends javax.swing.JFrame {
     public MainPage(ResultSet rsManager) {
         initComponents();
         rsMan = rsManager;
-
+        
     }
 
     /**
@@ -136,10 +137,10 @@ public class MainPage extends javax.swing.JFrame {
                 .addGroup(jpMainMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnNotification, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnLogout, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnOnline)
                     .addGroup(jpMainMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel1)
-                        .addComponent(txtManager)
-                        .addComponent(btnOnline))
+                        .addComponent(txtManager))
                     .addComponent(btnInfo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -366,7 +367,7 @@ public class MainPage extends javax.swing.JFrame {
             }
             for (Button i : products) {
                 i.setText("<html><center><b>" + i.getName() + "<p><font color='red'>$" + i.getPrice() + "</font></p></b></center>");
-
+                
                 i.addActionListener((ActionEvent ae) -> {
                     i.setQty(i.getQty() + 1);
                     reloadOrder();
@@ -389,7 +390,7 @@ public class MainPage extends javax.swing.JFrame {
             while (rsPromo.next()) {
                 promoMap.put(rsPromo.getString(1), rsPromo.getDouble(2));
             }
-
+            
             for (Entry e : promoMap.entrySet()) {
                 cboPromo.addItem(e.getKey().toString());
             }
@@ -426,7 +427,7 @@ public class MainPage extends javax.swing.JFrame {
     private void btnPayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPayActionPerformed
         if (total > 0) {
             try {
-                payment = new Payment(rsMan.getInt(1), products, (String) cboPromo.getSelectedItem(), subtotal, promo, tax, total);
+                payment = new Payment(transType, rsMan.getInt(1), products, (String) cboPromo.getSelectedItem(), subtotal, promo, tax, total);
             } catch (SQLException ex) {
                 Logger.getLogger(MainPage.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -439,14 +440,7 @@ public class MainPage extends javax.swing.JFrame {
     }//GEN-LAST:event_btnPayActionPerformed
 
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
-        for (Button i : products) {
-            i.setQty(0);
-            jPanel2.remove(i.getItem());
-        }
-        //jPanel2.removeAll();
-        jPanel2.revalidate();
-        jPanel2.repaint();
-        cboPromo.setSelectedIndex(-1);
+        resetOrder();
         calculateTotal();
     }//GEN-LAST:event_btnCancelActionPerformed
 
@@ -459,6 +453,7 @@ public class MainPage extends javax.swing.JFrame {
             pnOnline.repaint();
             showPanel("card4");
             cboPromo.setEnabled(false);
+            btnResetPromo.setEnabled(false);
             DBAccessor accessor = new DBAccessor();
             accessor.connectDB();
             ResultSet rsOrder = null;
@@ -466,9 +461,29 @@ public class MainPage extends javax.swing.JFrame {
             orders = new ArrayList<>();
             try {
                 while (rsOrder.next()) {
-                    orders.add(new Order(rsOrder.getInt(1), rsOrder.getString(2), rsOrder.getString(3), rsOrder.getDate(4), rsOrder.getDouble(5)));
+                    orders.add(new Order(rsOrder.getInt(1), rsOrder.getString(2), rsOrder.getString(3), rsOrder.getDate(4), rsOrder.getDouble(5), rsOrder.getString(6)));
                 }
+                
                 for (Order i : orders) {
+                    i.getBtnSelect().addActionListener((ActionEvent ae) -> {
+                        ResultSet rsOrderDetail = null;
+                        rsOrderDetail = accessor.getOrderDetail(i.getId());
+                        try {
+                            while (rsOrderDetail.next()) {
+                                for (Button j : products) {
+                                    if (j.getID() == rsOrderDetail.getInt(1)) {
+                                        resetOrder();
+                                        j.setQty(rsOrderDetail.getInt(3));
+                                    }
+                                }
+                            }
+                        } catch (SQLException ex) {
+                            Logger.getLogger(MainPage.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                        cboPromo.setSelectedItem(i.getPromo_cd());
+                        reloadOrder();
+                        calculateTotal();
+                    });
                     pnOnline.add(i);
                 }
             } catch (SQLException ex) {
@@ -479,9 +494,26 @@ public class MainPage extends javax.swing.JFrame {
             btnCancelActionPerformed(evt);
             showPanel("card2");
             cboPromo.setEnabled(true);
+            btnResetPromo.setEnabled(true);
         }
 
     }//GEN-LAST:event_btnOnlineActionPerformed
+    public void resetOrder() {
+        for (Button i : products) {
+            i.setQty(0);
+            jPanel2.remove(i.getItem());
+            if (transType.equals("INSTORE")) {
+                i.getItem().getBtnRemove().setVisible(true);
+            } else {
+                i.getItem().getBtnRemove().setVisible(false);
+            }
+        }
+        //jPanel2.removeAll();
+        jPanel2.revalidate();
+        jPanel2.repaint();
+        cboPromo.setSelectedIndex(-1);
+    }
+
     public void calculateTotal() {
         subtotal = 0;
         tax = 0;
@@ -492,7 +524,7 @@ public class MainPage extends javax.swing.JFrame {
         if (promo > subtotal) {
             promo = subtotal;
         }
-
+        
         tax = Double.parseDouble(df.format((subtotal - promo) * TAX_RATE));
         total = subtotal - promo + tax;
         lblPromo.setText(String.valueOf(promo));
@@ -500,7 +532,7 @@ public class MainPage extends javax.swing.JFrame {
         lblTax.setText(String.valueOf(tax));
         lblTotal.setText(String.valueOf(total));
     }
-
+    
     public void reloadOrder() {
         for (Button i : products) {
             if (i.getItem().getQty() != 0) {

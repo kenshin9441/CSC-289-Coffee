@@ -116,10 +116,10 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="btnNotification" alignment="0" max="32767" attributes="0"/>
                       <Component id="btnLogout" alignment="0" max="32767" attributes="0"/>
+                      <Component id="btnOnline" alignment="0" min="-2" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="txtManager" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="btnOnline" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <Component id="btnInfo" alignment="0" max="32767" attributes="0"/>
                   </Group>

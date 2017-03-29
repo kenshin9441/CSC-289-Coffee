@@ -21,7 +21,7 @@ public class Payment extends javax.swing.JFrame {
     /**
      * Creates new form Payment
      */
-    public Payment(int memp_id, List<Button> mproducts,String mpromoCode, double msubtotal, double mpromo, double mtax, double mtotal) {
+    public Payment(String mtransType,int memp_id, List<Button> mproducts,String mpromoCode, double msubtotal, double mpromo, double mtax, double mtotal) {
         initComponents();
         emp_id = memp_id;
         products = new ArrayList<>();
