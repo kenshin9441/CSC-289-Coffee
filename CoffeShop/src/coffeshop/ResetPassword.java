@@ -51,7 +51,7 @@ public class ResetPassword extends javax.swing.JFrame {
         txtPass1 = new javax.swing.JPasswordField();
         txtPass2 = new javax.swing.JPasswordField();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Reset Password");
         setResizable(false);
         getContentPane().setLayout(new java.awt.CardLayout());

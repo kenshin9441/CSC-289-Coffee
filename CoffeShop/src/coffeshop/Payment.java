@@ -6,9 +6,13 @@
 package coffeshop;
 
 import java.awt.CardLayout;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
@@ -21,13 +25,20 @@ public class Payment extends javax.swing.JFrame {
     /**
      * Creates new form Payment
      */
-    public Payment(String mtransType,int memp_id, List<Button> mproducts,String mpromoCode, double msubtotal, double mpromo, double mtax, double mtotal) {
+    public Payment(MainPage mmain, String mtransType,ResultSet memp, List<Button> mproducts,String mpromoCode, double msubtotal, double mpromo, double mtax, double mtotal) {
         initComponents();
-        emp_id = memp_id;
+        main = mmain;
+        rsMan = memp;
+        try {
+            emp_id = rsMan.getInt(1);
+        } catch (SQLException ex) {
+            Logger.getLogger(Payment.class.getName()).log(Level.SEVERE, null, ex);
+        }
         products = new ArrayList<>();
         for (Button i : mproducts){
             products.add(i);
         }
+        transType = mtransType;
         promoCode = mpromoCode;
         subtotal = msubtotal;
         promo = mpromo;
@@ -688,6 +699,11 @@ public class Payment extends javax.swing.JFrame {
         btnCancel.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         btnCancel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImageRes/ic_cancel_black_48dp_1x.png"))); // NOI18N
         btnCancel.setText("Cancel");
+        btnCancel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelActionPerformed(evt);
+            }
+        });
 
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jPanel2.setLayout(new java.awt.GridLayout(2, 2, 5, 5));
@@ -911,7 +927,18 @@ public class Payment extends javax.swing.JFrame {
         } else JOptionPane.showMessageDialog(null,"Payment Amount is wrong. Please check again.","Wrong Payment Amount", JOptionPane.PLAIN_MESSAGE);
         
         if (due == 0 && paid == total) {
-            //Save transaction to DB and return to MainPage
+            JOptionPane.showMessageDialog(null, "Emp:"+emp_id+" TransType:"+transType+" PromoCd:"+promoCode+" promoAmt:"+promo+" Subtotal:"+subtotal+" Tax:" + tax +" total:"+total + " Paid:" +paid +" due: "+ due + " paymentMethod: "+paymentMethod, "Payment Completed.", JOptionPane.PLAIN_MESSAGE);
+            // Save records
+            try {
+                // return to main
+                rsMan.beforeFirst();
+            } catch (SQLException ex) {
+                Logger.getLogger(Payment.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            main.dispose();
+            main = new MainPage(rsMan);
+            main.setVisible(true);
+            this.dispose();
         }
     }//GEN-LAST:event_btnPayActionPerformed
 
@@ -922,6 +949,11 @@ public class Payment extends javax.swing.JFrame {
     private void jradDebitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jradDebitActionPerformed
         paymentMethod = "DC";
     }//GEN-LAST:event_jradDebitActionPerformed
+
+    private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
+        main.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnCancelActionPerformed
 
     /**
      * @param args the command line arguments
@@ -936,6 +968,8 @@ public class Payment extends javax.swing.JFrame {
         CardLayout layout = (CardLayout) jPanel1.getLayout();
         layout.show(jPanel1, pnName);
     }
+    ResultSet rsMan;
+    private String transType;
     private DecimalFormat df = new DecimalFormat("#.##");
     private ImageIcon defaultQR = new ImageIcon("src/ImageRes/defaultQR.png");
     private String cashPaymentOutput;
@@ -949,6 +983,7 @@ public class Payment extends javax.swing.JFrame {
     private double due;
     private int emp_id;
     private String paymentMethod;
+    private MainPage main;
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancel;

@@ -98,6 +98,11 @@ public class MainPage extends javax.swing.JFrame {
         btnNotification.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImageRes/ic_notifications_none_black_48dp_1x.png"))); // NOI18N
 
         btnLogout.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImageRes/logout-variant.png"))); // NOI18N
+        btnLogout.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLogoutActionPerformed(evt);
+            }
+        });
 
         txtManager.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         txtManager.setText("User");
@@ -426,11 +431,7 @@ public class MainPage extends javax.swing.JFrame {
 
     private void btnPayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPayActionPerformed
         if (total > 0) {
-            try {
-                payment = new Payment(transType, rsMan.getInt(1), products, (String) cboPromo.getSelectedItem(), subtotal, promo, tax, total);
-            } catch (SQLException ex) {
-                Logger.getLogger(MainPage.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            payment = new Payment(this,transType, rsMan, products, (String) cboPromo.getSelectedItem(), subtotal, promo, tax, total);
             this.setVisible(false);
             payment.setVisible(true);
         } else {
@@ -498,6 +499,12 @@ public class MainPage extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_btnOnlineActionPerformed
+
+    private void btnLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogoutActionPerformed
+        LoginPage login = new LoginPage();
+        login.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnLogoutActionPerformed
     public void resetOrder() {
         for (Button i : products) {
             i.setQty(0);

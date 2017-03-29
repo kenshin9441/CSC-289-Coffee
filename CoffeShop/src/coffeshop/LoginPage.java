@@ -183,7 +183,7 @@ public class LoginPage extends javax.swing.JFrame {
 
     private void jbForgetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbForgetActionPerformed
         ResetPassword resetPass = new ResetPassword();
-        this.setVisible(false);
+        //this.setVisible(false);
         resetPass.setVisible(true);
     }//GEN-LAST:event_jbForgetActionPerformed
 
