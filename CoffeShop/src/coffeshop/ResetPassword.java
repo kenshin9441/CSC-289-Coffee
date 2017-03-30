@@ -232,7 +232,7 @@ public class ResetPassword extends javax.swing.JFrame {
                 Logger.getLogger(ResetPassword.class.getName()).log(Level.SEVERE, null, ex);
             }
         } else {
-            JOptionPane.showMessageDialog(null, "Please enter an username", "No Input", JOptionPane.PLAIN_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Please enter your answer", "No Input", JOptionPane.PLAIN_MESSAGE);
         }
 
     }//GEN-LAST:event_btnSubmitActionPerformed
