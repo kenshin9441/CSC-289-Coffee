@@ -528,10 +528,17 @@ public class MainPage extends javax.swing.JFrame {
         for (Button i : products) {
             subtotal += i.getItem().getTotalPrice();
         }
+  if (promoMap.containsKey((String) cboPromo.getSelectedItem())) {
+            promo = promoMap.get((String) cboPromo.getSelectedItem());
+        } else {
+            promo = 0;
+        }
+  
         if (promo > subtotal) {
             promo = subtotal;
         }
-        
+      
+         
         tax = Double.parseDouble(df.format((subtotal - promo) * TAX_RATE));
         total = subtotal - promo + tax;
         lblPromo.setText(String.valueOf(promo));
