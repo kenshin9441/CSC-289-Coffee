@@ -6,6 +6,7 @@
 package coffeshop;
 
 import java.awt.CardLayout;
+import java.math.RoundingMode;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.DecimalFormat;
@@ -921,7 +922,7 @@ public class Payment extends javax.swing.JFrame {
         if (due >= payAmt) {
             due -= payAmt;
             paid +=payAmt;
-            cboSplit.setSelectedIndex(0);
+            cboSplit.setSelectedIndex(cboSplit.getSelectedIndex()-1);
             calculateDue();
             JOptionPane.showConfirmDialog(null, "Do you want to print receipt?", "Payment Completed.", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
         } else JOptionPane.showMessageDialog(null,"Payment Amount is wrong. Please check again.","Wrong Payment Amount", JOptionPane.PLAIN_MESSAGE);
@@ -962,7 +963,10 @@ public class Payment extends javax.swing.JFrame {
         due = total - paid;
         lblDue.setText(String.valueOf(due));
         lblPaid.setText(String.valueOf(paid));
-        txtPayAmt.setText(String.valueOf(due));
+        int split = cboSplit.getSelectedIndex()+1;
+        
+        txtPayAmt.setText(df.format(due/split));
+        //txtPayAmt.setText(String.valueOf(due));
     }
     private void showPanel(String pnName) {
         CardLayout layout = (CardLayout) jPanel1.getLayout();
