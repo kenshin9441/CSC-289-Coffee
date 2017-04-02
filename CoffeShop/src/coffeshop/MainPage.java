@@ -11,7 +11,6 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -560,8 +559,6 @@ public class MainPage extends javax.swing.JFrame {
         layout.show(pnOnorOff, pnName);
     }
     private String transType;
-
-    DecimalFormat df = new DecimalFormat("#.##");
     private final BigDecimal TAX_RATE = new BigDecimal("0.075");
     private BigDecimal subtotal = BigDecimal.ZERO;
     private BigDecimal promo = BigDecimal.ZERO;

@@ -10,7 +10,6 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -975,7 +974,6 @@ public class Payment extends javax.swing.JFrame {
     }
     ResultSet rsMan;
     private String transType;
-    private DecimalFormat df = new DecimalFormat("#.##");
     private ImageIcon defaultQR = new ImageIcon("src/ImageRes/defaultQR.png");
     private String cashPaymentOutput;
     private List<Button> products;
