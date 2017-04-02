@@ -6,6 +6,7 @@
 package coffeshop;
 
 import java.awt.CardLayout;
+import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -26,7 +27,7 @@ public class Payment extends javax.swing.JFrame {
     /**
      * Creates new form Payment
      */
-    public Payment(MainPage mmain, String mtransType,ResultSet memp, List<Button> mproducts,String mpromoCode, double msubtotal, double mpromo, double mtax, double mtotal) {
+    public Payment(MainPage mmain, String mtransType,ResultSet memp, List<Button> mproducts,String mpromoCode, BigDecimal msubtotal, BigDecimal mpromo, BigDecimal mtax, BigDecimal mtotal) {
         initComponents();
         main = mmain;
         rsMan = memp;
@@ -49,7 +50,7 @@ public class Payment extends javax.swing.JFrame {
         lblSubtotal.setText(String.valueOf(subtotal));
         lblTax.setText(String.valueOf(tax));
         lblTotal.setText(String.valueOf(total));
-        paid = 0;
+        paid = BigDecimal.ZERO;
         showPanel("card2");
         paymentMethod = "CA";
         calculateDue();
@@ -902,7 +903,7 @@ public class Payment extends javax.swing.JFrame {
 
     private void cboSplitItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cboSplitItemStateChanged
         int split = cboSplit.getSelectedIndex()+1;
-        txtPayAmt.setText(df.format(due/split));
+        txtPayAmt.setText((due.divide(new BigDecimal(split), 2, RoundingMode.HALF_UP)).toString());
     }//GEN-LAST:event_cboSplitItemStateChanged
 
     private void jbtnSendBTCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnSendBTCActionPerformed
@@ -918,16 +919,18 @@ public class Payment extends javax.swing.JFrame {
     }//GEN-LAST:event_jbtnScanCodeActionPerformed
 
     private void btnPayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPayActionPerformed
-        double payAmt = Double.parseDouble(txtPayAmt.getText());
-        if (due >= payAmt) {
-            due -= payAmt;
-            paid +=payAmt;
-            cboSplit.setSelectedIndex(cboSplit.getSelectedIndex()-1);
+        BigDecimal payAmt = new BigDecimal(txtPayAmt.getText());
+        if (due.compareTo(payAmt) >= 0) {
+            due = due.subtract(payAmt);
+            paid = paid.add(payAmt);
+            if (cboSplit.getSelectedIndex()>0) {
+                cboSplit.setSelectedIndex(cboSplit.getSelectedIndex()-1);
+            }
             calculateDue();
             JOptionPane.showConfirmDialog(null, "Do you want to print receipt?", "Payment Completed.", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
         } else JOptionPane.showMessageDialog(null,"Payment Amount is wrong. Please check again.","Wrong Payment Amount", JOptionPane.PLAIN_MESSAGE);
         
-        if (due == 0 && paid == total) {
+        if (due.compareTo(BigDecimal.ZERO) == 0 && paid.compareTo(total) == 0) {
             JOptionPane.showMessageDialog(null, "Emp:"+emp_id+" TransType:"+transType+" PromoCd:"+promoCode+" promoAmt:"+promo+" Subtotal:"+subtotal+" Tax:" + tax +" total:"+total + " Paid:" +paid +" due: "+ due + " paymentMethod: "+paymentMethod, "Payment Completed.", JOptionPane.PLAIN_MESSAGE);
             // Save records
             try {
@@ -960,13 +963,11 @@ public class Payment extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     private void calculateDue(){
-        due = total - paid;
+        due = total.subtract(paid);
         lblDue.setText(String.valueOf(due));
         lblPaid.setText(String.valueOf(paid));
         int split = cboSplit.getSelectedIndex()+1;
-        
-        txtPayAmt.setText(df.format(due/split));
-        //txtPayAmt.setText(String.valueOf(due));
+        txtPayAmt.setText(due.divide(new BigDecimal(split), 2, RoundingMode.HALF_UP).toString());
     }
     private void showPanel(String pnName) {
         CardLayout layout = (CardLayout) jPanel1.getLayout();
@@ -979,12 +980,12 @@ public class Payment extends javax.swing.JFrame {
     private String cashPaymentOutput;
     private List<Button> products;
     private String promoCode;
-    private double subtotal;
-    private double promo;
-    private double tax;
-    private double total;
-    private double paid;
-    private double due;
+    private BigDecimal subtotal;
+    private BigDecimal promo;
+    private BigDecimal tax;
+    private BigDecimal total;
+    private BigDecimal paid;
+    private BigDecimal due;
     private int emp_id;
     private String paymentMethod;
     private MainPage main;

@@ -5,6 +5,7 @@
  */
 package coffeshop;
 
+import java.math.BigDecimal;
 import java.util.Date;
 import javax.swing.JButton;
 
@@ -17,7 +18,7 @@ public class Order extends javax.swing.JPanel {
     /**
      * Creates new form Order
      */
-    public Order(int id, String fname, String lname, Date date, double price, String promo_cd) {
+    public Order(int id, String fname, String lname, Date date, BigDecimal price, String promo_cd) {
         initComponents();
         this.id = id;
         this.fname = fname;
@@ -71,11 +72,11 @@ public class Order extends javax.swing.JPanel {
         this.date = date;
     }
 
-    public double getPrice() {
+    public BigDecimal getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(BigDecimal price) {
         this.price = price;
     }
 
@@ -146,7 +147,7 @@ public class Order extends javax.swing.JPanel {
     private String fname;
     private String lname;
     private Date date;
-    private double price;
+    private BigDecimal price;
     private String promo_cd;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnSelect;

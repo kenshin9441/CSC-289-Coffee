@@ -7,7 +7,8 @@ package coffeshop;
 
 import java.awt.CardLayout;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.DecimalFormat;
@@ -368,7 +369,7 @@ public class MainPage extends javax.swing.JFrame {
             showPanel("card2");
             transType = "INSTORE";
             while (rsProduct.next()) {
-                products.add(new Button(rsProduct.getInt(1), rsProduct.getString(2), rsProduct.getString(3), rsProduct.getDouble(4)));
+                products.add(new Button(rsProduct.getInt(1), rsProduct.getString(2), rsProduct.getString(3), rsProduct.getBigDecimal(4)));
             }
             for (Button i : products) {
                 i.setText("<html><center><b>" + i.getName() + "<p><font color='red'>$" + i.getPrice() + "</font></p></b></center>");
@@ -393,7 +394,7 @@ public class MainPage extends javax.swing.JFrame {
             rsPromo = accessor.getPromo();
             promoMap = new HashMap<>();
             while (rsPromo.next()) {
-                promoMap.put(rsPromo.getString(1), rsPromo.getDouble(2));
+                promoMap.put(rsPromo.getString(1), rsPromo.getBigDecimal(2));
             }
 
             for (Entry e : promoMap.entrySet()) {
@@ -414,7 +415,7 @@ public class MainPage extends javax.swing.JFrame {
 
     private void btnResetPromoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResetPromoActionPerformed
         cboPromo.setSelectedIndex(-1);
-        promo = 0;
+        promo = BigDecimal.ZERO;
         lblPromo.setText(String.valueOf(promo));
         calculateTotal();
     }//GEN-LAST:event_btnResetPromoActionPerformed
@@ -424,7 +425,7 @@ public class MainPage extends javax.swing.JFrame {
     }//GEN-LAST:event_cboPromoItemStateChanged
 
     private void btnPayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPayActionPerformed
-        if (total > 0) {
+        if (total.compareTo(BigDecimal.ZERO) > 0) {
             payment = new Payment(this, transType, rsMan, products, (String) cboPromo.getSelectedItem(), subtotal, promo, tax, total);
             this.setVisible(false);
             payment.setVisible(true);
@@ -456,7 +457,7 @@ public class MainPage extends javax.swing.JFrame {
             orders = new ArrayList<>();
             try {
                 while (rsOrder.next()) {
-                    orders.add(new Order(rsOrder.getInt(1), rsOrder.getString(2), rsOrder.getString(3), rsOrder.getDate(4), rsOrder.getDouble(5), rsOrder.getString(6)));
+                    orders.add(new Order(rsOrder.getInt(1), rsOrder.getString(2), rsOrder.getString(3), rsOrder.getDate(4), rsOrder.getBigDecimal(5), rsOrder.getString(6)));
                 }
 
                 for (Order i : orders) {
@@ -516,24 +517,24 @@ public class MainPage extends javax.swing.JFrame {
     }
 
     public void calculateTotal() {
-        subtotal = 0;
-        tax = 0;
-        total = 0;
+        subtotal = BigDecimal.ZERO;
+        tax = BigDecimal.ZERO;
+        total = BigDecimal.ZERO;
         for (Button i : products) {
-            subtotal += i.getItem().getTotalPrice();
+            subtotal = subtotal.add(i.getItem().getTotalPrice());
         }
         if (promoMap.containsKey((String) cboPromo.getSelectedItem())) {
             promo = promoMap.get((String) cboPromo.getSelectedItem());
         } else {
-            promo = 0;
+            promo = BigDecimal.ZERO;
         }
 
-        if (promo > subtotal) {
+        if (promo.compareTo(subtotal) > 0) {
             promo = subtotal;
         }
 
-        tax = Double.parseDouble(df.format((subtotal - promo) * TAX_RATE));
-        total = subtotal - promo + tax;
+        tax = (subtotal.subtract(promo)).multiply(TAX_RATE).setScale(2, RoundingMode.HALF_UP);
+        total = subtotal.subtract(promo).add(tax);
         lblPromo.setText(String.valueOf(promo));
         lblSubtotal.setText(String.valueOf(subtotal));
         lblTax.setText(String.valueOf(tax));
@@ -561,14 +562,14 @@ public class MainPage extends javax.swing.JFrame {
     private String transType;
 
     DecimalFormat df = new DecimalFormat("#.##");
-    private final double TAX_RATE = 0.075;
-    private double subtotal = 0;
-    private double promo = 0;
-    private double tax = 0;
-    private double total = 0;
+    private final BigDecimal TAX_RATE = new BigDecimal("0.075");
+    private BigDecimal subtotal = BigDecimal.ZERO;
+    private BigDecimal promo = BigDecimal.ZERO;
+    private BigDecimal tax = BigDecimal.ZERO;
+    private BigDecimal total = BigDecimal.ZERO;
     private List<Order> orders;
     private List<Button> products;
-    private Map<String, Double> promoMap;
+    private Map<String, BigDecimal> promoMap;
     private ResultSet rsMan = null;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancel;

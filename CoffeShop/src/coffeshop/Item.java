@@ -5,7 +5,7 @@
  */
 package coffeshop;
 
-import java.awt.Container;
+import java.math.BigDecimal;
 import javax.swing.JButton;
 
 /**
@@ -17,12 +17,12 @@ public class Item extends javax.swing.JPanel {
     /**
      * Creates new form Item
      */
-    public Item(int ID, String name, double price) {
+    public Item(int ID, String name, BigDecimal price) {
         initComponents();
         id = ID;
         Qty = 0;
         Price = price;
-        totalPrice = Qty * Price;
+        totalPrice = Price.multiply(new BigDecimal(Qty));
         lblID.setText(String.valueOf(ID));
         lblName.setText(name);
         lblQty.setText(String.valueOf(Qty));
@@ -43,16 +43,16 @@ public class Item extends javax.swing.JPanel {
 
     public void setQty(int newQty) {
         Qty = newQty;
-        totalPrice = Qty * Price;
+        totalPrice = Price.multiply(new BigDecimal(Qty));
         lblQty.setText(String.valueOf(Qty));
         lblPrice.setText(String.valueOf(totalPrice));
     }
 
-    public double getTotalPrice() {
+    public BigDecimal getTotalPrice() {
         return totalPrice;
     }
 
-    public void setTotalPrice(double totalPrice) {
+    public void setTotalPrice(BigDecimal totalPrice) {
         this.totalPrice = totalPrice;
     }
 
@@ -114,8 +114,8 @@ public class Item extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
     private int id;
     private int Qty;
-    private double totalPrice;
-    private double Price;
+    private BigDecimal totalPrice;
+    private BigDecimal Price;
 
     public JButton getBtnRemove() {
         return btnRemove;

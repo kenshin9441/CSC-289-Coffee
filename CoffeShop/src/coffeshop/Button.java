@@ -5,6 +5,7 @@
  */
 package coffeshop;
 
+import java.math.BigDecimal;
 import javax.swing.JButton;
 
 /**
@@ -15,10 +16,10 @@ public class Button extends JButton{
     private int ID;
     private String name;
     private String des;
-    private double price;
+    private BigDecimal price;
     private int qty = 0;
     private Item item;
-    public Button(int ID, String name, String des, double price) {
+    public Button(int ID, String name, String des, BigDecimal price) {
         this.ID = ID;
         this.name = name;
         this.des = des;
@@ -68,11 +69,11 @@ public class Button extends JButton{
         this.des = des;
     }
 
-    public double getPrice() {
+    public BigDecimal getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(BigDecimal price) {
         this.price = price;
     }
 
