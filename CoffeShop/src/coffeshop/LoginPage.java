@@ -17,7 +17,7 @@ public class LoginPage extends javax.swing.JFrame {
      * Creates new form MainPage
      */
     public LoginPage() {
-        initComponents();
+        initComponents();   
     }
 
     /**
@@ -58,6 +58,12 @@ public class LoginPage extends javax.swing.JFrame {
         jlUsernameLabel.setText("Username:");
 
         jlPasswordLabel.setText("Password:");
+
+        txtPassword.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtPasswordActionPerformed(evt);
+            }
+        });
 
         jbLogin.setText("Login");
         jbLogin.setBorder(null);
@@ -186,6 +192,10 @@ public class LoginPage extends javax.swing.JFrame {
         //this.setVisible(false);
         resetPass.setVisible(true);
     }//GEN-LAST:event_jbForgetActionPerformed
+
+    private void txtPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPasswordActionPerformed
+      jbLoginActionPerformed(evt);
+    }//GEN-LAST:event_txtPasswordActionPerformed
 
     /**
      * @param args the command line arguments
