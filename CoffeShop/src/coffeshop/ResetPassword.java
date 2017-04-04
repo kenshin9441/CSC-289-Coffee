@@ -52,7 +52,7 @@ public class ResetPassword extends javax.swing.JFrame {
         txtPass2 = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Reset Password");
+        setTitle("Reset Password - Krankies");
         setResizable(false);
         getContentPane().setLayout(new java.awt.CardLayout());
 

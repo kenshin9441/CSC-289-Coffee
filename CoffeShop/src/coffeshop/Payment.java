@@ -26,7 +26,7 @@ public class Payment extends javax.swing.JFrame {
     /**
      * Creates new form Payment
      */
-    public Payment(MainPage mmain, String mtransType,ResultSet memp, List<Button> mproducts,String mpromoCode, BigDecimal msubtotal, BigDecimal mpromo, BigDecimal mtax, BigDecimal mtotal) {
+    public Payment(MainPage mmain, String mtransType, ResultSet memp, List<Button> mproducts, String mpromoCode, BigDecimal msubtotal, BigDecimal mpromo, BigDecimal mtax, BigDecimal mtotal) {
         initComponents();
         main = mmain;
         rsMan = memp;
@@ -36,9 +36,10 @@ public class Payment extends javax.swing.JFrame {
             Logger.getLogger(Payment.class.getName()).log(Level.SEVERE, null, ex);
         }
         products = new ArrayList<>();
-        for (Button i : mproducts){
+        for (Button i : mproducts) {
             products.add(i);
         }
+        lblQRC.setIcon(defaultQR);
         transType = mtransType;
         promoCode = mpromoCode;
         subtotal = msubtotal;
@@ -132,6 +133,7 @@ public class Payment extends javax.swing.JFrame {
         lblDue = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Payment - Krankies");
 
         jPanel5.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jPanel5.setLayout(new java.awt.GridLayout(4, 2, 5, 5));
@@ -192,7 +194,6 @@ public class Payment extends javax.swing.JFrame {
         });
 
         lblQRC.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImageRes/defaultQR.png"))); // NOI18N
-        lblQRC.setText(" ");
 
         javax.swing.GroupLayout jbBitcoinLayout = new javax.swing.GroupLayout(jbBitcoin);
         jbBitcoin.setLayout(jbBitcoinLayout);
@@ -841,13 +842,15 @@ public class Payment extends javax.swing.JFrame {
     }//GEN-LAST:event_jbtnNum0ActionPerformed
 
     private void jbtnNumAmtExactActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnNumAmtExactActionPerformed
-        cashPaymentOutput = lblTotal.getText();
+        cashPaymentOutput = txtPayAmt.getText();
         jtfNumPad.setText(cashPaymentOutput);
     }//GEN-LAST:event_jbtnNumAmtExactActionPerformed
 
     private void jbtnNumDotActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnNumDotActionPerformed
-        cashPaymentOutput += ".";
+        if (!cashPaymentOutput.contains(".")) {
+            cashPaymentOutput += ".";
         jtfNumPad.setText(cashPaymentOutput);
+        }
     }//GEN-LAST:event_jbtnNumDotActionPerformed
 
     private void jbtnNum9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnNum9ActionPerformed
@@ -903,7 +906,7 @@ public class Payment extends javax.swing.JFrame {
     }//GEN-LAST:event_jbtnCashActionPerformed
 
     private void cboSplitItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cboSplitItemStateChanged
-        int split = cboSplit.getSelectedIndex()+1;
+        int split = cboSplit.getSelectedIndex() + 1;
         txtPayAmt.setText((due.divide(new BigDecimal(split), 2, RoundingMode.HALF_UP)).toString());
     }//GEN-LAST:event_cboSplitItemStateChanged
 
@@ -913,53 +916,69 @@ public class Payment extends javax.swing.JFrame {
 
     private void jbtnScanCodeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnScanCodeActionPerformed
         lblQRC.setIcon(new ImageIcon("src/ImageRes/qrc.png"));
-        if (lblQRC.getIcon()==null) {
+        if (lblQRC.getIcon() == null) {
             lblQRC.setIcon(defaultQR);
-            JOptionPane.showMessageDialog(null,"Wrong QR Code. Please try again.","Wrong QR Code", JOptionPane.PLAIN_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Wrong QR Code. Please try again.", "Wrong QR Code", JOptionPane.PLAIN_MESSAGE);
         }
     }//GEN-LAST:event_jbtnScanCodeActionPerformed
 
-    private Boolean checkPayment(){
-        switch (paymentMethod)
-        {
+    private Boolean validatePayment() {
+        switch (paymentMethod) {
             case "CA":
+                if (new BigDecimal(jtfNumPad.getText()).compareTo(BigDecimal.ZERO) != 0) {
+                    return true;
+                }
                 break;
             case "CC":
             case "DC":
+                if (jtfCardNum.getText().matches(cardRegExp) && !jTextField2.getText().equals("")) {
+                    return true;
+                }
                 break;
             case "GC":
+                if (jtfGiftCardNum.getText().matches(giftRegExp)) {
+                    return true;
+                }
                 break;
             case "BC":
+                if (lblQRC.getIcon() != defaultQR) {
+                    return true;
+                }
                 break;
         }
-        return true;
+        return false;
     }
     private void btnPayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPayActionPerformed
-        BigDecimal payAmt = new BigDecimal(txtPayAmt.getText());
-        if (due.compareTo(payAmt) >= 0) {
-            due = due.subtract(payAmt);
-            paid = paid.add(payAmt);
-            if (cboSplit.getSelectedIndex()>0) {
-                cboSplit.setSelectedIndex(cboSplit.getSelectedIndex()-1);
+        if (validatePayment()) {
+
+            BigDecimal payAmt = new BigDecimal(txtPayAmt.getText());
+            if (due.compareTo(payAmt) >= 0) {
+                due = due.subtract(payAmt);
+                paid = paid.add(payAmt);
+                if (cboSplit.getSelectedIndex() > 0) {
+                    cboSplit.setSelectedIndex(cboSplit.getSelectedIndex() - 1);
+                }
+                calculateDue();
+                JOptionPane.showConfirmDialog(null, "Do you want to print receipt?", "Payment Completed.", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(null, "Payment Amount is wrong. Please check again.", "Wrong Payment Amount", JOptionPane.PLAIN_MESSAGE);
             }
-            calculateDue();
-            JOptionPane.showConfirmDialog(null, "Do you want to print receipt?", "Payment Completed.", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-        } else JOptionPane.showMessageDialog(null,"Payment Amount is wrong. Please check again.","Wrong Payment Amount", JOptionPane.PLAIN_MESSAGE);
-        
-        if (due.compareTo(BigDecimal.ZERO) == 0 && paid.compareTo(total) == 0) {
-            JOptionPane.showMessageDialog(null, "Emp:"+emp_id+" TransType:"+transType+" PromoCd:"+promoCode+" promoAmt:"+promo+" Subtotal:"+subtotal+" Tax:" + tax +" total:"+total + " Paid:" +paid +" due: "+ due + " paymentMethod: "+paymentMethod, "Payment Completed.", JOptionPane.PLAIN_MESSAGE);
-            // Save records
-            try {
-                // return to main
-                rsMan.beforeFirst();
-            } catch (SQLException ex) {
-                Logger.getLogger(Payment.class.getName()).log(Level.SEVERE, null, ex);
+
+            if (due.compareTo(BigDecimal.ZERO) == 0 && paid.compareTo(total) == 0) {
+                JOptionPane.showMessageDialog(null, "Emp:" + emp_id + " TransType:" + transType + " PromoCd:" + promoCode + " promoAmt:" + promo + " Subtotal:" + subtotal + " Tax:" + tax + " total:" + total + " Paid:" + paid + " due: " + due + " paymentMethod: " + paymentMethod, "Payment Completed.", JOptionPane.PLAIN_MESSAGE);
+                // Save records
+                try {
+                    // return to main
+                    rsMan.beforeFirst();
+                } catch (SQLException ex) {
+                    Logger.getLogger(Payment.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                main.dispose();
+                main = new MainPage(rsMan);
+                main.setVisible(true);
+                this.dispose();
             }
-            main.dispose();
-            main = new MainPage(rsMan);
-            main.setVisible(true);
-            this.dispose();
-        }
+        } else JOptionPane.showMessageDialog(null, "Invalid payment input. Please check again.", "Wrong Payment Amount", JOptionPane.PLAIN_MESSAGE);
     }//GEN-LAST:event_btnPayActionPerformed
 
     private void jradCreditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jradCreditActionPerformed
@@ -978,31 +997,34 @@ public class Payment extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         if (jtfGiftCardNum.getText().matches(giftRegExp)) {
             String balance = jtfGiftCardNum.getText();
-            balance = balance.substring(0, 1)+balance.substring(balance.length()-1);
-            JOptionPane.showMessageDialog(null,"Balance: $" + balance,"Balance", JOptionPane.PLAIN_MESSAGE);
-        } else JOptionPane.showMessageDialog(null,"Invalid Gift Card Number","Invalid Card", JOptionPane.PLAIN_MESSAGE);
+            balance = balance.substring(0, 1) + balance.substring(balance.length() - 1);
+            JOptionPane.showMessageDialog(null, "Balance: $" + balance, "Balance", JOptionPane.PLAIN_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(null, "Invalid Gift Card Number", "Invalid Card", JOptionPane.PLAIN_MESSAGE);
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
      */
-    private void calculateDue(){
+    private void calculateDue() {
         due = total.subtract(paid);
         lblDue.setText(String.valueOf(due));
         lblPaid.setText(String.valueOf(paid));
-        int split = cboSplit.getSelectedIndex()+1;
+        int split = cboSplit.getSelectedIndex() + 1;
         txtPayAmt.setText(due.divide(new BigDecimal(split), 2, RoundingMode.HALF_UP).toString());
     }
+
     private void showPanel(String pnName) {
         CardLayout layout = (CardLayout) jPanel1.getLayout();
         layout.show(jPanel1, pnName);
     }
-    private String giftRegExp = "[1-9]k\\wr\\wa\\wn\\wk\\wi\\we\\ws[0-9]";
+    private String giftRegExp = "[1-9][kK]\\w[rR]\\w[aA]\\w[nN]\\w[kK]\\w[iI]\\w[eE]\\w[sS][0-9]";
     private String cardRegExp = "^(?:4[0-9]{12}(?:[0-9]{3})?|5[1-5][0-9]{14}|6(?:011|5[0-9][0-9])[0-9]{12}|3[47][0-9]{13}|3(?:0[0-5]|[68][0-9])[0-9]{11}|(?:2131|1800|35\\d{3})\\d{11})$";
-    ResultSet rsMan;
+    private ResultSet rsMan;
     private String transType;
     private ImageIcon defaultQR = new ImageIcon("src/ImageRes/defaultQR.png");
-    private String cashPaymentOutput;
+    private String cashPaymentOutput = "";
     private List<Button> products;
     private String promoCode;
     private BigDecimal subtotal;

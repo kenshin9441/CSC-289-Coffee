@@ -17,12 +17,11 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author praykor
+ * @author Ghin
  */
 public class DBAccessor {
 
     private final String DATABASE_URL = "jdbc:mysql://167.160.84.186:3306/krankies";
-    private final String SELECT_QUERY = "SELECT * FROM account";
     private final String USERNAME = "praykor";
     private final String PASSWORD = "1Password!";
     private Connection connection;

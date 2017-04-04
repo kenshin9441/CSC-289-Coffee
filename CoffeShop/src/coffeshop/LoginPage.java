@@ -48,7 +48,7 @@ public class LoginPage extends javax.swing.JFrame {
         jMenuItem2.setText("jMenuItem2");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Login");
+        setTitle("Login - Krankies");
         setResizable(false);
 
         jlogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImageRes/logo.png"))); // NOI18N
