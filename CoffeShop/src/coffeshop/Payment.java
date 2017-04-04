@@ -246,7 +246,6 @@ public class Payment extends javax.swing.JFrame {
         jlblCardNum.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jlblCardNum.setText("Card Number");
 
-        jtfCardNum.setText(" ");
         jtfCardNum.setMinimumSize(new java.awt.Dimension(6, 24));
 
         jLabel14.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
@@ -318,9 +317,12 @@ public class Payment extends javax.swing.JFrame {
         jlblGiftCardNum.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jlblGiftCardNum.setText("Gift Card Number");
 
-        jtfGiftCardNum.setText(" ");
-
         jButton1.setText("Check Balance");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jpGiftLayout = new javax.swing.GroupLayout(jpGift);
         jpGift.setLayout(jpGiftLayout);
@@ -917,6 +919,21 @@ public class Payment extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jbtnScanCodeActionPerformed
 
+    private Boolean checkPayment(){
+        switch (paymentMethod)
+        {
+            case "CA":
+                break;
+            case "CC":
+            case "DC":
+                break;
+            case "GC":
+                break;
+            case "BC":
+                break;
+        }
+        return true;
+    }
     private void btnPayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPayActionPerformed
         BigDecimal payAmt = new BigDecimal(txtPayAmt.getText());
         if (due.compareTo(payAmt) >= 0) {
@@ -958,6 +975,14 @@ public class Payment extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_btnCancelActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        if (jtfGiftCardNum.getText().matches(giftRegExp)) {
+            String balance = jtfGiftCardNum.getText();
+            balance = balance.substring(0, 1)+balance.substring(balance.length()-1);
+            JOptionPane.showMessageDialog(null,"Balance: $" + balance,"Balance", JOptionPane.PLAIN_MESSAGE);
+        } else JOptionPane.showMessageDialog(null,"Invalid Gift Card Number","Invalid Card", JOptionPane.PLAIN_MESSAGE);
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -972,6 +997,8 @@ public class Payment extends javax.swing.JFrame {
         CardLayout layout = (CardLayout) jPanel1.getLayout();
         layout.show(jPanel1, pnName);
     }
+    private String giftRegExp = "[1-9]k\\wr\\wa\\wn\\wk\\wi\\we\\ws[0-9]";
+    private String cardRegExp = "^(?:4[0-9]{12}(?:[0-9]{3})?|5[1-5][0-9]{14}|6(?:011|5[0-9][0-9])[0-9]{12}|3[47][0-9]{13}|3(?:0[0-5]|[68][0-9])[0-9]{11}|(?:2131|1800|35\\d{3})\\d{11})$";
     ResultSet rsMan;
     private String transType;
     private ImageIcon defaultQR = new ImageIcon("src/ImageRes/defaultQR.png");
