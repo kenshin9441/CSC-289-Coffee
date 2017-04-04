@@ -119,7 +119,8 @@ public class DBAccessor {
     }
     public ResultSet getOrder(){
         ResultSet rs = null;
-        String st = "SELECT transaction_id, fname, lname, trans_date, total_price, promo_cd  FROM transaction, customer WHERE trans_type = 'ONLINE' AND transaction.cust_id = customer.customer_id";
+        String st = "SELECT transaction_id, fname, lname, trans_date, total_price, promo_cd  FROM transaction, customer WHERE trans_type = 'ONLINE' AND transaction.cust_id = customer.customer_id "
+                + "AND transaction_id NOT IN (SELECT trans_id FROM payment)";
         try {
             Statement stm = connection.createStatement();
             rs = stm.executeQuery(st);
