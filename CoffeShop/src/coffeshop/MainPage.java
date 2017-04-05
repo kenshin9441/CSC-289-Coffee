@@ -480,7 +480,7 @@ public class MainPage extends javax.swing.JFrame {
 
     private void btnPayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPayActionPerformed
         if (total.compareTo(BigDecimal.ZERO) > 0) {
-            payment = new Payment(this, transType, rsMan, products, (String) cboPromo.getSelectedItem(), subtotal, promo, tax, total);
+            payment = new PaymentPage(this,currentOrder, transType, rsMan, products, (String) cboPromo.getSelectedItem(), subtotal, promo, tax, total);
             this.setVisible(false);
             payment.setVisible(true);
         } else {
@@ -517,6 +517,7 @@ public class MainPage extends javax.swing.JFrame {
 
                 for (Order i : orders) {
                     i.getBtnSelect().addActionListener((ActionEvent ae) -> {
+                        currentOrder = i.getId();
                         ResultSet rsOrderDetail = null;
                         rsOrderDetail = accessor.getOrderDetail(i.getId());
                         try {
@@ -573,6 +574,7 @@ public class MainPage extends javax.swing.JFrame {
         jPanel2.revalidate();
         jPanel2.repaint();
         cboPromo.setSelectedIndex(-1);
+        currentOrder = -1;
     }
 
     public void calculateTotal() {
@@ -609,7 +611,7 @@ public class MainPage extends javax.swing.JFrame {
             }
         }
     }
-    Payment payment;
+    PaymentPage payment;
 
     /**
      * @param args the command line arguments
@@ -618,6 +620,7 @@ public class MainPage extends javax.swing.JFrame {
         CardLayout layout = (CardLayout) pnOnorOff.getLayout();
         layout.show(pnOnorOff, pnName);
     }
+    private int currentOrder = -1;
     private String transType;
     private final BigDecimal TAX_RATE = new BigDecimal("0.075");
     private BigDecimal subtotal = BigDecimal.ZERO;
