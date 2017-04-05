@@ -517,7 +517,6 @@ public class MainPage extends javax.swing.JFrame {
 
                 for (Order i : orders) {
                     i.getBtnSelect().addActionListener((ActionEvent ae) -> {
-                        currentOrder = i.getId();
                         ResultSet rsOrderDetail = null;
                         rsOrderDetail = accessor.getOrderDetail(i.getId());
                         try {
@@ -535,6 +534,7 @@ public class MainPage extends javax.swing.JFrame {
                         cboPromo.setSelectedItem(i.getPromo_cd());
                         reloadOrder();
                         calculateTotal();
+                        currentOrder = i.getId();
                     });
                     pnOnline.add(i);
                 }
