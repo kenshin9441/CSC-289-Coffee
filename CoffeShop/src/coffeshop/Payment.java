@@ -76,7 +76,7 @@ public class Payment extends javax.swing.JFrame {
         lblTax = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         lblTotal = new javax.swing.JLabel();
-        jPanel1 = new javax.swing.JPanel();
+        jpPaymentInput = new javax.swing.JPanel();
         jbBitcoin = new javax.swing.JPanel();
         jbtnSendBTC = new javax.swing.JButton();
         jbtnScanCode = new javax.swing.JButton();
@@ -174,7 +174,7 @@ public class Payment extends javax.swing.JFrame {
         lblTotal.setText("0.00");
         jPanel5.add(lblTotal);
 
-        jPanel1.setLayout(new java.awt.CardLayout(5, 5));
+        jpPaymentInput.setLayout(new java.awt.CardLayout(5, 5));
 
         jbBitcoin.setVisible(false);
         jbBitcoin.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -222,7 +222,7 @@ public class Payment extends javax.swing.JFrame {
                 .addGap(19, 19, 19))
         );
 
-        jPanel1.add(jbBitcoin, "card3");
+        jpPaymentInput.add(jbBitcoin, "card3");
 
         jpCreditDebit.setVisible(false);
         jpCreditDebit.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -310,7 +310,7 @@ public class Payment extends javax.swing.JFrame {
                 .addGap(42, 42, 42))
         );
 
-        jPanel1.add(jpCreditDebit, "card4");
+        jpPaymentInput.add(jpCreditDebit, "card4");
 
         jpGift.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jpGift.setVisible(false);
@@ -350,7 +350,7 @@ public class Payment extends javax.swing.JFrame {
                 .addGap(45, 45, 45))
         );
 
-        jPanel1.add(jpGift, "card5");
+        jpPaymentInput.add(jpGift, "card5");
 
         jpCash.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jpCash.setLayout(new java.awt.GridBagLayout());
@@ -618,7 +618,7 @@ public class Payment extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(4, 1, 4, 1);
         jpCash.add(jtfNumPad, gridBagConstraints);
 
-        jPanel1.add(jpCash, "card2");
+        jpPaymentInput.add(jpCash, "card2");
 
         jpMethod.setLayout(new java.awt.GridLayout(2, 2));
 
@@ -737,7 +737,7 @@ public class Payment extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jpPaymentInput, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jpMethod, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(35, 35, 35)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -766,7 +766,7 @@ public class Payment extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jpMethod, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jpPaymentInput, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -875,8 +875,10 @@ public class Payment extends javax.swing.JFrame {
 
     private void jbtnEnterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnEnterActionPerformed
         String paymentInput = jtfNumPad.getText();
-        paymentInput = paymentInput.substring(0, paymentInput.length() - 1);
-        jtfNumPad.setText(paymentInput);
+        if (paymentInput.length()!=0) {
+            paymentInput = paymentInput.substring(0, paymentInput.length() - 1);
+            jtfNumPad.setText(paymentInput);
+        }
     }//GEN-LAST:event_jbtnEnterActionPerformed
 
     private void jbtnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnClearActionPerformed
@@ -925,7 +927,7 @@ public class Payment extends javax.swing.JFrame {
     private Boolean validatePayment() {
         switch (paymentMethod) {
             case "CA":
-                if (new BigDecimal(jtfNumPad.getText()).compareTo(BigDecimal.ZERO) != 0) {
+                if (new BigDecimal(jtfNumPad.getText()).compareTo(new BigDecimal(txtPayAmt.getText())) >= 0) {
                     return true;
                 }
                 break;
@@ -1016,8 +1018,8 @@ public class Payment extends javax.swing.JFrame {
     }
 
     private void showPanel(String pnName) {
-        CardLayout layout = (CardLayout) jPanel1.getLayout();
-        layout.show(jPanel1, pnName);
+        CardLayout layout = (CardLayout) jpPaymentInput.getLayout();
+        layout.show(jpPaymentInput, pnName);
     }
     private String giftRegExp = "[1-9][kK]\\w[rR]\\w[aA]\\w[nN]\\w[kK]\\w[iI]\\w[eE]\\w[sS][0-9]";
     private String cardRegExp = "^(?:4[0-9]{12}(?:[0-9]{3})?|5[1-5][0-9]{14}|6(?:011|5[0-9][0-9])[0-9]{12}|3[47][0-9]{13}|3(?:0[0-5]|[68][0-9])[0-9]{11}|(?:2131|1800|35\\d{3})\\d{11})$";
@@ -1055,7 +1057,6 @@ public class Payment extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JTextField jTextField2;
@@ -1090,6 +1091,7 @@ public class Payment extends javax.swing.JFrame {
     private javax.swing.JPanel jpCreditDebit;
     private javax.swing.JPanel jpGift;
     private javax.swing.JPanel jpMethod;
+    private javax.swing.JPanel jpPaymentInput;
     private javax.swing.JRadioButton jradCredit;
     private javax.swing.JRadioButton jradDebit;
     private javax.swing.JTextField jtfCardNum;
