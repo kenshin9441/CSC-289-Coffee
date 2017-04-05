@@ -156,7 +156,7 @@ public class DBAccessor {
         String st1 = "INSERT INTO krankies.transaction"
                 + "(trans_date," + "emp_id," + "trans_type," + "tax," + "total_price," + "promo_cd)"
                 + "VALUES"
-                + "(?,?,?,?,?,?,?);";
+                + "(?,?,?,?,?,?);";
         String st2 = "INSERT INTO krankies.products_in_transaction"
                 + "(product_id," + "trans_id," + "quantity)"
                 + "VALUES"
@@ -188,10 +188,12 @@ public class DBAccessor {
                 pst.close();
                 pst = connection.prepareStatement(st2);
                 for (Button i : products) {
-                    pst.setInt(1, i.getID());
+                    if (i.getQty() != 0) {
+                        pst.setInt(1, i.getID());
                     pst.setInt(2, key);
                     pst.setInt(3, i.getQty());
                     pst.addBatch();
+                    }
                 }
                 pst.executeBatch();
                 pst.close();
@@ -214,6 +216,7 @@ public class DBAccessor {
             if (connection != null) {
                 try {
                     connection.rollback();
+                    connection.setAutoCommit(true);
                 } catch (SQLException ex1) {
                     Logger.getLogger(DBAccessor.class.getName()).log(Level.SEVERE, null, ex1);
                 }
