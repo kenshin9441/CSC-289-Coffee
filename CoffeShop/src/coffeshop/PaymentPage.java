@@ -975,7 +975,7 @@ public class PaymentPage extends javax.swing.JFrame {
                 try {
                     accessor = new DBAccessor();
                     accessor.connectDB();
-                    if (accessor.insertPayment(emp_id, transType, tax, total, promoCode, products, payments)) {
+                    if (accessor.insertPayment(emp_id, transType,transID, tax, total, promoCode, products, payments)) {
                         JOptionPane.showMessageDialog(null,"Records have been saved","Records saved", JOptionPane.PLAIN_MESSAGE);
                     }
                     // return to main

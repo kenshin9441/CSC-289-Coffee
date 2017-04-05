@@ -152,7 +152,7 @@ public class DBAccessor {
         return rs;
     }
 
-    public Boolean insertPayment(int empId, String transType, BigDecimal tax, BigDecimal total, String promoCd, List<Button> products, List<Payment> payments) {
+    public Boolean insertPayment(int empId, String transType, int transID, BigDecimal tax, BigDecimal total, String promoCd, List<Button> products, List<Payment> payments) {
         String st1 = "INSERT INTO krankies.transaction"
                 + "(trans_date," + "emp_id," + "trans_type," + "tax," + "total_price," + "promo_cd)"
                 + "VALUES"
@@ -171,9 +171,7 @@ public class DBAccessor {
             PreparedStatement pst = null;
             int key = 0;
             if (transType.equals("ONLINE")) {
-                Statement stm = connection.createStatement();
-                ResultSet rsKey = stm.executeQuery("SELECT transaction_id FROM transaction ORDER BY transaction_id DESC LIMIT 1;");
-                key = rsKey.getInt(1);
+                key = transID;
             } else {
                 pst = connection.prepareStatement(st1, Statement.RETURN_GENERATED_KEYS);
                 pst.setDate(1, new Date(System.currentTimeMillis()));
@@ -188,17 +186,17 @@ public class DBAccessor {
                     key = rsKey.getInt(1);
                 }
                 pst.close();
+                pst = connection.prepareStatement(st2);
+                for (Button i : products) {
+                    pst.setInt(1, i.getID());
+                    pst.setInt(2, key);
+                    pst.setInt(3, i.getQty());
+                    pst.addBatch();
+                }
+                pst.executeBatch();
+                pst.close();
             }
 
-            pst = connection.prepareStatement(st2);
-            for (Button i : products) {
-                pst.setInt(1, i.getID());
-                pst.setInt(2, key);
-                pst.setInt(3, i.getQty());
-                pst.addBatch();
-            }
-            pst.executeBatch();
-            pst.close();
             pst = connection.prepareStatement(st3);
             for (Payment i : payments) {
                 pst.setString(1, i.getMethod());
