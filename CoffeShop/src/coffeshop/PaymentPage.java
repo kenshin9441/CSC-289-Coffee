@@ -26,7 +26,7 @@ public class PaymentPage extends javax.swing.JFrame {
     /**
      * Creates new form Payment
      */
-    public PaymentPage(MainPage mmain,int currentOrder, String mtransType, ResultSet memp, List<Button> mproducts, String mpromoCode, BigDecimal msubtotal, BigDecimal mpromo, BigDecimal mtax, BigDecimal mtotal) {
+    public PaymentPage(MainPage mmain, int currentOrder, String mtransType, ResultSet memp, List<Button> mproducts, String mpromoCode, BigDecimal msubtotal, BigDecimal mpromo, BigDecimal mtax, BigDecimal mtotal) {
         initComponents();
         main = mmain;
         transID = currentOrder;
@@ -260,6 +260,7 @@ public class PaymentPage extends javax.swing.JFrame {
         jTextField2.setPreferredSize(new java.awt.Dimension(6, 24));
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12" }));
+        jComboBox1.setSelectedIndex(4);
 
         jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "17", "18", "19", "20", "21", "22", "23", "24", "25" }));
 
@@ -851,7 +852,7 @@ public class PaymentPage extends javax.swing.JFrame {
     private void jbtnNumDotActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnNumDotActionPerformed
         if (!cashPaymentOutput.contains(".")) {
             cashPaymentOutput += ".";
-        jtfNumPad.setText(cashPaymentOutput);
+            jtfNumPad.setText(cashPaymentOutput);
         }
     }//GEN-LAST:event_jbtnNumDotActionPerformed
 
@@ -877,7 +878,7 @@ public class PaymentPage extends javax.swing.JFrame {
 
     private void jbtnEnterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnEnterActionPerformed
         String paymentInput = jtfNumPad.getText();
-        if (paymentInput.length()!=0) {
+        if (paymentInput.length() != 0) {
             paymentInput = paymentInput.substring(0, paymentInput.length() - 1);
             jtfNumPad.setText(paymentInput);
         }
@@ -934,9 +935,16 @@ public class PaymentPage extends javax.swing.JFrame {
                 }
                 break;
             case "CC":
-            case "DC":
                 if (jtfCardNum.getText().matches(cardRegExp) && !jTextField2.getText().equals("")) {
                     return true;
+                }
+                break;
+            case "DC":
+                if (jtfCardNum.getText().matches(cardRegExp) && !jTextField2.getText().equals("")) {
+                    String PIN = JOptionPane.showInputDialog(null, "Enter PIN");
+                    if (PIN.matches(dcardRegExp)) {
+                        return true;
+                    }
                 }
                 break;
             case "GC":
@@ -954,8 +962,15 @@ public class PaymentPage extends javax.swing.JFrame {
     }
     private void btnPayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPayActionPerformed
         if (validatePayment()) {
+            BigDecimal payAmt;
+            if (paymentMethod.matches("GC")) {
+                String balance = jtfGiftCardNum.getText();
+                balance = balance.substring(0, 1) + balance.substring(balance.length() - 1);
+                payAmt = new BigDecimal(balance);
+            } else {
+                payAmt = new BigDecimal(txtPayAmt.getText());
+            }
 
-            BigDecimal payAmt = new BigDecimal(txtPayAmt.getText());
             if (due.compareTo(payAmt) >= 0) {
                 due = due.subtract(payAmt);
                 paid = paid.add(payAmt);
@@ -970,13 +985,13 @@ public class PaymentPage extends javax.swing.JFrame {
             }
 
             if (due.compareTo(BigDecimal.ZERO) == 0 && paid.compareTo(total) == 0) {
-                JOptionPane.showMessageDialog(null, "Emp:" + emp_id + " TransType:" + transType + " PromoCd:" + promoCode + " promoAmt:" + promo + " Subtotal:" + subtotal + " Tax:" + tax + " total:" + total + " Paid:" + paid + " due: " + due , "Payment Completed.", JOptionPane.PLAIN_MESSAGE);
-                
+                JOptionPane.showMessageDialog(null, "Emp:" + emp_id + " TransType:" + transType + " PromoCd:" + promoCode + " promoAmt:" + promo + " Subtotal:" + subtotal + " Tax:" + tax + " total:" + total + " Paid:" + paid + " due: " + due, "Payment Completed.", JOptionPane.PLAIN_MESSAGE);
+
                 try {
                     accessor = new DBAccessor();
                     accessor.connectDB();
-                    if (accessor.insertPayment(emp_id, transType,transID, tax, total, promoCode, products, payments)) {
-                        JOptionPane.showMessageDialog(null,"Records have been saved","Records saved", JOptionPane.PLAIN_MESSAGE);
+                    if (accessor.insertPayment(emp_id, transType, transID, tax, total, promoCode, products, payments)) {
+                        JOptionPane.showMessageDialog(null, "Records have been saved", "Records saved", JOptionPane.PLAIN_MESSAGE);
                     }
                     // return to main
                     rsMan.beforeFirst();
@@ -988,7 +1003,9 @@ public class PaymentPage extends javax.swing.JFrame {
                 main.setVisible(true);
                 this.dispose();
             }
-        } else JOptionPane.showMessageDialog(null, "Invalid payment input. Please check again.", "Wrong Payment Amount", JOptionPane.PLAIN_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(null, "Invalid payment input. Please check again.", "Wrong Payment Amount", JOptionPane.PLAIN_MESSAGE);
+        }
     }//GEN-LAST:event_btnPayActionPerformed
 
     private void jradCreditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jradCreditActionPerformed
@@ -1034,6 +1051,7 @@ public class PaymentPage extends javax.swing.JFrame {
     private int transID = -1;
     private String giftRegExp = "[1-9][kK]\\w[rR]\\w[aA]\\w[nN]\\w[kK]\\w[iI]\\w[eE]\\w[sS][0-9]";
     private String cardRegExp = "^(?:4[0-9]{12}(?:[0-9]{3})?|5[1-5][0-9]{14}|6(?:011|5[0-9][0-9])[0-9]{12}|3[47][0-9]{13}|3(?:0[0-5]|[68][0-9])[0-9]{11}|(?:2131|1800|35\\d{3})\\d{11})$";
+    private String dcardRegExp = "[0-9][0-9][0-9][0-9]";
     private ResultSet rsMan;
     private String transType;
     private ImageIcon defaultQR = new ImageIcon("src/ImageRes/defaultQR.png");
