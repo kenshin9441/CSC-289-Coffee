@@ -11,6 +11,7 @@ import java.math.RoundingMode;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -970,8 +971,17 @@ public class PaymentPage extends javax.swing.JFrame {
             case "DC":
                 if (isValidated) {
                     return true;
-                }else if (jtfCardNum.getText().matches(cardRegExp) && !jTextField2.getText().equals("")) {
-                    return true;
+                } else if (jtfCardNum.getText().matches(cardRegExp) && !jTextField2.getText().equals("")) {
+                    Calendar cal = Calendar.getInstance();
+                    if ((2000+Integer.parseInt(jComboBox2.getSelectedItem().toString())) > cal.get(Calendar.YEAR)) {
+                        return true;
+                    } else if ((2000+Integer.parseInt(jComboBox2.getSelectedItem().toString())) < cal.get(Calendar.YEAR)) {
+                        return false;
+                    } else if (Integer.parseInt(jComboBox1.getSelectedItem().toString()) >= (cal.get(Calendar.MONTH) + 1)) {
+                        return true;
+                    } else {
+                        return false;
+                    }
                 }
                 break;
             case "GC":
@@ -1061,7 +1071,7 @@ public class PaymentPage extends javax.swing.JFrame {
         jComboBox1.setEnabled(false);
         jComboBox2.setEnabled(false);
         jTextField2.setEnabled(false);
-        
+
     }//GEN-LAST:event_btnSwipeActionPerformed
 
     private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed
@@ -1075,7 +1085,7 @@ public class PaymentPage extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public void resetAll(){
+    public void resetAll() {
         //reset CC DC
         isValidated = false;
         jtfCardNum.setEnabled(true);
@@ -1089,9 +1099,9 @@ public class PaymentPage extends javax.swing.JFrame {
         jtfNumPad.setText("0.00");
         //reset GC
         jtfGiftCardNum.setText("");
-        
-        
+
     }
+
     private void calculateDue() {
         due = total.subtract(paid);
         lblDue.setText(String.valueOf(due));
