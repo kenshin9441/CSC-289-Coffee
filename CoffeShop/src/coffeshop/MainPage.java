@@ -18,7 +18,9 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+import javax.swing.JTextArea;
 
 /**
  *
@@ -102,6 +104,11 @@ public class MainPage extends javax.swing.JFrame {
 
         btnNotification.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImageRes/ic_notifications_none_black_48dp_1x.png"))); // NOI18N
         btnNotification.setToolTipText("Notifications");
+        btnNotification.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNotificationActionPerformed(evt);
+            }
+        });
 
         btnLogout.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImageRes/logout-variant.png"))); // NOI18N
         btnLogout.setToolTipText("Logout");
@@ -411,7 +418,7 @@ public class MainPage extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-        DBAccessor accessor = new DBAccessor();
+        accessor = new DBAccessor();
         accessor.connectDB();
         try {
             if (rsMan.next()) {
@@ -461,7 +468,7 @@ public class MainPage extends javax.swing.JFrame {
             WrapLayout layoutOrder = new WrapLayout();
             layout.minimumLayoutSize(pnOnline);
             pnOnline.setLayout(layoutOrder);
-            accessor.disconnect();
+            checkNoti();
         } catch (SQLException ex) {
             Logger.getLogger(MainPage.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -505,8 +512,6 @@ public class MainPage extends javax.swing.JFrame {
             showPanel("card4");
             cboPromo.setEnabled(false);
             btnResetPromo.setEnabled(false);
-            DBAccessor accessor = new DBAccessor();
-            accessor.connectDB();
             ResultSet rsOrder = null;
             rsOrder = accessor.getOrder();
             orders = new ArrayList<>();
@@ -560,6 +565,37 @@ public class MainPage extends javax.swing.JFrame {
     private void btnInfoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInfoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnInfoActionPerformed
+
+    private void btnNotificationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNotificationActionPerformed
+        checkNoti();
+        StringBuilder sb = new StringBuilder("");
+        try {
+            while (rsNoti.next()){
+                sb.append("Item: " +rsNoti.getString(1).toUpperCase());
+                sb.append(" ");
+                sb.append("Message: " + rsNoti.getString(2).toUpperCase());
+                sb.append("\n");
+            }
+            if (sb.length() != 0) {
+                JOptionPane.showMessageDialog(null,sb,"Notifications", JOptionPane.PLAIN_MESSAGE);
+            } else JOptionPane.showMessageDialog(null,"No notification","Notifications", JOptionPane.PLAIN_MESSAGE);
+        } catch (SQLException ex) {
+            Logger.getLogger(MainPage.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnNotificationActionPerformed
+    
+    public void checkNoti(){
+        rsNoti = null;
+        rsNoti = accessor.getNoti();
+        try {
+            if (rsNoti.next()) {
+                btnNotification.setIcon(newNoti);
+                rsNoti.beforeFirst();
+            } else btnNotification.setIcon(defaultNoti);
+        } catch (SQLException ex) {
+            Logger.getLogger(MainPage.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     public void resetOrder() {
         for (Button i : products) {
             i.setQty(0);
@@ -620,6 +656,10 @@ public class MainPage extends javax.swing.JFrame {
         CardLayout layout = (CardLayout) pnOnorOff.getLayout();
         layout.show(pnOnorOff, pnName);
     }
+    private ResultSet rsNoti;
+    private ImageIcon defaultNoti = new ImageIcon("src/ImageRes/ic_notifications_none_black_48dp_1x.png");
+    private ImageIcon newNoti = new ImageIcon("src/ImageRes/notifications-button.png");
+    private DBAccessor accessor;
     private int currentOrder = -1;
     private String transType;
     private final BigDecimal TAX_RATE = new BigDecimal("0.075");

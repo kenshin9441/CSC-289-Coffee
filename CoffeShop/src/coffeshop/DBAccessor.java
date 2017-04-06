@@ -225,6 +225,17 @@ public class DBAccessor {
 
         return false;
     }
+    public ResultSet getNoti(){
+        ResultSet rs = null;
+        String st = "SELECT inventory.name, alert.message FROM alert, inventory WHERE inventory_id = alert.inv_id;";
+        try {
+            Statement stm = connection.createStatement();
+            rs = stm.executeQuery(st);
+        } catch (SQLException ex) {
+            Logger.getLogger(DBAccessor.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return rs;
+    }
 
     public void disconnect() {
         try {
