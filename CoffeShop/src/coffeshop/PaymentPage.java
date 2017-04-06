@@ -260,7 +260,6 @@ public class PaymentPage extends javax.swing.JFrame {
         jTextField2.setPreferredSize(new java.awt.Dimension(6, 24));
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12" }));
-        jComboBox1.setSelectedIndex(4);
 
         jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "17", "18", "19", "20", "21", "22", "23", "24", "25" }));
 
@@ -948,8 +947,12 @@ public class PaymentPage extends javax.swing.JFrame {
                 }
                 break;
             case "GC":
-                if (jtfGiftCardNum.getText().matches(giftRegExp)) {
-                    return true;
+                String balance = jtfGiftCardNum.getText();
+                if (balance.matches(giftRegExp)) {
+                    balance = balance.substring(0, 1) + balance.substring(balance.length() - 1);
+                    if (new BigDecimal(balance).compareTo(new BigDecimal(txtPayAmt.getText())) >= 0) {
+                        return true;
+                    }
                 }
                 break;
             case "BC":
@@ -962,15 +965,7 @@ public class PaymentPage extends javax.swing.JFrame {
     }
     private void btnPayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPayActionPerformed
         if (validatePayment()) {
-            BigDecimal payAmt;
-            if (paymentMethod.matches("GC")) {
-                String balance = jtfGiftCardNum.getText();
-                balance = balance.substring(0, 1) + balance.substring(balance.length() - 1);
-                payAmt = new BigDecimal(balance);
-            } else {
-                payAmt = new BigDecimal(txtPayAmt.getText());
-            }
-
+            BigDecimal payAmt = new BigDecimal(txtPayAmt.getText());
             if (due.compareTo(payAmt) >= 0) {
                 due = due.subtract(payAmt);
                 paid = paid.add(payAmt);
