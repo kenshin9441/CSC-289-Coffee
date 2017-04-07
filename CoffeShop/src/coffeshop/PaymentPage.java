@@ -18,6 +18,12 @@ import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import net.glxn.qrgen.QRCode;
+import net.glxn.qrgen.image.ImageType;
+import java.io.ByteArrayOutputStream;
+
 /**
  *
  * @author Ghin
@@ -937,6 +943,25 @@ public class PaymentPage extends javax.swing.JFrame {
         showPanel("card3");
     }//GEN-LAST:event_jbtnBitcoinActionPerformed
 
+    private void generateQR(String btcPay) throws Exception{
+   
+        File d = new File("src\\ImageRes\\QR.jpg");
+        d.delete();
+        
+        String details = "Address: abc298soilzi772\nAmount: " + btcPay;
+        QRCode.from(details).withSize(125, 125).file();
+        QRCode.from(details).withSize(125, 125).stream();
+        ByteArrayOutputStream out = QRCode.from(details).to(ImageType.JPG).stream();
+        File f = new File("src\\ImageRes\\QR.jpg");
+        FileOutputStream fos = new FileOutputStream(f);
+ 
+        fos.write(out.toByteArray());
+        fos.close();
+        fos.flush();
+        
+    }
+    
+    
     private void jbtnCashActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnCashActionPerformed
         paymentMethod = "CA";
         resetAll();
@@ -953,7 +978,18 @@ public class PaymentPage extends javax.swing.JFrame {
     }//GEN-LAST:event_jbtnSendBTCActionPerformed
 
     private void jbtnScanCodeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnScanCodeActionPerformed
-        lblQRC.setIcon(new ImageIcon("src/ImageRes/qrc.png"));
+
+        String btcPay = txtPayAmt.getText();
+        try{
+          generateQR(btcPay);  
+        } catch (Exception ex){
+            JOptionPane.showMessageDialog(null, "Error generating QR Code");
+        }
+        
+        ImageIcon icon = new ImageIcon("src/ImageRes/QR.jpg");
+        lblQRC.setIcon(icon);
+
+
         if (lblQRC.getIcon() == null) {
             lblQRC.setIcon(defaultQR);
             JOptionPane.showMessageDialog(null, "Wrong QR Code. Please try again.", "Wrong QR Code", JOptionPane.PLAIN_MESSAGE);
