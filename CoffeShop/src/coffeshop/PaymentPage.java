@@ -29,6 +29,8 @@ import net.glxn.qrgen.image.ImageType;
 import java.io.ByteArrayOutputStream;
 import java.io.ByteArrayInputStream;
 
+
+
 /**
  *
  * @author Ghin
@@ -949,11 +951,16 @@ public class PaymentPage extends javax.swing.JFrame {
     }//GEN-LAST:event_jbtnBitcoinActionPerformed
 
     private void generateQR(String btcPay) throws Exception{
-        
+
+        BigDecimal dollar = new BigDecimal(btcPay);
+        BigDecimal dollarToBTC = new BigDecimal ("1200");
+        BigDecimal btc = dollar.divide(dollarToBTC, 5, BigDecimal.ROUND_HALF_UP);
+
         byte[] imageInByte;
         BufferedImage originalImage = ImageIO.read(new File("src\\ImageRes\\QR.jpg"));
 
-        String details = "Address: abc298soilzi772\nAmount: " + btcPay;
+        String details = "bitcoin:12nAq7bJSkKFxJYaHjhjfPAaZ6sXgLqBJ7?amount=" + btc;
+        //String details = "Address: abc298soilzi772\nAmount: " + btcPay;
         QRCode.from(details).withSize(125, 125).file();
         QRCode.from(details).withSize(125, 125).stream();
         ByteArrayOutputStream out = QRCode.from(details).to(ImageType.JPG).stream();
