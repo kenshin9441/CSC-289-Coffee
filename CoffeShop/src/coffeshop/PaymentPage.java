@@ -17,12 +17,17 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.InputStream;
 
 import java.io.File;
+import java.io.IOException;
 import java.io.FileOutputStream;
 import net.glxn.qrgen.QRCode;
 import net.glxn.qrgen.image.ImageType;
 import java.io.ByteArrayOutputStream;
+import java.io.ByteArrayInputStream;
 
 /**
  *
@@ -944,20 +949,23 @@ public class PaymentPage extends javax.swing.JFrame {
     }//GEN-LAST:event_jbtnBitcoinActionPerformed
 
     private void generateQR(String btcPay) throws Exception{
-   
-        File d = new File("src\\ImageRes\\QR.jpg");
-        d.delete();
         
+        byte[] imageInByte;
+        BufferedImage originalImage = ImageIO.read(new File("src\\ImageRes\\QR.jpg"));
+
         String details = "Address: abc298soilzi772\nAmount: " + btcPay;
         QRCode.from(details).withSize(125, 125).file();
         QRCode.from(details).withSize(125, 125).stream();
         ByteArrayOutputStream out = QRCode.from(details).to(ImageType.JPG).stream();
-        File f = new File("src\\ImageRes\\QR.jpg");
-        FileOutputStream fos = new FileOutputStream(f);
- 
-        fos.write(out.toByteArray());
-        fos.close();
-        fos.flush();
+        ImageIO.write(originalImage, "jpg", out);
+        out.flush();
+        imageInByte = out.toByteArray();
+        out.close();
+        
+        InputStream in = new ByteArrayInputStream(imageInByte);
+        BufferedImage bImageFromConvert = ImageIO.read(in);
+        
+        ImageIO.write(bImageFromConvert, "jpg", new File("src\\ImageRes\\QR.jpg"));
         
     }
     
@@ -985,11 +993,16 @@ public class PaymentPage extends javax.swing.JFrame {
         } catch (Exception ex){
             JOptionPane.showMessageDialog(null, "Error generating QR Code");
         }
-        
-        ImageIcon icon = new ImageIcon("src/ImageRes/QR.jpg");
-        lblQRC.setIcon(icon);
-
-
+       try {
+            BufferedImage image = ImageIO.read(new File("src/ImageRes/QR.jpg"));
+            ImageIcon icon = new ImageIcon(image);
+            icon.getImage().flush();
+            lblQRC.setIcon(icon);
+       } catch(IOException ex){
+           System.out.println(ex.getMessage());
+       }
+       
+      
         if (lblQRC.getIcon() == null) {
             lblQRC.setIcon(defaultQR);
             JOptionPane.showMessageDialog(null, "Wrong QR Code. Please try again.", "Wrong QR Code", JOptionPane.PLAIN_MESSAGE);
