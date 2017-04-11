@@ -667,9 +667,9 @@ public class PaymentPage extends javax.swing.JFrame {
 
         jpMethod.setLayout(new java.awt.GridLayout(2, 2));
 
-        jbtnBitcoin.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jbtnBitcoin.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jbtnBitcoin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImageRes/bitcoin-coin.png"))); // NOI18N
-        jbtnBitcoin.setText("Bitcoin");
+        jbtnBitcoin.setText("     Bitcoin");
         jbtnBitcoin.setMaximumSize(new java.awt.Dimension(129, 48));
         jbtnBitcoin.setMinimumSize(new java.awt.Dimension(129, 48));
         jbtnBitcoin.setPreferredSize(new java.awt.Dimension(129, 48));
@@ -680,9 +680,9 @@ public class PaymentPage extends javax.swing.JFrame {
         });
         jpMethod.add(jbtnBitcoin);
 
-        jbtnCash.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jbtnCash.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jbtnCash.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImageRes/money.png"))); // NOI18N
-        jbtnCash.setText("Cash");
+        jbtnCash.setText("        Cash");
         jbtnCash.setMaximumSize(new java.awt.Dimension(129, 48));
         jbtnCash.setMinimumSize(new java.awt.Dimension(129, 48));
         jbtnCash.setPreferredSize(new java.awt.Dimension(129, 48));
@@ -693,9 +693,10 @@ public class PaymentPage extends javax.swing.JFrame {
         });
         jpMethod.add(jbtnCash);
 
-        jbtnGiftCard.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jbtnGiftCard.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jbtnGiftCard.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImageRes/christmas-gift-card.png"))); // NOI18N
-        jbtnGiftCard.setText("Gift Card");
+        jbtnGiftCard.setText("  Gift Card");
+        jbtnGiftCard.setToolTipText("");
         jbtnGiftCard.setMaximumSize(new java.awt.Dimension(129, 48));
         jbtnGiftCard.setMinimumSize(new java.awt.Dimension(129, 48));
         jbtnGiftCard.setPreferredSize(new java.awt.Dimension(129, 48));
@@ -706,9 +707,9 @@ public class PaymentPage extends javax.swing.JFrame {
         });
         jpMethod.add(jbtnGiftCard);
 
-        jbtnCreditCard.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jbtnCreditCard.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jbtnCreditCard.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImageRes/credit-card.png"))); // NOI18N
-        jbtnCreditCard.setText("Credit Card");
+        jbtnCreditCard.setText("  Credit Card");
         jbtnCreditCard.setMaximumSize(new java.awt.Dimension(187, 48));
         jbtnCreditCard.setMinimumSize(new java.awt.Dimension(187, 48));
         jbtnCreditCard.setPreferredSize(new java.awt.Dimension(129, 48));

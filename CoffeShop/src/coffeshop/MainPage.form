@@ -359,6 +359,7 @@
           <Image iconType="3" name="/ImageRes/ic_payment_black_48dp_1x.png"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Pay"/>
+        <Property name="toolTipText" type="java.lang.String" value="Pay"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnPayActionPerformed"/>
@@ -373,6 +374,7 @@
           <Image iconType="3" name="/ImageRes/ic_cancel_black_48dp_1x.png"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Cancel"/>
+        <Property name="toolTipText" type="java.lang.String" value="Cancel Order"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCancelActionPerformed"/>

@@ -258,6 +258,7 @@ public class MainPage extends javax.swing.JFrame {
         btnPay.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         btnPay.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImageRes/ic_payment_black_48dp_1x.png"))); // NOI18N
         btnPay.setText("Pay");
+        btnPay.setToolTipText("Pay");
         btnPay.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnPayActionPerformed(evt);
@@ -267,6 +268,7 @@ public class MainPage extends javax.swing.JFrame {
         btnCancel.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         btnCancel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImageRes/ic_cancel_black_48dp_1x.png"))); // NOI18N
         btnCancel.setText("Cancel");
+        btnCancel.setToolTipText("Cancel Order");
         btnCancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCancelActionPerformed(evt);
