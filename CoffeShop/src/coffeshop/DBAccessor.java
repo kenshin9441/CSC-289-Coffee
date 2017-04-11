@@ -165,6 +165,8 @@ public class DBAccessor {
                 + "(payment_method," + "trans_id," + "amount)"
                 + "VALUES"
                 + "(?,?,?);";
+        String st4 = "SELECT * FROM krankies.product_inventory_ratio WHERE product_id = ?";
+        String st5 = "UPDATE krankies.inventory SET quantity = quantity - ? WHERE inventory_id = ?";
 
         try {
             connection.setAutoCommit(false);
@@ -208,6 +210,26 @@ public class DBAccessor {
             }
             pst.executeBatch();
             pst.close();
+            ResultSet rsRatio = null;
+            for (Button i : products) {
+                if (i.getQty() > 0) {
+                    pst = connection.prepareStatement(st4);
+                    pst.setInt(1, i.getID());
+                    rsRatio = pst.executeQuery();
+                    while (rsRatio.next()) {
+                        PreparedStatement pst2 = null;
+                        pst2 = connection.prepareStatement(st5);
+                        pst2.setBigDecimal(1, (rsRatio.getBigDecimal(3).multiply(new BigDecimal(i.getQty()))));
+                        pst2.setInt(2, rsRatio.getInt(2));
+                        pst2.executeUpdate();
+                        pst2.close();
+                    }
+                    pst.close();
+                    rsRatio.close();
+                }
+
+            }
+
             connection.commit();
             connection.setAutoCommit(true);
             return true;
@@ -250,7 +272,7 @@ public class DBAccessor {
             pst.close();
             pst = connection.prepareStatement(st2);
             pst.setInt(1, id);
-            pst.executeQuery();
+            pst.executeUpdate();
             connection.commit();
             connection.setAutoCommit(true);
         } catch (SQLException ex) {
@@ -264,7 +286,6 @@ public class DBAccessor {
 
         }
     }
-    
 
     public void disconnect() {
         try {
