@@ -7,6 +7,8 @@ package coffeshop;
 
 import java.awt.CardLayout;
 import java.awt.event.ActionEvent;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.sql.ResultSet;
@@ -18,9 +20,11 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
+import javax.swing.SwingConstants;
 
 /**
  *
@@ -430,10 +434,17 @@ public class MainPage extends javax.swing.JFrame {
             showPanel("card2");
             transType = "INSTORE";
             while (rsProduct.next()) {
-                products.add(new Button(rsProduct.getInt(1), rsProduct.getString(2), rsProduct.getString(3), rsProduct.getBigDecimal(4)));
+                String image = "src//ImageRes//" + rsProduct.getString(2) +".jpg";
+                image = image.replaceAll("\\s+","");
+                image = image.replaceAll(",","");
+                System.out.println(image);
+                products.add(new Button(image, rsProduct.getInt(1), rsProduct.getString(2), rsProduct.getString(3), rsProduct.getBigDecimal(4)));
+                
             }
             for (Button i : products) {
-                i.setText("<html><center><b>" + i.getName() + "<p><font color='red'>$" + i.getPrice() + "</font></p></b></center>");
+                i.setHorizontalTextPosition(SwingConstants.CENTER);
+                i.setText("<html><center><b><p><br><br><br><br><font color='brown'><font bgcolor='white'>$" + i.getPrice() + "</font></font></p></b></center>");
+                //i.setText("<html><center><b>" + i.getName() + "<p><font color='red'>$" + i.getPrice() + "</font></p></b></center>");
 
                 i.addActionListener((ActionEvent ae) -> {
                     i.setQty(i.getQty() + 1);
