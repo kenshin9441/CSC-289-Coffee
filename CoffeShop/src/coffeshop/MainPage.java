@@ -7,6 +7,8 @@ package coffeshop;
 
 import java.awt.CardLayout;
 import java.awt.event.ActionEvent;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.sql.ResultSet;
@@ -18,6 +20,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
@@ -430,12 +433,12 @@ public class MainPage extends javax.swing.JFrame {
             showPanel("card2");
             transType = "INSTORE";
             while (rsProduct.next()) {
-                String image = "src//ImageRes//" + rsProduct.getString(2) + ".jpg";
-                image = image.replaceAll("\\s+", "");
-                image = image.replaceAll(",", "");
+                String image = "src//ImageRes//" + rsProduct.getString(2) +".jpg";
+                image = image.replaceAll("\\s+","");
+                image = image.replaceAll(",","");
                 System.out.println(image);
                 products.add(new Button(image, rsProduct.getInt(1), rsProduct.getString(2), rsProduct.getString(3), rsProduct.getBigDecimal(4)));
-
+                
             }
             for (Button i : products) {
                 i.setHorizontalTextPosition(SwingConstants.CENTER);
@@ -494,7 +497,7 @@ public class MainPage extends javax.swing.JFrame {
 
     private void btnPayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPayActionPerformed
         if (total.compareTo(BigDecimal.ZERO) > 0) {
-            payment = new PaymentPage(this, currentOrder, transType, rsMan, products, (String) cboPromo.getSelectedItem(), subtotal, promo, tax, total);
+            payment = new PaymentPage(this,currentOrder, transType, rsMan, products, (String) cboPromo.getSelectedItem(), subtotal, promo, tax, total);
             this.setVisible(false);
             payment.setVisible(true);
         } else {
@@ -504,17 +507,8 @@ public class MainPage extends javax.swing.JFrame {
     }//GEN-LAST:event_btnPayActionPerformed
 
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
-        if (transType.equals("ONLINE") && currentOrder != -1) {
-            int result = JOptionPane.showConfirmDialog(null, "Are you sure to cancel this order?", "Cancel Order.", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-            if (result == JOptionPane.YES_OPTION) {
-                accessor.cancelOrder(currentOrder);
-                JOptionPane.showMessageDialog(null,"Order has been canceled.","Order Canceled", JOptionPane.PLAIN_MESSAGE);
-            }
-        } else {
-            resetOrder();
-            calculateTotal();
-        }
-
+        resetOrder();
+        calculateTotal();
     }//GEN-LAST:event_btnCancelActionPerformed
 
     private void btnOnlineActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOnlineActionPerformed
@@ -586,37 +580,32 @@ public class MainPage extends javax.swing.JFrame {
         checkNoti();
         StringBuilder sb = new StringBuilder("");
         try {
-            while (rsNoti.next()) {
-                sb.append("Item: " + rsNoti.getString(1).toUpperCase());
+            while (rsNoti.next()){
+                sb.append("Item: " +rsNoti.getString(1).toUpperCase());
                 sb.append(" ");
                 sb.append("Message: " + rsNoti.getString(2).toUpperCase());
                 sb.append("\n");
             }
             if (sb.length() != 0) {
-                JOptionPane.showMessageDialog(null, sb, "Notifications", JOptionPane.PLAIN_MESSAGE);
-            } else {
-                JOptionPane.showMessageDialog(null, "No notification", "Notifications", JOptionPane.PLAIN_MESSAGE);
-            }
+                JOptionPane.showMessageDialog(null,sb,"Notifications", JOptionPane.PLAIN_MESSAGE);
+            } else JOptionPane.showMessageDialog(null,"No notification","Notifications", JOptionPane.PLAIN_MESSAGE);
         } catch (SQLException ex) {
             Logger.getLogger(MainPage.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnNotificationActionPerformed
-
-    public void checkNoti() {
+    
+    public void checkNoti(){
         rsNoti = null;
         rsNoti = accessor.getNoti();
         try {
             if (rsNoti.next()) {
                 btnNotification.setIcon(newNoti);
                 rsNoti.beforeFirst();
-            } else {
-                btnNotification.setIcon(defaultNoti);
-            }
+            } else btnNotification.setIcon(defaultNoti);
         } catch (SQLException ex) {
             Logger.getLogger(MainPage.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
     public void resetOrder() {
         for (Button i : products) {
             i.setQty(0);
