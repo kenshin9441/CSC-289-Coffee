@@ -7,6 +7,7 @@ package coffeshop;
 
 import java.math.BigDecimal;
 import javax.swing.JButton;
+import javax.swing.ImageIcon;
 
 /**
  *
@@ -19,7 +20,10 @@ public class Button extends JButton{
     private BigDecimal price;
     private int qty = 0;
     private Item item;
-    public Button(int ID, String name, String des, BigDecimal price) {
+    private String image;
+    public Button(String image, int ID, String name, String des, BigDecimal price) {
+        
+        this.setIcon(new ImageIcon(image));
         this.ID = ID;
         this.name = name;
         this.des = des;
