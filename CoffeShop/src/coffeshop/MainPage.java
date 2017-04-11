@@ -436,13 +436,12 @@ public class MainPage extends javax.swing.JFrame {
                 String image = "src//ImageRes//" + rsProduct.getString(2) +".jpg";
                 image = image.replaceAll("\\s+","");
                 image = image.replaceAll(",","");
-                System.out.println(image);
                 products.add(new Button(image, rsProduct.getInt(1), rsProduct.getString(2), rsProduct.getString(3), rsProduct.getBigDecimal(4)));
                 
             }
             for (Button i : products) {
                 i.setHorizontalTextPosition(SwingConstants.CENTER);
-                i.setText("<html><center><b><p><br><br><br><br><font color='brown'><font bgcolor='white'>$" + i.getPrice() + "</font></font></p></b></center>");
+                i.setText("<html><center><font color='brown'><font bgcolor='white'><b>" + i.getName() + "<p><br>$" + i.getPrice() + "</font></font></p></b></center>");
                 //i.setText("<html><center><b>" + i.getName() + "<p><font color='red'>$" + i.getPrice() + "</font></p></b></center>");
 
                 i.addActionListener((ActionEvent ae) -> {
