@@ -190,9 +190,9 @@ public class DBAccessor {
                 for (Button i : products) {
                     if (i.getQty() != 0) {
                         pst.setInt(1, i.getID());
-                    pst.setInt(2, key);
-                    pst.setInt(3, i.getQty());
-                    pst.addBatch();
+                        pst.setInt(2, key);
+                        pst.setInt(3, i.getQty());
+                        pst.addBatch();
                     }
                 }
                 pst.executeBatch();
@@ -225,7 +225,8 @@ public class DBAccessor {
 
         return false;
     }
-    public ResultSet getNoti(){
+
+    public ResultSet getNoti() {
         ResultSet rs = null;
         String st = "SELECT inventory.name, alert.message FROM alert, inventory WHERE inventory_id = alert.inv_id;";
         try {
@@ -236,6 +237,34 @@ public class DBAccessor {
         }
         return rs;
     }
+
+    public void cancelOrder(int id) {
+        String st1 = "DELETE FROM krankies.products_in_transaction WHERE trans_id = ?";
+        String st2 = "DELETE FROM krankies.transaction WHERE trans_id = ?";
+        PreparedStatement pst = null;
+        try {
+            connection.setAutoCommit(false);
+            pst = connection.prepareStatement(st1);
+            pst.setInt(1, id);
+            pst.executeUpdate();
+            pst.close();
+            pst = connection.prepareStatement(st2);
+            pst.setInt(1, id);
+            pst.executeQuery();
+            connection.commit();
+            connection.setAutoCommit(true);
+        } catch (SQLException ex) {
+            Logger.getLogger(DBAccessor.class.getName()).log(Level.SEVERE, null, ex);
+            try {
+                connection.rollback();
+                connection.setAutoCommit(true);
+            } catch (SQLException ex1) {
+                Logger.getLogger(DBAccessor.class.getName()).log(Level.SEVERE, null, ex1);
+            }
+
+        }
+    }
+    
 
     public void disconnect() {
         try {
