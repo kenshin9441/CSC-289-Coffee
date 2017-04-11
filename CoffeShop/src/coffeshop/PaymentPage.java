@@ -1075,8 +1075,6 @@ public class PaymentPage extends javax.swing.JFrame {
             }
 
             if (due.compareTo(BigDecimal.ZERO) == 0 && paid.compareTo(total) == 0) {
-                JOptionPane.showMessageDialog(null, "Emp:" + emp_id + " TransType:" + transType + " PromoCd:" + promoCode + " promoAmt:" + promo + " Subtotal:" + subtotal + " Tax:" + tax + " total:" + total + " Paid:" + paid + " due: " + due, "Payment Completed.", JOptionPane.PLAIN_MESSAGE);
-
                 try {
                     accessor = new DBAccessor();
                     accessor.connectDB();
