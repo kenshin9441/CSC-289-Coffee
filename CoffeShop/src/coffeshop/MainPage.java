@@ -507,8 +507,16 @@ public class MainPage extends javax.swing.JFrame {
     }//GEN-LAST:event_btnPayActionPerformed
 
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
-        resetOrder();
-        calculateTotal();
+        if (transType.equals("ONLINE") && currentOrder != -1) {
+            int result = JOptionPane.showConfirmDialog(null, "Are you sure to cancel this order?", "Cancel Order.", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+            if (result == JOptionPane.YES_OPTION) {
+                accessor.cancelOrder(currentOrder);
+                JOptionPane.showMessageDialog(null,"Order has been canceled.","Order Canceled", JOptionPane.PLAIN_MESSAGE);
+            }
+        } else {
+            resetOrder();
+            calculateTotal();
+        }
     }//GEN-LAST:event_btnCancelActionPerformed
 
     private void btnOnlineActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOnlineActionPerformed
