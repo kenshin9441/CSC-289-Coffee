@@ -37,6 +37,8 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.net.MalformedURLException;
 import java.io.IOException;
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  *
@@ -47,6 +49,8 @@ public class PaymentPage extends javax.swing.JFrame {
     /**
      * Creates new form Payment
      */
+   
+    boolean timeExpired;
     public PaymentPage(MainPage mmain, int currentOrder, String mtransType, ResultSet memp, List<Button> mproducts, String mpromoCode, BigDecimal msubtotal, BigDecimal mpromo, BigDecimal mtax, BigDecimal mtotal) {
         initComponents();
         main = mmain;
@@ -77,6 +81,8 @@ public class PaymentPage extends javax.swing.JFrame {
         paymentMethod = "CA";
         payments = new ArrayList<>();
         calculateDue();
+        
+        boolean timeExpired = false;
     }
 
     /**
@@ -106,6 +112,7 @@ public class PaymentPage extends javax.swing.JFrame {
         jbtnScanCode = new javax.swing.JButton();
         jbtnSendBTC = new javax.swing.JButton();
         lblUSDtoBTC = new javax.swing.JLabel();
+        lblTimer = new javax.swing.JLabel();
         jpCreditDebit = new javax.swing.JPanel();
         jradCredit = new javax.swing.JRadioButton();
         jradDebit = new javax.swing.JRadioButton();
@@ -229,12 +236,15 @@ public class PaymentPage extends javax.swing.JFrame {
 
         lblUSDtoBTC.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
 
+        lblTimer.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        lblTimer.setText(" ");
+
         javax.swing.GroupLayout jbBitcoinLayout = new javax.swing.GroupLayout(jbBitcoin);
         jbBitcoin.setLayout(jbBitcoinLayout);
         jbBitcoinLayout.setHorizontalGroup(
             jbBitcoinLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jbBitcoinLayout.createSequentialGroup()
-                .addContainerGap(160, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jbtnScanCode)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jbtnSendBTC, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -246,7 +256,9 @@ public class PaymentPage extends javax.swing.JFrame {
                 .addGroup(jbBitcoinLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(lblUSDtoBTC, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(lblQRC, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(44, 44, 44)
+                .addComponent(lblTimer, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(63, Short.MAX_VALUE))
         );
         jbBitcoinLayout.setVerticalGroup(
             jbBitcoinLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -257,7 +269,10 @@ public class PaymentPage extends javax.swing.JFrame {
                         .addComponent(lblBTCDue, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jbBitcoinLayout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(lblQRC)))
+                        .addComponent(lblQRC))
+                    .addGroup(jbBitcoinLayout.createSequentialGroup()
+                        .addGap(69, 69, 69)
+                        .addComponent(lblTimer, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblUSDtoBTC, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -972,6 +987,7 @@ public class PaymentPage extends javax.swing.JFrame {
     }//GEN-LAST:event_jbtnGiftCardActionPerformed
 
     private void jbtnBitcoinActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnBitcoinActionPerformed
+
         paymentMethod = "BC";
         resetAll();
         showPanel("card3");
@@ -983,9 +999,6 @@ public class PaymentPage extends javax.swing.JFrame {
         BigDecimal btcPriceIndex = btcPriceIndex();
         BigDecimal btc = dollar.divide(btcPriceIndex, 5, BigDecimal.ROUND_HALF_UP);
         
-        // BigDecimal dollarToBTC = new BigDecimal ("1200");
-        // BigDecimal btc = dollar.divide(dollarToBTC, 5, BigDecimal.ROUND_HALF_UP);
-
         byte[] imageInByte;
         BufferedImage originalImage = ImageIO.read(new File("src\\ImageRes\\QR.jpg"));
 
@@ -1028,36 +1041,35 @@ public class PaymentPage extends javax.swing.JFrame {
         return null;
     }
 
-    /*
-    public BigDecimal dollarToBTC(BigDecimal dollar) {
+    private void btcTimer(){
+       
+        Timer timer = new Timer(); //new timer
+        timeExpired = false;
+        
+        TimerTask task = new TimerTask() {       
+            int counter = 10;        
+            public void run() {  
+                int minutes = 0;
+                int seconds = 0;
 
-        try {
-            JSONObject jo = (JSONObject) new JSONTokener(IOUtils.toString(new URL("http://api.coindesk.com/v1/bpi/currentprice/USD.json").openStream‌​())).nextValue();
+                minutes =  counter / 60;
+                seconds = counter % 60;
 
-            String priceIndex = jo.getJSONObject("bpi").getJSONObject("USD").getString("rate");
-            priceIndex = priceIndex.replace(",", "");
-
-            // System.out.println(priceIndex);
-            BigDecimal btcPriceIndex = new BigDecimal(priceIndex);
-            BigDecimal btc = dollar.divide(btcPriceIndex, 5, BigDecimal.ROUND_HALF_UP);
-
-            return btc;
-
-        } catch (MalformedURLException e) {
-            JOptionPane.showMessageDialog(null, "Error connecting to price index url");
-            e.printStackTrace();
-        } catch (IOException e) {
-            JOptionPane.showMessageDialog(null, "Error reading price index");
-            e.printStackTrace();
-        } catch (JSONException e) {
-            JOptionPane.showMessageDialog(null, "Error getting price index");
-            e.printStackTrace();
-        }
-
-        return null;
-
+                String timeString = String.format("Time Left: %02d:%02d", minutes, seconds);
+                lblTimer.setText(timeString);
+                counter --;
+                if (counter == -1){
+                    timer.cancel();   
+                    lblTimer.setText("Time Expired");
+                    timeExpired = true;
+                }
+            }
+        };
+    timer.scheduleAtFixedRate(task, 1000, 1000); 
+        
+        
+        
     }
-*/
 
     private void jbtnCashActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnCashActionPerformed
         paymentMethod = "CA";
@@ -1075,7 +1087,7 @@ public class PaymentPage extends javax.swing.JFrame {
     }//GEN-LAST:event_jbtnSendBTCActionPerformed
 
     private void jbtnScanCodeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnScanCodeActionPerformed
-
+        btcTimer();
         String btcPay = txtPayAmt.getText();
         
         BigDecimal USD = new BigDecimal(btcPay);
@@ -1142,7 +1154,9 @@ public class PaymentPage extends javax.swing.JFrame {
                 }
                 break;
             case "BC":
-                if (lblQRC.getIcon() != defaultQR) {
+                 if(timeExpired){
+                JOptionPane.showMessageDialog(null,"Time Expired. Please re-scan code");
+            } else if (lblQRC.getIcon() != defaultQR) {
                     return true;
                 }
                 break;
@@ -1151,6 +1165,7 @@ public class PaymentPage extends javax.swing.JFrame {
     }
     private void btnPayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPayActionPerformed
         if (validatePayment()) {
+            
             BigDecimal payAmt = new BigDecimal(txtPayAmt.getText());
             if (due.compareTo(payAmt) >= 0) {
                 due = due.subtract(payAmt);
@@ -1352,6 +1367,7 @@ public class PaymentPage extends javax.swing.JFrame {
     private javax.swing.JLabel lblQRC;
     private javax.swing.JLabel lblSubtotal;
     private javax.swing.JLabel lblTax;
+    private javax.swing.JLabel lblTimer;
     private javax.swing.JLabel lblTotal;
     private javax.swing.JLabel lblUSDtoBTC;
     private javax.swing.JTextField txtPayAmt;
