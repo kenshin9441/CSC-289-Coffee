@@ -29,7 +29,14 @@ import net.glxn.qrgen.image.ImageType;
 import java.io.ByteArrayOutputStream;
 import java.io.ByteArrayInputStream;
 
-
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.json.*;
+import org.apache.commons.io.*;
+import java.net.URL;
+import java.net.URLConnection;
+import java.net.MalformedURLException;
+import java.io.IOException;
 
 /**
  *
@@ -952,17 +959,17 @@ public class PaymentPage extends javax.swing.JFrame {
         showPanel("card3");
     }//GEN-LAST:event_jbtnBitcoinActionPerformed
 
-    private void generateQR(String btcPay) throws Exception{
+    private void generateQR(String btcPay) throws Exception {
 
         BigDecimal dollar = new BigDecimal(btcPay);
-        BigDecimal dollarToBTC = new BigDecimal ("1200");
-        BigDecimal btc = dollar.divide(dollarToBTC, 5, BigDecimal.ROUND_HALF_UP);
+        BigDecimal btc = dollarToBTC(dollar);
+        // BigDecimal dollarToBTC = new BigDecimal ("1200");
+        // BigDecimal btc = dollar.divide(dollarToBTC, 5, BigDecimal.ROUND_HALF_UP);
 
         byte[] imageInByte;
         BufferedImage originalImage = ImageIO.read(new File("src\\ImageRes\\QR.jpg"));
 
         String details = "bitcoin:12nAq7bJSkKFxJYaHjhjfPAaZ6sXgLqBJ7?amount=" + btc;
-        //String details = "Address: abc298soilzi772\nAmount: " + btcPay;
         QRCode.from(details).withSize(125, 125).file();
         QRCode.from(details).withSize(125, 125).stream();
         ByteArrayOutputStream out = QRCode.from(details).to(ImageType.JPG).stream();
@@ -970,15 +977,44 @@ public class PaymentPage extends javax.swing.JFrame {
         out.flush();
         imageInByte = out.toByteArray();
         out.close();
-        
+
         InputStream in = new ByteArrayInputStream(imageInByte);
         BufferedImage bImageFromConvert = ImageIO.read(in);
-        
+
         ImageIO.write(bImageFromConvert, "jpg", new File("src\\ImageRes\\QR.jpg"));
-        
+
     }
-    
-    
+
+    public BigDecimal dollarToBTC(BigDecimal dollar) {
+
+        try {
+            JSONObject jo = (JSONObject) new JSONTokener(IOUtils.toString(new URL("http://api.coindesk.com/v1/bpi/currentprice/USD.json").openStream‌​())).nextValue();
+
+            String priceIndex = jo.getJSONObject("bpi").getJSONObject("USD").getString("rate");
+            priceIndex = priceIndex.replace(",", "");
+            // System.out.println(priceIndex);
+
+            BigDecimal btcPriceIndex = new BigDecimal(priceIndex);
+            BigDecimal btc = dollar.divide(btcPriceIndex, 5, BigDecimal.ROUND_HALF_UP);
+
+            return btc;
+
+        } catch (MalformedURLException e) {
+            JOptionPane.showMessageDialog(null, "Error connecting to price index url");
+            e.printStackTrace();
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(null, "Error reading price index");
+            e.printStackTrace();
+        } catch (JSONException e) {
+            JOptionPane.showMessageDialog(null, "Error getting price index");
+            e.printStackTrace();
+        }
+
+        return null;
+
+    }
+
+
     private void jbtnCashActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnCashActionPerformed
         paymentMethod = "CA";
         resetAll();
@@ -997,21 +1033,21 @@ public class PaymentPage extends javax.swing.JFrame {
     private void jbtnScanCodeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnScanCodeActionPerformed
 
         String btcPay = txtPayAmt.getText();
-        try{
-          generateQR(btcPay);  
-        } catch (Exception ex){
+        try {
+            generateQR(btcPay);
+        } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, "Error generating QR Code");
+            ex.printStackTrace();
         }
-       try {
+        try {
             BufferedImage image = ImageIO.read(new File("src/ImageRes/QR.jpg"));
             ImageIcon icon = new ImageIcon(image);
             icon.getImage().flush();
             lblQRC.setIcon(icon);
-       } catch(IOException ex){
-           System.out.println(ex.getMessage());
-       }
-       
-      
+        } catch (IOException ex) {
+            System.out.println(ex.getMessage());
+        }
+
         if (lblQRC.getIcon() == null) {
             lblQRC.setIcon(defaultQR);
             JOptionPane.showMessageDialog(null, "Wrong QR Code. Please try again.", "Wrong QR Code", JOptionPane.PLAIN_MESSAGE);
@@ -1031,9 +1067,9 @@ public class PaymentPage extends javax.swing.JFrame {
                     return true;
                 } else if (jtfCardNum.getText().matches(cardRegExp) && !jTextField2.getText().equals("")) {
                     Calendar cal = Calendar.getInstance();
-                    if ((2000+Integer.parseInt(jComboBox2.getSelectedItem().toString())) > cal.get(Calendar.YEAR)) {
+                    if ((2000 + Integer.parseInt(jComboBox2.getSelectedItem().toString())) > cal.get(Calendar.YEAR)) {
                         return true;
-                    } else if ((2000+Integer.parseInt(jComboBox2.getSelectedItem().toString())) < cal.get(Calendar.YEAR)) {
+                    } else if ((2000 + Integer.parseInt(jComboBox2.getSelectedItem().toString())) < cal.get(Calendar.YEAR)) {
                         return false;
                     } else if (Integer.parseInt(jComboBox1.getSelectedItem().toString()) >= (cal.get(Calendar.MONTH) + 1)) {
                         return true;
