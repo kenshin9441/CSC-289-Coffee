@@ -101,9 +101,11 @@ public class PaymentPage extends javax.swing.JFrame {
         lblTotal = new javax.swing.JLabel();
         jpPaymentInput = new javax.swing.JPanel();
         jbBitcoin = new javax.swing.JPanel();
-        jbtnSendBTC = new javax.swing.JButton();
-        jbtnScanCode = new javax.swing.JButton();
         lblQRC = new javax.swing.JLabel();
+        lblBTCDue = new javax.swing.JLabel();
+        jbtnScanCode = new javax.swing.JButton();
+        jbtnSendBTC = new javax.swing.JButton();
+        lblUSDtoBTC = new javax.swing.JLabel();
         jpCreditDebit = new javax.swing.JPanel();
         jradCredit = new javax.swing.JRadioButton();
         jradDebit = new javax.swing.JRadioButton();
@@ -206,12 +208,10 @@ public class PaymentPage extends javax.swing.JFrame {
         jbBitcoin.setVisible(false);
         jbBitcoin.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        jbtnSendBTC.setText("Clear");
-        jbtnSendBTC.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbtnSendBTCActionPerformed(evt);
-            }
-        });
+        lblQRC.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblQRC.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImageRes/defaultQR.png"))); // NOI18N
+
+        lblBTCDue.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
 
         jbtnScanCode.setText("Scan Code");
         jbtnScanCode.addActionListener(new java.awt.event.ActionListener() {
@@ -220,33 +220,51 @@ public class PaymentPage extends javax.swing.JFrame {
             }
         });
 
-        lblQRC.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImageRes/defaultQR.png"))); // NOI18N
+        jbtnSendBTC.setText("Clear");
+        jbtnSendBTC.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtnSendBTCActionPerformed(evt);
+            }
+        });
+
+        lblUSDtoBTC.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
 
         javax.swing.GroupLayout jbBitcoinLayout = new javax.swing.GroupLayout(jbBitcoin);
         jbBitcoin.setLayout(jbBitcoinLayout);
         jbBitcoinLayout.setHorizontalGroup(
             jbBitcoinLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jbBitcoinLayout.createSequentialGroup()
-                .addGap(94, 94, 94)
-                .addComponent(jbtnScanCode, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jbtnSendBTC, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 100, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jbBitcoinLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(lblQRC)
-                .addGap(128, 128, 128))
+                .addContainerGap(160, Short.MAX_VALUE)
+                .addComponent(jbtnScanCode)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jbtnSendBTC, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(198, 198, 198))
+            .addGroup(jbBitcoinLayout.createSequentialGroup()
+                .addGap(39, 39, 39)
+                .addComponent(lblBTCDue, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(jbBitcoinLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(lblUSDtoBTC, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblQRC, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jbBitcoinLayout.setVerticalGroup(
             jbBitcoinLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jbBitcoinLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(lblQRC, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
+                .addGroup(jbBitcoinLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jbBitcoinLayout.createSequentialGroup()
+                        .addGap(72, 72, 72)
+                        .addComponent(lblBTCDue, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jbBitcoinLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(lblQRC)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblUSDtoBTC, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jbBitcoinLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jbtnScanCode)
                     .addComponent(jbtnSendBTC))
-                .addGap(19, 19, 19))
+                .addGap(21, 21, 21))
         );
 
         jpPaymentInput.add(jbBitcoin, "card3");
@@ -332,7 +350,7 @@ public class PaymentPage extends javax.swing.JFrame {
                         .addComponent(btnSwipe)
                         .addGap(32, 32, 32)
                         .addComponent(btnClear)))
-                .addContainerGap(41, Short.MAX_VALUE))
+                .addContainerGap(154, Short.MAX_VALUE))
         );
         jpCreditDebitLayout.setVerticalGroup(
             jpCreditDebitLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -810,7 +828,7 @@ public class PaymentPage extends javax.swing.JFrame {
                         .addComponent(btnCancel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnPay)))
-                .addContainerGap(15, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -962,7 +980,9 @@ public class PaymentPage extends javax.swing.JFrame {
     private void generateQR(String btcPay) throws Exception {
 
         BigDecimal dollar = new BigDecimal(btcPay);
-        BigDecimal btc = dollarToBTC(dollar);
+        BigDecimal btcPriceIndex = btcPriceIndex();
+        BigDecimal btc = dollar.divide(btcPriceIndex, 5, BigDecimal.ROUND_HALF_UP);
+        
         // BigDecimal dollarToBTC = new BigDecimal ("1200");
         // BigDecimal btc = dollar.divide(dollarToBTC, 5, BigDecimal.ROUND_HALF_UP);
 
@@ -985,6 +1005,30 @@ public class PaymentPage extends javax.swing.JFrame {
 
     }
 
+    public BigDecimal btcPriceIndex() {
+        try {
+            JSONObject jo = (JSONObject) new JSONTokener(IOUtils.toString(new URL("http://api.coindesk.com/v1/bpi/currentprice/USD.json").openStream‌​())).nextValue();
+
+            String priceIndex = jo.getJSONObject("bpi").getJSONObject("USD").getString("rate");
+            priceIndex = priceIndex.replace(",", "");
+
+            BigDecimal btcPriceInUSD = new BigDecimal(priceIndex);
+            return btcPriceInUSD;
+        } catch (MalformedURLException e) {
+            JOptionPane.showMessageDialog(null, "Error connecting to price index url");
+            e.printStackTrace();
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(null, "Error reading price index");
+            e.printStackTrace();
+        } catch (JSONException e) {
+            JOptionPane.showMessageDialog(null, "Error getting price index");
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+    /*
     public BigDecimal dollarToBTC(BigDecimal dollar) {
 
         try {
@@ -992,8 +1036,8 @@ public class PaymentPage extends javax.swing.JFrame {
 
             String priceIndex = jo.getJSONObject("bpi").getJSONObject("USD").getString("rate");
             priceIndex = priceIndex.replace(",", "");
-            // System.out.println(priceIndex);
 
+            // System.out.println(priceIndex);
             BigDecimal btcPriceIndex = new BigDecimal(priceIndex);
             BigDecimal btc = dollar.divide(btcPriceIndex, 5, BigDecimal.ROUND_HALF_UP);
 
@@ -1013,7 +1057,7 @@ public class PaymentPage extends javax.swing.JFrame {
         return null;
 
     }
-
+*/
 
     private void jbtnCashActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnCashActionPerformed
         paymentMethod = "CA";
@@ -1033,6 +1077,16 @@ public class PaymentPage extends javax.swing.JFrame {
     private void jbtnScanCodeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnScanCodeActionPerformed
 
         String btcPay = txtPayAmt.getText();
+        
+        BigDecimal USD = new BigDecimal(btcPay);
+        BigDecimal USDtoBTC = btcPriceIndex();
+        BigDecimal BTCDue = USD.divide(USDtoBTC, 5, BigDecimal.ROUND_HALF_UP);
+        USDtoBTC = USDtoBTC.setScale(2, BigDecimal.ROUND_HALF_UP);
+        
+        lblUSDtoBTC.setText("USD/BTC = " + USDtoBTC);
+        lblBTCDue.setText("BTC Due: " + BTCDue);
+
+        
         try {
             generateQR(btcPay);
         } catch (Exception ex) {
@@ -1291,6 +1345,7 @@ public class PaymentPage extends javax.swing.JFrame {
     private javax.swing.JTextField jtfCardNum;
     private javax.swing.JTextField jtfGiftCardNum;
     private javax.swing.JTextField jtfNumPad;
+    private javax.swing.JLabel lblBTCDue;
     private javax.swing.JLabel lblDue;
     private javax.swing.JLabel lblPaid;
     private javax.swing.JLabel lblPromo;
@@ -1298,6 +1353,7 @@ public class PaymentPage extends javax.swing.JFrame {
     private javax.swing.JLabel lblSubtotal;
     private javax.swing.JLabel lblTax;
     private javax.swing.JLabel lblTotal;
+    private javax.swing.JLabel lblUSDtoBTC;
     private javax.swing.JTextField txtPayAmt;
     // End of variables declaration//GEN-END:variables
 }
