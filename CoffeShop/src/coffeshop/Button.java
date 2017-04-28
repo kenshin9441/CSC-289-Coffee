@@ -5,6 +5,7 @@
  */
 package coffeshop;
 
+import java.io.File;
 import java.math.BigDecimal;
 import javax.swing.JButton;
 import javax.swing.ImageIcon;
@@ -13,7 +14,8 @@ import javax.swing.ImageIcon;
  *
  * @author Ghin
  */
-public class Button extends JButton{
+public class Button extends JButton {
+
     private int ID;
     private String name;
     private String des;
@@ -21,9 +23,12 @@ public class Button extends JButton{
     private int qty = 0;
     private Item item;
     private String image;
+
     public Button(String image, int ID, String name, String des, BigDecimal price) {
-        
-        this.setIcon(new ImageIcon(image));
+        File f = new File(image);
+        if (f.exists() && !f.isDirectory()) {
+            this.setIcon(new ImageIcon(image));
+        }
         this.ID = ID;
         this.name = name;
         this.des = des;
@@ -39,7 +44,6 @@ public class Button extends JButton{
         this.item = item;
     }
 
-    
     public int getQty() {
         return qty;
     }
@@ -48,7 +52,7 @@ public class Button extends JButton{
         qty = qtyy;
         item.setQty(qty);
     }
-    
+
     public int getID() {
         return ID;
     }
@@ -81,6 +85,4 @@ public class Button extends JButton{
         this.price = price;
     }
 
-    
-    
 }

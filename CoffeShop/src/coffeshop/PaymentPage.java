@@ -22,8 +22,6 @@ import java.awt.image.BufferedImage;
 import java.io.InputStream;
 
 import java.io.File;
-import java.io.IOException;
-import java.io.FileOutputStream;
 import net.glxn.qrgen.QRCode;
 import net.glxn.qrgen.image.ImageType;
 import java.io.ByteArrayOutputStream;
@@ -34,7 +32,6 @@ import org.json.JSONObject;
 import org.json.*;
 import org.apache.commons.io.*;
 import java.net.URL;
-import java.net.URLConnection;
 import java.net.MalformedURLException;
 import java.io.IOException;
 import java.util.Timer;
@@ -339,38 +336,36 @@ public class PaymentPage extends javax.swing.JFrame {
         jpCreditDebit.setLayout(jpCreditDebitLayout);
         jpCreditDebitLayout.setHorizontalGroup(
             jpCreditDebitLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jpCreditDebitLayout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpCreditDebitLayout.createSequentialGroup()
+                .addContainerGap(132, Short.MAX_VALUE)
                 .addGroup(jpCreditDebitLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jpCreditDebitLayout.createSequentialGroup()
-                        .addGap(45, 45, 45)
+                        .addGroup(jpCreditDebitLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jradCredit)
+                            .addComponent(jlblCardNum)
+                            .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(27, 27, 27)
                         .addGroup(jpCreditDebitLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jtfCardNum, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jradDebit)
+                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jpCreditDebitLayout.createSequentialGroup()
-                                .addGroup(jpCreditDebitLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jradCredit)
-                                    .addComponent(jlblCardNum)
-                                    .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(27, 27, 27)
-                                .addGroup(jpCreditDebitLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jtfCardNum, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jradDebit)
-                                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(jpCreditDebitLayout.createSequentialGroup()
-                                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                            .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 321, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 321, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jpCreditDebitLayout.createSequentialGroup()
-                        .addGap(74, 74, 74)
+                        .addGap(29, 29, 29)
                         .addComponent(btnSwipe)
                         .addGap(32, 32, 32)
                         .addComponent(btnClear)))
-                .addContainerGap(154, Short.MAX_VALUE))
+                .addGap(67, 67, 67))
         );
         jpCreditDebitLayout.setVerticalGroup(
             jpCreditDebitLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpCreditDebitLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(16, Short.MAX_VALUE)
                 .addGroup(jpCreditDebitLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jradCredit)
                     .addComponent(jradDebit))
@@ -393,7 +388,7 @@ public class PaymentPage extends javax.swing.JFrame {
                 .addGroup(jpCreditDebitLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSwipe)
                     .addComponent(btnClear))
-                .addGap(20, 20, 20))
+                .addContainerGap())
         );
 
         jpPaymentInput.add(jpCreditDebit, "card4");
@@ -415,25 +410,25 @@ public class PaymentPage extends javax.swing.JFrame {
         jpGift.setLayout(jpGiftLayout);
         jpGiftLayout.setHorizontalGroup(
             jpGiftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpGiftLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jpGiftLayout.createSequentialGroup()
+                .addGap(86, 86, 86)
                 .addComponent(jlblGiftCardNum)
                 .addGap(18, 18, 18)
                 .addGroup(jpGiftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jtfGiftCardNum, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(33, 33, 33))
+                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jtfGiftCardNum, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(132, Short.MAX_VALUE))
         );
         jpGiftLayout.setVerticalGroup(
             jpGiftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpGiftLayout.createSequentialGroup()
-                .addContainerGap(87, Short.MAX_VALUE)
+                .addContainerGap(85, Short.MAX_VALUE)
                 .addGroup(jpGiftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jlblGiftCardNum)
                     .addComponent(jtfGiftCardNum, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jButton1)
-                .addGap(45, 45, 45))
+                .addGap(47, 47, 47))
         );
 
         jpPaymentInput.add(jpGift, "card5");
@@ -1062,6 +1057,7 @@ public class PaymentPage extends javax.swing.JFrame {
                     timer.cancel();   
                     lblTimer.setText("Time Expired");
                     timeExpired = true;
+                    lblQRC.setIcon(defaultQR);
                 }
             }
         };
@@ -1154,9 +1150,7 @@ public class PaymentPage extends javax.swing.JFrame {
                 }
                 break;
             case "BC":
-                 if(timeExpired){
-                JOptionPane.showMessageDialog(null,"Time Expired. Please re-scan code");
-            } else if (lblQRC.getIcon() != defaultQR) {
+                if (lblQRC.getIcon() != defaultQR) {
                     return true;
                 }
                 break;
