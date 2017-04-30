@@ -20,13 +20,11 @@ import javax.swing.JOptionPane;
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.InputStream;
-
 import java.io.File;
 import net.glxn.qrgen.QRCode;
 import net.glxn.qrgen.image.ImageType;
 import java.io.ByteArrayOutputStream;
 import java.io.ByteArrayInputStream;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.*;
@@ -46,8 +44,8 @@ public class PaymentPage extends javax.swing.JFrame {
     /**
      * Creates new form Payment
      */
-   
     boolean timeExpired;
+
     public PaymentPage(MainPage mmain, int currentOrder, String mtransType, ResultSet memp, List<Button> mproducts, String mpromoCode, BigDecimal msubtotal, BigDecimal mpromo, BigDecimal mtax, BigDecimal mtotal) {
         initComponents();
         main = mmain;
@@ -78,7 +76,6 @@ public class PaymentPage extends javax.swing.JFrame {
         paymentMethod = "CA";
         payments = new ArrayList<>();
         calculateDue();
-        
         boolean timeExpired = false;
     }
 
@@ -982,21 +979,17 @@ public class PaymentPage extends javax.swing.JFrame {
     }//GEN-LAST:event_jbtnGiftCardActionPerformed
 
     private void jbtnBitcoinActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnBitcoinActionPerformed
-
         paymentMethod = "BC";
         resetAll();
         showPanel("card3");
     }//GEN-LAST:event_jbtnBitcoinActionPerformed
 
     private void generateQR(String btcPay) throws Exception {
-
         BigDecimal dollar = new BigDecimal(btcPay);
         BigDecimal btcPriceIndex = btcPriceIndex();
         BigDecimal btc = dollar.divide(btcPriceIndex, 5, BigDecimal.ROUND_HALF_UP);
-        
         byte[] imageInByte;
         BufferedImage originalImage = ImageIO.read(new File("src\\ImageRes\\QR.jpg"));
-
         String details = "bitcoin:12nAq7bJSkKFxJYaHjhjfPAaZ6sXgLqBJ7?amount=" + btc;
         QRCode.from(details).withSize(125, 125).file();
         QRCode.from(details).withSize(125, 125).stream();
@@ -1005,21 +998,16 @@ public class PaymentPage extends javax.swing.JFrame {
         out.flush();
         imageInByte = out.toByteArray();
         out.close();
-
         InputStream in = new ByteArrayInputStream(imageInByte);
         BufferedImage bImageFromConvert = ImageIO.read(in);
-
         ImageIO.write(bImageFromConvert, "jpg", new File("src\\ImageRes\\QR.jpg"));
-
     }
 
     public BigDecimal btcPriceIndex() {
         try {
             JSONObject jo = (JSONObject) new JSONTokener(IOUtils.toString(new URL("http://api.coindesk.com/v1/bpi/currentprice/USD.json").openStream‌​())).nextValue();
-
             String priceIndex = jo.getJSONObject("bpi").getJSONObject("USD").getString("rate");
             priceIndex = priceIndex.replace(",", "");
-
             BigDecimal btcPriceInUSD = new BigDecimal(priceIndex);
             return btcPriceInUSD;
         } catch (MalformedURLException e) {
@@ -1032,39 +1020,32 @@ public class PaymentPage extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Error getting price index");
             e.printStackTrace();
         }
-
         return null;
     }
 
-    private void btcTimer(){
-       
+    private void btcTimer() {
         Timer timer = new Timer(); //new timer
         timeExpired = false;
-        
-        TimerTask task = new TimerTask() {       
-            int counter = 10;        
-            public void run() {  
+        TimerTask task = new TimerTask() {
+            int counter = 10;
+
+            public void run() {
                 int minutes = 0;
                 int seconds = 0;
-
-                minutes =  counter / 60;
+                minutes = counter / 60;
                 seconds = counter % 60;
-
                 String timeString = String.format("Time Left: %02d:%02d", minutes, seconds);
                 lblTimer.setText(timeString);
-                counter --;
-                if (counter == -1){
-                    timer.cancel();   
+                counter--;
+                if (counter == -1) {
+                    timer.cancel();
                     lblTimer.setText("Time Expired");
                     timeExpired = true;
                     lblQRC.setIcon(defaultQR);
                 }
             }
         };
-    timer.scheduleAtFixedRate(task, 1000, 1000); 
-        
-        
-        
+        timer.scheduleAtFixedRate(task, 1000, 1000);
     }
 
     private void jbtnCashActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnCashActionPerformed
@@ -1085,16 +1066,12 @@ public class PaymentPage extends javax.swing.JFrame {
     private void jbtnScanCodeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnScanCodeActionPerformed
         btcTimer();
         String btcPay = txtPayAmt.getText();
-        
         BigDecimal USD = new BigDecimal(btcPay);
         BigDecimal USDtoBTC = btcPriceIndex();
         BigDecimal BTCDue = USD.divide(USDtoBTC, 5, BigDecimal.ROUND_HALF_UP);
         USDtoBTC = USDtoBTC.setScale(2, BigDecimal.ROUND_HALF_UP);
-        
         lblUSDtoBTC.setText("USD/BTC = " + USDtoBTC);
         lblBTCDue.setText("BTC Due: " + BTCDue);
-
-        
         try {
             generateQR(btcPay);
         } catch (Exception ex) {
@@ -1159,7 +1136,7 @@ public class PaymentPage extends javax.swing.JFrame {
     }
     private void btnPayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPayActionPerformed
         if (validatePayment()) {
-            
+
             BigDecimal payAmt = new BigDecimal(txtPayAmt.getText());
             if (due.compareTo(payAmt) >= 0) {
                 due = due.subtract(payAmt);
@@ -1174,17 +1151,14 @@ public class PaymentPage extends javax.swing.JFrame {
             } else {
                 JOptionPane.showMessageDialog(null, "Payment Amount is wrong. Please check again.", "Wrong Payment Amount", JOptionPane.PLAIN_MESSAGE);
             }
-
             if (due.compareTo(BigDecimal.ZERO) == 0 && paid.compareTo(total) == 0) {
                 JOptionPane.showMessageDialog(null, "Emp:" + emp_id + " TransType:" + transType + " PromoCd:" + promoCode + " promoAmt:" + promo + " Subtotal:" + subtotal + " Tax:" + tax + " total:" + total + " Paid:" + paid + " due: " + due, "Payment Completed.", JOptionPane.PLAIN_MESSAGE);
-
                 try {
                     accessor = new DBAccessor();
                     accessor.connectDB();
                     if (accessor.insertPayment(emp_id, transType, transID, tax, total, promoCode, products, payments)) {
                         JOptionPane.showMessageDialog(null, "Records have been saved", "Records saved", JOptionPane.PLAIN_MESSAGE);
                     }
-                    // return to main
                     rsMan.beforeFirst();
                 } catch (SQLException ex) {
                     Logger.getLogger(PaymentPage.class.getName()).log(Level.SEVERE, null, ex);
@@ -1256,7 +1230,6 @@ public class PaymentPage extends javax.swing.JFrame {
         jtfNumPad.setText("0.00");
         //reset GC
         jtfGiftCardNum.setText("");
-
     }
 
     private void calculateDue() {

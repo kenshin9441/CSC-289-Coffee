@@ -150,7 +150,6 @@ public class LoginPage extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
     
     private void jbLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbLoginActionPerformed
-        // TODO add your handling code here:
         if (txtUser.getText().length()!=0 && txtPassword.getPassword().length !=0) {
             DBAccessor accessor = new DBAccessor();
             accessor.connectDB();
@@ -172,7 +171,6 @@ public class LoginPage extends javax.swing.JFrame {
 
     private void jbForgetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbForgetActionPerformed
         ResetPassword resetPass = new ResetPassword();
-        //this.setVisible(false);
         resetPass.setVisible(true);
     }//GEN-LAST:event_jbForgetActionPerformed
 
@@ -200,11 +198,6 @@ public class LoginPage extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(LoginPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-        //</editor-fold>
-        
-        //</editor-fold>
-        //</editor-fold>
-
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
