@@ -6,6 +6,8 @@
 package coffeshop;
 
 import java.awt.CardLayout;
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -21,6 +23,9 @@ import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
+import javax.swing.BorderFactory;
+import javax.swing.border.*;
+import javax.swing.border.LineBorder;
 
 /**
  *
@@ -437,8 +442,19 @@ public class MainPage extends javax.swing.JFrame {
                 products.add(new Button(image, rsProduct.getInt(1), rsProduct.getString(2), rsProduct.getString(3), rsProduct.getBigDecimal(4)));
             }
             for (Button i : products) {
+                i.setBorder(new LineBorder(Color.black,8));
+                i.setFont(new Font("Comic Sans MS", Font.BOLD, 12));
                 i.setHorizontalTextPosition(SwingConstants.CENTER);
-                i.setText("<html><center><font color='brown'><font bgcolor='white'><b>" + i.getName() + "<p><br>$" + i.getPrice() + "</font></font></p></b></center>");
+                i.setText("<html><center><p style=color:black><font bgcolor=white><b>" + i.getName().toUpperCase() + "<br>$" + i.getPrice() + "</font></p></b></center>");
+                i.addMouseListener(new java.awt.event.MouseAdapter() {                    
+                    public void mouseEntered(java.awt.event.MouseEvent evt) {
+                        Border redline = BorderFactory.createLineBorder(Color.red);
+                        i.setBorder(BorderFactory.createCompoundBorder(redline, new LineBorder(Color.black,8)));
+                        }
+                    public void mouseExited(java.awt.event.MouseEvent evt) {
+                        i.setBorder(new LineBorder(Color.black,8));
+                        }
+                    });
                 i.addActionListener((ActionEvent ae) -> {
                     i.setQty(i.getQty() + 1);
                     reloadOrder();
