@@ -45,6 +45,7 @@ public class PaymentPage extends javax.swing.JFrame {
      * Creates new form Payment
      */
     boolean timeExpired;
+    boolean timeStop;
 
     public PaymentPage(MainPage mmain, int currentOrder, String mtransType, ResultSet memp, List<Button> mproducts, String mpromoCode, BigDecimal msubtotal, BigDecimal mpromo, BigDecimal mtax, BigDecimal mtotal) {
         initComponents();
@@ -76,7 +77,8 @@ public class PaymentPage extends javax.swing.JFrame {
         paymentMethod = "CA";
         payments = new ArrayList<>();
         calculateDue();
-        boolean timeExpired = false;
+        timeExpired = false;
+        timeStop = false;
     }
 
     /**
@@ -103,8 +105,8 @@ public class PaymentPage extends javax.swing.JFrame {
         jbBitcoin = new javax.swing.JPanel();
         lblQRC = new javax.swing.JLabel();
         lblBTCDue = new javax.swing.JLabel();
-        jbtnScanCode = new javax.swing.JButton();
-        jbtnSendBTC = new javax.swing.JButton();
+        btnScanBTC = new javax.swing.JButton();
+        btnClearBTC = new javax.swing.JButton();
         lblUSDtoBTC = new javax.swing.JLabel();
         lblTimer = new javax.swing.JLabel();
         jpCreditDebit = new javax.swing.JPanel();
@@ -214,17 +216,17 @@ public class PaymentPage extends javax.swing.JFrame {
 
         lblBTCDue.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
 
-        jbtnScanCode.setText("Scan Code");
-        jbtnScanCode.addActionListener(new java.awt.event.ActionListener() {
+        btnScanBTC.setText("Scan Code");
+        btnScanBTC.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbtnScanCodeActionPerformed(evt);
+                btnScanBTCActionPerformed(evt);
             }
         });
 
-        jbtnSendBTC.setText("Clear");
-        jbtnSendBTC.addActionListener(new java.awt.event.ActionListener() {
+        btnClearBTC.setText("Clear");
+        btnClearBTC.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbtnSendBTCActionPerformed(evt);
+                btnClearBTCActionPerformed(evt);
             }
         });
 
@@ -239,9 +241,9 @@ public class PaymentPage extends javax.swing.JFrame {
             jbBitcoinLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jbBitcoinLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jbtnScanCode)
+                .addComponent(btnScanBTC)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jbtnSendBTC, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnClearBTC, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(198, 198, 198))
             .addGroup(jbBitcoinLayout.createSequentialGroup()
                 .addGap(39, 39, 39)
@@ -271,8 +273,8 @@ public class PaymentPage extends javax.swing.JFrame {
                 .addComponent(lblUSDtoBTC, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jbBitcoinLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jbtnScanCode)
-                    .addComponent(jbtnSendBTC))
+                    .addComponent(btnScanBTC)
+                    .addComponent(btnClearBTC))
                 .addGap(21, 21, 21))
         );
 
@@ -1034,15 +1036,22 @@ public class PaymentPage extends javax.swing.JFrame {
                 int seconds = 0;
                 minutes = counter / 60;
                 seconds = counter % 60;
-                String timeString = String.format("Time Left: %02d:%02d", minutes, seconds);
+                if (timeStop){
+                    timer.cancel();
+                    timer.purge();
+                } else {
+                     String timeString = String.format("Time Left: %02d:%02d", minutes, seconds);
                 lblTimer.setText(timeString);
                 counter--;
                 if (counter == -1) {
                     timer.cancel();
+                    timer.purge();
                     lblTimer.setText("Time Expired");
                     timeExpired = true;
                     lblQRC.setIcon(defaultQR);
                 }
+                }
+               
             }
         };
         timer.scheduleAtFixedRate(task, 1000, 1000);
@@ -1059,11 +1068,18 @@ public class PaymentPage extends javax.swing.JFrame {
         txtPayAmt.setText((due.divide(new BigDecimal(split), 2, RoundingMode.HALF_UP)).toString());
     }//GEN-LAST:event_cboSplitItemStateChanged
 
-    private void jbtnSendBTCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnSendBTCActionPerformed
+    private void btnClearBTCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearBTCActionPerformed
+        btnScanBTC.setEnabled(true);
         lblQRC.setIcon(defaultQR);
-    }//GEN-LAST:event_jbtnSendBTCActionPerformed
+        lblUSDtoBTC.setText("");
+        lblBTCDue.setText("");
+        lblTimer.setText("");
+        timeStop = true;
+    }//GEN-LAST:event_btnClearBTCActionPerformed
 
-    private void jbtnScanCodeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnScanCodeActionPerformed
+    private void btnScanBTCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnScanBTCActionPerformed
+        timeStop = false;
+        btnScanBTC.setEnabled(false);
         btcTimer();
         String btcPay = txtPayAmt.getText();
         BigDecimal USD = new BigDecimal(btcPay);
@@ -1091,7 +1107,7 @@ public class PaymentPage extends javax.swing.JFrame {
             lblQRC.setIcon(defaultQR);
             JOptionPane.showMessageDialog(null, "Wrong QR Code. Please try again.", "Wrong QR Code", JOptionPane.PLAIN_MESSAGE);
         }
-    }//GEN-LAST:event_jbtnScanCodeActionPerformed
+    }//GEN-LAST:event_btnScanBTCActionPerformed
 
     private Boolean validatePayment() {
         switch (paymentMethod) {
@@ -1269,7 +1285,9 @@ public class PaymentPage extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancel;
     private javax.swing.JButton btnClear;
+    private javax.swing.JButton btnClearBTC;
     private javax.swing.JButton btnPay;
+    private javax.swing.JButton btnScanBTC;
     private javax.swing.JButton btnSwipe;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JComboBox<String> cboSplit;
@@ -1313,8 +1331,6 @@ public class PaymentPage extends javax.swing.JFrame {
     private javax.swing.JButton jbtnNumAmt5;
     private javax.swing.JButton jbtnNumAmtExact;
     private javax.swing.JButton jbtnNumDot;
-    private javax.swing.JButton jbtnScanCode;
-    private javax.swing.JButton jbtnSendBTC;
     private javax.swing.JLabel jlblCardNum;
     private javax.swing.JLabel jlblGiftCardNum;
     private javax.swing.JPanel jpCash;

@@ -215,9 +215,9 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="1" attributes="0">
                       <EmptySpace max="32767" attributes="0"/>
-                      <Component id="jbtnScanCode" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnScanBTC" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jbtnSendBTC" min="-2" pref="73" max="-2" attributes="0"/>
+                      <Component id="btnClearBTC" min="-2" pref="73" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="198" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
@@ -255,8 +255,8 @@
                       <Component id="lblUSDtoBTC" min="-2" pref="14" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="jbtnScanCode" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jbtnSendBTC" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="btnScanBTC" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="btnClearBTC" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
                   </Group>
@@ -279,20 +279,20 @@
                 </Property>
               </Properties>
             </Component>
-            <Component class="javax.swing.JButton" name="jbtnScanCode">
+            <Component class="javax.swing.JButton" name="btnScanBTC">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Scan Code"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbtnScanCodeActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnScanBTCActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JButton" name="jbtnSendBTC">
+            <Component class="javax.swing.JButton" name="btnClearBTC">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Clear"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbtnSendBTCActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnClearBTCActionPerformed"/>
               </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="lblUSDtoBTC">
