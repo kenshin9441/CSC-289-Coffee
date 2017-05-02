@@ -16,10 +16,6 @@ Deliverables
 
     Data Reports – May be saved to a file for archival 
 
-    Multi-Threaded APP to provide a speed bonus. 
-
-    Customer Loyalty Program.(Accumulative Points for every dollar spend) 
-
     Phone app for employees to view their schedules and request time off 
 
     Android-based  
@@ -27,8 +23,6 @@ Deliverables
     Linked into the online database 
 
     Password protected 
-
-    Shows current promotions when employees first log in 
 
     Website for customers 
 
@@ -38,21 +32,13 @@ Deliverables
 
     Displays weekly promotions 
 
-    Javascript  
-
     Easy to use and mobile optimized 
-
-    Visual studio  
 
     Website for Managers 
 
     Managers should be able to manage employee info 
 
     Update employee schedule and time sheets 
-
-    Edit employee pay but not own pay 
-
-    Javascript 
 
     Database 
 
@@ -62,7 +48,7 @@ Deliverables
 
     Accepts Data from website, Mobile, and Desktop 
 
-    MySQL or Java Derby 
+    MariaDB
 
     Available to desktop, website, and mobile 
 
