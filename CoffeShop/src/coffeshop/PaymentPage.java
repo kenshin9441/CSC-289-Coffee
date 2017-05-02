@@ -1069,14 +1069,17 @@ public class PaymentPage extends javax.swing.JFrame {
     }//GEN-LAST:event_cboSplitItemStateChanged
 
     private void btnClearBTCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearBTCActionPerformed
+        clearBTC();
+    }//GEN-LAST:event_btnClearBTCActionPerformed
+
+    public void clearBTC(){
         btnScanBTC.setEnabled(true);
         lblQRC.setIcon(defaultQR);
         lblUSDtoBTC.setText("");
         lblBTCDue.setText("");
         lblTimer.setText("");
         timeStop = true;
-    }//GEN-LAST:event_btnClearBTCActionPerformed
-
+    }
     private void btnScanBTCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnScanBTCActionPerformed
         timeStop = false;
         btnScanBTC.setEnabled(false);
@@ -1168,7 +1171,7 @@ public class PaymentPage extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "Payment Amount is wrong. Please check again.", "Wrong Payment Amount", JOptionPane.PLAIN_MESSAGE);
             }
             if (due.compareTo(BigDecimal.ZERO) == 0 && paid.compareTo(total) == 0) {
-                JOptionPane.showMessageDialog(null, "Emp:" + emp_id + " TransType:" + transType + " PromoCd:" + promoCode + " promoAmt:" + promo + " Subtotal:" + subtotal + " Tax:" + tax + " total:" + total + " Paid:" + paid + " due: " + due, "Payment Completed.", JOptionPane.PLAIN_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Payment Completed.", "Payment Completed", JOptionPane.PLAIN_MESSAGE);
                 try {
                     accessor = new DBAccessor();
                     accessor.connectDB();
@@ -1240,7 +1243,7 @@ public class PaymentPage extends javax.swing.JFrame {
         jComboBox2.setEnabled(true);
         jTextField2.setEnabled(true);
         //reset BC
-        lblQRC.setIcon(defaultQR);
+        clearBTC();
         //reset CA
         cashPaymentOutput = "";
         jtfNumPad.setText("0.00");
