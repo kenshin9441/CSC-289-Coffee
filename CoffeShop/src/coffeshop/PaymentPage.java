@@ -991,7 +991,7 @@ public class PaymentPage extends javax.swing.JFrame {
         BigDecimal btcPriceIndex = btcPriceIndex();
         BigDecimal btc = dollar.divide(btcPriceIndex, 5, BigDecimal.ROUND_HALF_UP);
         byte[] imageInByte;
-        BufferedImage originalImage = ImageIO.read(new File("src\\ImageRes\\QR.jpg"));
+        BufferedImage originalImage = ImageIO.read(new File("src/ImageRes/QR.jpg"));
         String details = "bitcoin:12nAq7bJSkKFxJYaHjhjfPAaZ6sXgLqBJ7?amount=" + btc;
         QRCode.from(details).withSize(125, 125).file();
         QRCode.from(details).withSize(125, 125).stream();
@@ -1002,7 +1002,7 @@ public class PaymentPage extends javax.swing.JFrame {
         out.close();
         InputStream in = new ByteArrayInputStream(imageInByte);
         BufferedImage bImageFromConvert = ImageIO.read(in);
-        ImageIO.write(bImageFromConvert, "jpg", new File("src\\ImageRes\\QR.jpg"));
+        ImageIO.write(bImageFromConvert, "jpg", new File("src/ImageRes/QR.jpg"));
     }
 
     public BigDecimal btcPriceIndex() {
