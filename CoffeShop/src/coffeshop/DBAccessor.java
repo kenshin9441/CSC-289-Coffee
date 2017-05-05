@@ -262,7 +262,7 @@ public class DBAccessor {
 
     public void cancelOrder(int id) {
         String st1 = "DELETE FROM krankies.products_in_transaction WHERE trans_id = ?";
-        String st2 = "DELETE FROM krankies.transaction WHERE trans_id = ?";
+        String st2 = "DELETE FROM krankies.transaction WHERE transaction_id = ?";
         PreparedStatement pst = null;
         try {
             connection.setAutoCommit(false);
